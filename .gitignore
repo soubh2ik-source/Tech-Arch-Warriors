@@ -1,0 +1,112 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+/build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+/lib/
+/lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Frontend (Next.js & Node)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/next-env.d.ts
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env*.local
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*-checkpoint.ipynb
+
+# Machine Learning & Model weights / checkpoints (>50MB+)
+models/
+**/models/
+test_modles/
+**/test_modles/
+test_models/
+**/test_models/
+test-models/
+**/test-models/
+*.h5
+*.hdf5
+*.keras
+*.tflite
+*.onnx
+*.pb
+checkpoints/
+weights/
+
+# Dataset & Inference Output Artifacts
+**/dataset/
+prediction_result.png
+/outputs/
+/output/
+
+# Explicitly ensure frontend public assets & source files are tracked
+!frontend/public/**
+!frontend/src/**
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDEs, Editors & AI Agent local configs
+.idea/
+*.swp
+*.swo
+*~
+.claude/
+.cursor/
+.gemini/
+.vscode/*
+!.vscode/mcp.json
+opencode.jsonc
+
+# CodeGraph transient files (index db)
+.codegraph/*
+!.codegraph/.gitignore
+
+# Logs and temporary files
+*.log
+scratch/
+tmp/
+temp/
