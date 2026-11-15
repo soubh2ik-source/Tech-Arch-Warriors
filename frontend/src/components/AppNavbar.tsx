@@ -99,110 +99,69 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
     <>
       <header className="site-navbar">
         <div className="navbar-container">
-          {/* Left: Brand Pill */}
+          {/* Left: Clean Brand Logo + Text (PalmoAI) */}
           <div className="navbar-left-group">
             <Link 
               href="/#overview" 
               onClick={(e) => handleNavClick(e, "overview")}
-              className="navbar-brand-pill"
+              className="navbar-brand-clean"
             >
-              <div className="navbar-brand-icon">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
-                  src="/logo.png" 
-                  alt="Pulmo Clinical AI Logo" 
-                  className="navbar-brand-img"
-                />
-              </div>
-              <div className="navbar-brand-text">
-                <span className="navbar-brand-title">Pulmo</span>
-                <span className="navbar-brand-sub">CLINICAL AI</span>
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/logo.png" 
+                alt="PalmoAI Logo" 
+                className="navbar-brand-img-clean"
+              />
+              <span className="navbar-brand-name">
+                <span className="brand-navy">Palmo</span>
+                <span className="brand-cyan">AI</span>
+              </span>
             </Link>
           </div>
 
-          {/* Center Navigation Links: Overview, Analysis, Benchmarks */}
+          {/* Center Navigation Links: Overview, Technology, Benchmarks */}
           <nav className="navbar-links">
             <Link
               href="/#overview"
               onClick={(e) => handleNavClick(e, "overview")}
               className={`navbar-link ${pathname === "/" && currentSection === "overview" ? "active" : ""}`}
             >
-              Overview
+              <span>Overview</span>
+              {pathname === "/" && currentSection === "overview" && (
+                <span className="navbar-active-cyan-bar" />
+              )}
             </Link>
             <Link
               href="/#analysis"
               onClick={(e) => handleNavClick(e, "analysis")}
               className={`navbar-link ${pathname === "/" && currentSection === "analysis" ? "active" : ""}`}
             >
-              Analysis
+              <span>Technology</span>
+              {pathname === "/" && currentSection === "analysis" && (
+                <span className="navbar-active-cyan-bar" />
+              )}
             </Link>
             <Link
               href="/#benchmarks"
               onClick={(e) => handleNavClick(e, "benchmarks")}
               className={`navbar-link ${pathname === "/" && (currentSection === "benchmarks" || currentSection === "benchmark") ? "active" : ""}`}
             >
-              Benchmarks
+              <span>Benchmarks</span>
+              {pathname === "/" && (currentSection === "benchmarks" || currentSection === "benchmark") && (
+                <span className="navbar-active-cyan-bar" />
+              )}
             </Link>
           </nav>
 
-          {/* Backend Connection Status & Launch Studio Action */}
-          <div className="navbar-actions" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <div 
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "7px",
-                padding: "5px 11px",
-                borderRadius: "9999px",
-                fontSize: "11px",
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-                background: backendStatus.connected 
-                  ? "rgba(16, 185, 129, 0.12)" 
-                  : "rgba(245, 158, 11, 0.12)",
-                border: backendStatus.connected 
-                  ? "1px solid rgba(16, 185, 129, 0.35)" 
-                  : "1px solid rgba(245, 158, 11, 0.35)",
-                color: backendStatus.connected ? "#34d399" : "#fbbf24",
-                boxShadow: backendStatus.connected 
-                  ? "0 0 12px rgba(16, 185, 129, 0.15)" 
-                  : "none"
-              }}
-              title={
-                backendStatus.connected
-                  ? `Python Tri-Ensemble Backend Connected on Port 8001 (${backendStatus.backbones ?? 3} backbones active)`
-                  : "Python backend disconnected. Ensure api_server.py is running on port 8001."
-              }
-            >
-              <span 
-                style={{
-                  width: "7px",
-                  height: "7px",
-                  borderRadius: "50%",
-                  backgroundColor: backendStatus.connected ? "#10b981" : "#f59e0b",
-                  boxShadow: backendStatus.connected 
-                    ? "0 0 8px #10b981" 
-                    : "0 0 4px #f59e0b"
-                }}
-              />
-              <span>
-                {backendStatus.connected
-                  ? `AI SERVER : 8001 CONNECTED`
-                  : `AI SERVER : CONNECTING...`}
-              </span>
-            </div>
-
+          {/* Right Action: Open Diagnostic Studio Pill Button */}
+          <div className="navbar-actions">
             <a 
               href="/#analysis"
               onClick={(e) => handleNavClick(e, "analysis")}
-              className="navbar-launch-btn"
+              className="navbar-cta-pill"
             >
-              <span>Launch Studio</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"/>
-                <polyline points="7 7 17 7 17 17"/>
-              </svg>
+              <span>Open Diagnostic Studio</span>
+              <span className="navbar-cta-arrow">&rarr;</span>
             </a>
           </div>
         </div>
