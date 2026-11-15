@@ -137,7 +137,7 @@ Precision:          90.43%  88.00% 100.00%   85.57%    |  Overall Acc: 90.16%
                              [ Soft-Voting Consensus ]
                                           │
                                           ▼
-                         [ Diagnosis + Confidence Chart ]
+                         [ Diagnosis + Confidence Chart ]   
 ```
 
 <a id="transfer-learning"></a>
@@ -155,6 +155,7 @@ Different CNN architectures possess distinct inductive biases:
 * **Xception** (10% weight): Uses depthwise separable convolutions to decouple cross-channel correlations from spatial spatial correlations.
 * **EfficientNetV2-S** (30% weight): Uses progressive regularized multi-scale receptive fields to capture both macroscopic lobe anatomy and localized lesions.
 * **DenseNet121 + CLAHE** (60% weight): Re-connects every layer directly to all subsequent layers. By concatenating feature maps, low-level radiographic textures are preserved through the network without signal loss.
+
 
 <a id="tta"></a>
 ### 4. 5-View Test-Time Augmentation (TTA)
@@ -235,6 +236,7 @@ cd PulmoVisionAI
 # 2. Sync all locked dependencies into a virtual environment
 uv sync
 ```
+
 
 ---
 
