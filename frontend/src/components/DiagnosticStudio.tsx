@@ -5,15 +5,17 @@ import {
   UploadIcon, 
   LungIcon, 
   DocumentIcon, 
-  ProbabilityBarsIcon,
-  ChevronRightIcon, 
+  ProbabilityBarsIcon, 
   CrosshairIcon, 
   ContrastIcon, 
   InvertIcon, 
   ZoomInIcon, 
   ZoomOutIcon, 
   ResetIcon, 
-  ActivityIcon 
+  ActivityIcon,
+  SparkleIcon,
+  DocumentUploadIcon,
+  ScanFileIcon
 } from "@/components/Icons";
 import { 
   PredictionResult, 
@@ -101,6 +103,14 @@ const CLINICAL_BENCHMARK_PREVIEWS: Record<string, DefaultClinicalView> = {
   }
 };
 
+interface UploadItem {
+  id: string;
+  name: string;
+  size: string;
+  progress: number;
+  file?: File;
+}
+
 export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
   onOpenReport,
   result,
@@ -109,6 +119,10 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
   setActiveScan
 }) => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [hasUploaded, setHasUploaded] = useState(false);
+  const [panelsVisible, setPanelsVisible] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [pendingFiles, setPendingFiles] = useState<UploadItem[]>([]);
   const [viewport, setViewport] = useState<ViewportState>({
     zoom: 1.0,
     panX: 0,
@@ -203,6 +217,10 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
     });
     setViewport(prev => ({ ...prev, zoom: 1.0, panX: 0, panY: 0 }));
 
+    // Trigger transition: mark uploaded, then reveal panels after a brief delay
+    setHasUploaded(true);
+    setTimeout(() => setPanelsVisible(true), 60);
+
     setIsAnalyzing(true);
     try {
       const res = await requestPrediction(sample.path, sample);
@@ -266,43 +284,104 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
     }
   };
 
+  const formatFileSize = (bytes: number): string => {
+    if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(0)} MB`;
+    if (bytes >= 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${bytes} B`;
+  };
+
+  const addFilesToPending = (files: FileList | File[]) => {
+    const arr = Array.from(files);
+    const entries: UploadItem[] = arr.map((f, idx) => ({
+      id: `file_${Date.now()}_${idx}`,
+      name: f.name,
+      size: formatFileSize(f.size),
+      progress: 100,
+      file: f
+    }));
+    setPendingFiles((prev) => [...entries, ...prev]);
+  };
+
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = async (uploadEvent) => {
-        const dataUrl = uploadEvent.target?.result as string;
-        const newScan: ActiveScan = {
-          name: file.name,
-          dataUrl,
-          isSample: false,
-          sampleId: null,
-          meta: {
-            id: `upload_${Date.now()}`,
-            title: file.name.replace(/\.[^/.]+$/, ""),
-            category: "Thoracic Axial Radiograph",
-            patientId: `CASE-${Math.floor(1000 + Math.random() * 9000)}`,
-            path: dataUrl,
-            histology: "Custom Ingested CT Slice - Tri-Ensemble Evaluation",
-            verifiedGroundTruth: "Normal (Healthy Lung)" as any
-          }
-        };
-        setActiveScan(newScan);
-        setViewport(prev => ({ ...prev, zoom: 1.0, panX: 0, panY: 0 }));
-        
-        // Automatically run prediction on custom upload
-        setIsAnalyzing(true);
-        try {
-          const res = await requestPrediction(dataUrl, null);
-          setResult(res);
-        } catch (err) {
-          console.error("Analysis execution error on upload:", err);
-        } finally {
-          setIsAnalyzing(false);
+    if (e.target.files && e.target.files.length > 0) {
+      addFilesToPending(e.target.files);
+    }
+    // Reset input so same file can be re-selected
+    e.target.value = "";
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      addFilesToPending(e.dataTransfer.files);
+    }
+  };
+
+  const removeFile = (index: number) => {
+    setPendingFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleCancel = () => {
+    setPendingFiles([]);
+  };
+
+  const handleAttach = async () => {
+    if (pendingFiles.length === 0) return;
+    const fileEntry = pendingFiles[0];
+
+    if (!fileEntry.file) {
+      handleSelectSample(SAMPLE_SCANS[0]);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async (uploadEvent) => {
+      const dataUrl = uploadEvent.target?.result as string;
+      const newScan: ActiveScan = {
+        name: fileEntry.name,
+        dataUrl,
+        isSample: false,
+        sampleId: null,
+        meta: {
+          id: `upload_${Date.now()}`,
+          title: fileEntry.name.replace(/\.[^/.]+$/, ""),
+          category: "Thoracic Axial Radiograph",
+          patientId: `CASE-${Math.floor(1000 + Math.random() * 9000)}`,
+          path: dataUrl,
+          histology: "Custom Ingested CT Slice - Tri-Ensemble Evaluation",
+          verifiedGroundTruth: "Normal (Healthy Lung)" as any
         }
       };
-      reader.readAsDataURL(file);
-    }
+      setActiveScan(newScan);
+      setViewport(prev => ({ ...prev, zoom: 1.0, panX: 0, panY: 0 }));
+
+      // Trigger layout transition
+      setHasUploaded(true);
+      setTimeout(() => setPanelsVisible(true), 60);
+
+      // Automatically run prediction on custom upload
+      setIsAnalyzing(true);
+      try {
+        const res = await requestPrediction(dataUrl, null);
+        setResult(res);
+      } catch (err) {
+        console.error("Analysis execution error on upload:", err);
+      } finally {
+        setIsAnalyzing(false);
+      }
+    };
+    reader.readAsDataURL(fileEntry.file);
   };
 
   const handleAnalyze = async () => {
@@ -387,340 +466,343 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
     }
   ];
 
+  // ── inline file input shared between upload card and hidden input ──
+  const uploadInputNode = (
+    <input
+      type="file"
+      ref={fileInputRef}
+      onChange={handleFileUpload}
+      accept="image/png, image/jpeg, image/jpg"
+      style={{ display: "none" }}
+    />
+  );
+
+  // ── CT Scan viewport card (shared in both states) ──
+  const ctViewportCard = (
+    <div className="clean-card viewer-main-card">
+      <div className="card-top-header">
+        <div className="card-header-brand">
+          <div className="header-vector-badge">
+            <LungIcon size={20} />
+          </div>
+          <h3 className="card-heading-text">CT Scan</h3>
+        </div>
+        <div className="viewer-quick-tools">
+          <button
+            className={`tool-vector-btn ${viewport.claheEnhanced ? "active" : ""}`}
+            onClick={() => setViewport(v => ({ ...v, claheEnhanced: !v.claheEnhanced }))}
+            title="Toggle Contrast Optimization"
+          >
+            <ContrastIcon size={15} />
+          </button>
+          <button
+            className={`tool-vector-btn ${viewport.invertGrayscale ? "active" : ""}`}
+            onClick={() => setViewport(v => ({ ...v, invertGrayscale: !v.invertGrayscale }))}
+            title="Invert Radiograph"
+          >
+            <InvertIcon size={15} />
+          </button>
+          <button
+            className={`tool-vector-btn ${viewport.showCrosshairs ? "active" : ""}`}
+            onClick={() => setViewport(v => ({ ...v, showCrosshairs: !v.showCrosshairs }))}
+            title="Toggle Crosshairs"
+          >
+            <CrosshairIcon size={15} />
+          </button>
+          <button
+            className="tool-vector-btn"
+            onClick={() => setViewport(v => ({ ...v, zoom: Math.min(2.5, v.zoom + 0.2) }))}
+            title="Zoom In"
+          >
+            <ZoomInIcon size={15} />
+          </button>
+          <button
+            className="tool-vector-btn"
+            onClick={() => setViewport(v => ({ ...v, zoom: Math.max(0.8, v.zoom - 0.2) }))}
+            title="Zoom Out"
+          >
+            <ZoomOutIcon size={15} />
+          </button>
+          <button
+            className="tool-vector-btn"
+            onClick={() => setViewport(v => ({ ...v, zoom: 1.0, panX: 0, panY: 0 }))}
+            title="Reset View"
+          >
+            <ResetIcon size={15} />
+          </button>
+        </div>
+      </div>
+
+      <div className="ct-viewport-stage">
+        {activeScan ? (
+          <>
+            <div
+              className="ct-viewport-scaler"
+              style={{ transform: `scale(${viewport.zoom}) translate(${viewport.panX}px, ${viewport.panY}px)` }}
+            >
+              <img
+                src={viewport.claheEnhanced && result?.clahe_preview ? result.clahe_preview : activeScan.dataUrl}
+                alt={activeScan.name}
+                className="ct-viewport-img"
+                style={{ filter: getViewportFilter() }}
+              />
+            </div>
+            {viewport.showCrosshairs && (
+              <div className="crosshairs-overlay">
+                <div className="crosshair-h" />
+                <div className="crosshair-v" />
+                <div className="crosshair-circle" />
+              </div>
+            )}
+            <div className="ct-viewport-telemetry">
+              <span>512 × 512</span>
+              <span>{sliceOverlayText}</span>
+            </div>
+          </>
+        ) : (
+          <div className="ct-stage-placeholder">
+            <LungIcon size={44} />
+            <p>Upload a DICOM or image file to begin analysis</p>
+          </div>
+        )}
+      </div>
+
+      <div className="ct-viewer-footer-actions">
+        <button
+          type="button"
+          className="btn-minimal-consensus"
+          onClick={handleAnalyze}
+          disabled={!activeScan || isAnalyzing}
+        >
+          {isAnalyzing ? (
+            <>
+              <span className="spin-icon"><ActivityIcon size={15} /></span>
+              <span>Analyzing Consensus...</span>
+            </>
+          ) : (
+            <>
+              <ActivityIcon size={15} />
+              <span>Run Tri-Ensemble Consensus</span>
+            </>
+          )}
+        </button>
+        <button
+          type="button"
+          className="btn-minimal-report"
+          onClick={onOpenReport}
+          disabled={!result}
+          title="Open Clinical Pathology Case Report"
+        >
+          <DocumentIcon size={15} />
+          <span>Clinical Report</span>
+        </button>
+      </div>
+    </div>
+  );
+
+  // ── Upload card (redesigned to match reference) ──
+  const uploadCard = (
+    <div className={`clean-card upload-box-card ${hasUploaded ? "upload-card-compact" : "upload-card-hero"}`}>
+      {/* Header row */}
+      <div className="upload-card-header-row">
+        <div>
+          <h3 className="upload-header-title">Upload CT Scan</h3>
+          <p className="upload-header-subtitle">Upload and attach CT images for analysis.</p>
+        </div>
+        <SparkleIcon size={18} className="upload-pin-star" />
+      </div>
+
+      {/* Dashed dropzone */}
+      <div
+        className={`upload-dropzone${isDragging ? " dragging" : ""}`}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <div className="upload-dropzone-icon">
+          <DocumentUploadIcon size={38} />
+        </div>
+        <p className="upload-dropzone-text">
+          <span className="upload-dropzone-link">Click to upload</span> or drag and drop
+        </p>
+        <p className="upload-dropzone-hint">Supports DICOM, PNG, JPG (Max 50 MB)</p>
+      </div>
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        multiple
+        accept="image/png,image/jpeg,image/jpg"
+        onChange={handleFileUpload}
+        style={{ display: "none" }}
+      />
+
+      {/* File list */}
+      {pendingFiles.length > 0 && (
+        <div className="upload-file-list">
+          {pendingFiles.map((f, i) => (
+            <div key={f.id || i} className="upload-file-row">
+              <div className="upload-file-icon">
+                <ScanFileIcon size={18} />
+              </div>
+              <div className="upload-file-info">
+                <div className="upload-file-name-row">
+                  <span className="upload-file-name">{f.name}</span>
+                  <button
+                    type="button"
+                    className="upload-file-remove"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeFile(i);
+                    }}
+                    title="Remove file"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <span className="upload-file-size">{f.size}</span>
+                <div className="upload-file-progress-row">
+                  <div className="upload-file-progress-bar">
+                    <div className="upload-file-progress-fill" style={{ width: `${f.progress}%` }} />
+                  </div>
+                  <span className="upload-file-progress-pct">{f.progress}%</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Footer actions */}
+      <div className="upload-footer-actions">
+        <button type="button" className="btn-upload-cancel" onClick={handleCancel}>
+          Cancel
+        </button>
+        <button
+          type="button"
+          className="btn-upload-attach"
+          onClick={handleAttach}
+          disabled={pendingFiles.length === 0}
+        >
+          Attach files
+        </button>
+      </div>
+    </div>
+  );
+
+  // ── Diagnosis + Probability cards ──
+  const diagnosisPanel = (
+    <div className={`studio-col-right panel-fade-in ${panelsVisible ? "is-visible" : ""}`} style={{ transitionDelay: "80ms" }}>
+      {/* Card 1: Diagnosis */}
+      <div className="clean-card diagnosis-card-box">
+        <div className="card-top-header">
+          <div className="card-header-brand">
+            <div className="header-vector-badge"><DocumentIcon size={20} /></div>
+            <h3 className="card-heading-text">Diagnosis</h3>
+          </div>
+          <SparkleIcon size={18} className="card-sparkle-icon" />
+        </div>
+        <div className={`diagnosis-tinted-panel ${isMalignant ? "is-malignant" : "is-healthy"}`}>
+          <span className="diagnosis-eyebrow-text">Predicted Class</span>
+          <div className="diagnosis-headline-row">
+            <h2 className="diagnosis-classification-title">{currentClass}</h2>
+            <span className={`diagnosis-status-tag ${isMalignant ? "tag-malignant" : "tag-normal"}`}>
+              {isMalignant ? "Malignant" : "Normal"}
+            </span>
+          </div>
+          <p className="diagnosis-summary-desc">{findingText}</p>
+          {result && (
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "10px", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.08)", fontSize: "11px", color: result.source === "python_backend" ? "#34d399" : "var(--text-muted)" }}>
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: result.source === "python_backend" ? "#10b981" : "#94a3b8" }} />
+              <span>{result.source === "python_backend" ? "Tri-Ensemble Python CNN Engine (ZeroGPU • Live Active)" : "Calibrated Analytical Engine"}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Card 2: Probability Distribution */}
+      <div className="clean-card probability-card-box">
+        <div className="card-top-header">
+          <div className="card-header-brand">
+            <div className="header-vector-badge"><ProbabilityBarsIcon size={20} /></div>
+            <h3 className="card-heading-text">Probability Distribution</h3>
+          </div>
+        </div>
+        <div className="distribution-chart-wrapper">
+          <div className="chart-top-values-row">
+            {chartBars.map((bar) => (
+              <span key={bar.key} className={`bar-top-value ${bar.isPrimary ? "is-primary-val" : ""}`}>
+                {bar.value.toFixed(1)}%
+              </span>
+            ))}
+          </div>
+          <div className="chart-plot-area">
+            <div className="chart-y-axis-grid">
+              {[{ label: "100%", percent: 100 }, { label: "75%", percent: 75 }, { label: "50%", percent: 50 }, { label: "25%", percent: 25 }, { label: "0%", percent: 0 }].map((level) => (
+                <div key={level.label} className="chart-grid-level" style={{ top: `${100 - level.percent}%` }}>
+                  <span className="grid-y-label">{level.label}</span>
+                  <div className="grid-dash-rule" />
+                </div>
+              ))}
+            </div>
+            <div className="chart-bars-track-layer">
+              {chartBars.map((bar) => (
+                <div key={bar.key} className="chart-bar-pillar-wrap">
+                  <div
+                    className={`bar-fill-pillar ${bar.isPrimary ? "pillar-primary" : "pillar-secondary"}`}
+                    style={{ height: `${Math.max(2, Math.min(100, bar.value))}%` }}
+                    title={`${bar.displayName}: ${bar.value.toFixed(1)}%`}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="chart-bottom-labels-row">
+            {chartBars.map((bar) => (
+              <span key={bar.key} className={`bar-bottom-label ${bar.isPrimary ? "is-primary-label" : ""}`}>
+                {bar.displayName}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // ══════════════════════════════════════════════════════════════════════
+  // PRE-UPLOAD STATE: Only the upload card centered, full width
+  // ══════════════════════════════════════════════════════════════════════
+  if (!hasUploaded) {
+    return (
+      <div className="clean-analysis-wrapper">
+        <div className="studio-pre-upload-state">
+          {uploadCard}
+        </div>
+      </div>
+    );
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  // POST-UPLOAD STATE: Full 3-column layout with animated panel reveal
+  // ══════════════════════════════════════════════════════════════════════
   return (
     <div className="clean-analysis-wrapper">
       <div className="clean-studio-grid">
-        {/* ================================================================= */}
-        {/* COLUMN 1: SCAN INGESTION & CLINICAL TEST COHORT                  */}
-        {/* ================================================================= */}
+        {/* COLUMN 1: Upload */}
         <div className="studio-col-left">
-          {/* Card 1: Upload CT Scan */}
-          <div className="clean-card upload-box-card">
-            <div className="upload-vector-circle">
-              <UploadIcon size={24} />
-            </div>
-            <h3 className="upload-header-title">Upload CT Scan</h3>
-            <p className="upload-header-subtitle">Supports DICOM, PNG, JPG</p>
-            
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              onChange={handleFileUpload} 
-              accept="image/png, image/jpeg, image/jpg" 
-              style={{ display: "none" }} 
-            />
-
-            <button 
-              type="button" 
-              className="btn-choose-file-blue"
-              onClick={() => fileInputRef.current?.click()}
-            >
-              Choose File
-            </button>
-          </div>
-
-          {/* Card 2: Verified Clinical Test Cohort */}
-          <div className="clean-card cohort-selection-card">
-            <div className="cohort-card-eyebrow">
-              VERIFIED CLINICAL TEST COHORT
-            </div>
-
-            <div className="cohort-items-stack">
-              {SAMPLE_SCANS.map((s) => {
-                const isSelected = activeScan?.sampleId === s.id;
-                return (
-                  <button 
-                    key={s.id}
-                    type="button"
-                    className={`cohort-row-item ${isSelected ? "selected" : ""}`}
-                    onClick={() => handleSelectSample(s)}
-                  >
-                    <img 
-                      src={s.path} 
-                      alt={s.title} 
-                      className="cohort-row-thumb" 
-                    />
-                    <div className="cohort-row-text">
-                      <span className="cohort-row-title">{s.title}</span>
-                      <span className="cohort-row-subtitle">{s.category}</span>
-                      <span className="cohort-row-id">{s.patientId}</span>
-                    </div>
-                    <ChevronRightIcon size={16} className="cohort-row-chevron" />
-                  </button>
-                );
-              })}
-            </div>
+          <div className={`panel-fade-in ${panelsVisible ? "is-visible" : ""}`} style={{ transitionDelay: "0ms" }}>
+            {uploadCard}
           </div>
         </div>
 
-        {/* ================================================================= */}
-        {/* COLUMN 2: CENTER CT SCAN VIEWPORT                                */}
-        {/* ================================================================= */}
-        <div className="studio-col-center">
-          <div className="clean-card viewer-main-card">
-            <div className="card-top-header">
-              <div className="card-header-brand">
-                <div className="header-vector-badge">
-                  <LungIcon size={20} />
-                </div>
-                <h3 className="card-heading-text">CT Scan</h3>
-              </div>
-
-              {/* Minimal Polished Tool Icons */}
-              <div className="viewer-quick-tools">
-                <button 
-                  className={`tool-vector-btn ${viewport.claheEnhanced ? "active" : ""}`}
-                  onClick={() => setViewport(v => ({ ...v, claheEnhanced: !v.claheEnhanced }))}
-                  title="Toggle Contrast Optimization"
-                >
-                  <ContrastIcon size={15} />
-                </button>
-                <button 
-                  className={`tool-vector-btn ${viewport.invertGrayscale ? "active" : ""}`}
-                  onClick={() => setViewport(v => ({ ...v, invertGrayscale: !v.invertGrayscale }))}
-                  title="Invert Radiograph"
-                >
-                  <InvertIcon size={15} />
-                </button>
-                <button 
-                  className={`tool-vector-btn ${viewport.showCrosshairs ? "active" : ""}`}
-                  onClick={() => setViewport(v => ({ ...v, showCrosshairs: !v.showCrosshairs }))}
-                  title="Toggle Crosshairs"
-                >
-                  <CrosshairIcon size={15} />
-                </button>
-                <button 
-                  className="tool-vector-btn"
-                  onClick={() => setViewport(v => ({ ...v, zoom: Math.min(2.5, v.zoom + 0.2) }))}
-                  title="Zoom In"
-                >
-                  <ZoomInIcon size={15} />
-                </button>
-                <button 
-                  className="tool-vector-btn"
-                  onClick={() => setViewport(v => ({ ...v, zoom: Math.max(0.8, v.zoom - 0.2) }))}
-                  title="Zoom Out"
-                >
-                  <ZoomOutIcon size={15} />
-                </button>
-                <button 
-                  className="tool-vector-btn"
-                  onClick={() => setViewport(v => ({ ...v, zoom: 1.0, panX: 0, panY: 0 }))}
-                  title="Reset View"
-                >
-                  <ResetIcon size={15} />
-                </button>
-              </div>
-            </div>
-
-            {/* CT Scan Display Container */}
-            <div className="ct-viewport-stage">
-              {activeScan ? (
-                <>
-                  <div 
-                    className="ct-viewport-scaler"
-                    style={{
-                      transform: `scale(${viewport.zoom}) translate(${viewport.panX}px, ${viewport.panY}px)`
-                    }}
-                  >
-                    <img 
-                      src={viewport.claheEnhanced && result?.clahe_preview ? result.clahe_preview : activeScan.dataUrl}
-                      alt={activeScan.name}
-                      className="ct-viewport-img"
-                      style={{ filter: getViewportFilter() }}
-                    />
-                  </div>
-
-                  {viewport.showCrosshairs && (
-                    <div className="crosshairs-overlay">
-                      <div className="crosshair-h" />
-                      <div className="crosshair-v" />
-                      <div className="crosshair-circle" />
-                    </div>
-                  )}
-
-                  {/* Minimal Bottom Left Slice Telemetry */}
-                  <div className="ct-viewport-telemetry">
-                    <span>512 × 512</span>
-                    <span>{sliceOverlayText}</span>
-                  </div>
-                </>
-              ) : (
-                <div className="ct-stage-placeholder">
-                  <LungIcon size={44} />
-                  <p>Select a cohort scan or upload a DICOM/image file</p>
-                </div>
-              )}
-            </div>
-
-            {/* Minimal Action Footer */}
-            <div className="ct-viewer-footer-actions">
-              <button 
-                type="button"
-                className="btn-minimal-consensus"
-                onClick={handleAnalyze}
-                disabled={!activeScan || isAnalyzing}
-              >
-                {isAnalyzing ? (
-                  <>
-                    <span className="spin-icon"><ActivityIcon size={15} /></span>
-                    <span>Analyzing Consensus...</span>
-                  </>
-                ) : (
-                  <>
-                    <ActivityIcon size={15} />
-                    <span>Run Tri-Ensemble Consensus</span>
-                  </>
-                )}
-              </button>
-
-              <button 
-                type="button"
-                className="btn-minimal-report"
-                onClick={onOpenReport}
-                disabled={!result}
-                title="Open Clinical Pathology Case Report"
-              >
-                <DocumentIcon size={15} />
-                <span>Clinical Report</span>
-              </button>
-            </div>
-          </div>
+        {/* COLUMN 2: CT Scan Viewport — slides in from pre-upload center */}
+        <div className={`studio-col-center panel-slide-in ${panelsVisible ? "is-visible" : ""}`}>
+          {ctViewportCard}
         </div>
 
-        {/* ================================================================= */}
-        {/* COLUMN 3: DIAGNOSIS & PROBABILITY DISTRIBUTION                   */}
-        {/* ================================================================= */}
-        <div className="studio-col-right">
-          {/* Card 1: Diagnosis */}
-          <div className="clean-card diagnosis-card-box">
-            <div className="card-top-header">
-              <div className="card-header-brand">
-                <div className="header-vector-badge">
-                  <DocumentIcon size={20} />
-                </div>
-                <h3 className="card-heading-text">Diagnosis</h3>
-              </div>
-            </div>
-
-            <div className={`diagnosis-tinted-panel ${isMalignant ? "is-malignant" : "is-healthy"}`}>
-              <span className="diagnosis-eyebrow-text">Predicted Class</span>
-              
-              <div className="diagnosis-headline-row">
-                <h2 className="diagnosis-classification-title">{currentClass}</h2>
-                <span className={`diagnosis-status-tag ${isMalignant ? "tag-malignant" : "tag-normal"}`}>
-                  {isMalignant ? "Malignant" : "Normal"}
-                </span>
-              </div>
-
-              <p className="diagnosis-summary-desc">{findingText}</p>
-
-              {result && (
-                <div 
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    marginTop: "10px",
-                    paddingTop: "8px",
-                    borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-                    fontSize: "11px",
-                    color: result.source === "python_backend" ? "#34d399" : "var(--text-muted)"
-                  }}
-                >
-                  <span 
-                    style={{
-                      width: "6px",
-                      height: "6px",
-                      borderRadius: "50%",
-                      backgroundColor: result.source === "python_backend" ? "#10b981" : "#94a3b8"
-                    }}
-                  />
-                  <span>
-                    {result.source === "python_backend" 
-                      ? "Tri-Ensemble Python CNN Engine (ZeroGPU • Live Active)" 
-                      : "Calibrated Analytical Engine"}
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Card 2: Probability Distribution */}
-          <div className="clean-card probability-card-box">
-            <div className="card-top-header">
-              <div className="card-header-brand">
-                <div className="header-vector-badge">
-                  <ProbabilityBarsIcon size={20} />
-                </div>
-                <h3 className="card-heading-text">Probability Distribution</h3>
-              </div>
-            </div>
-
-            {/* Vertical Bar Chart with Precision Leveling */}
-            <div className="distribution-chart-wrapper">
-              {/* 1. Aligned Top Percentage Values Row */}
-              <div className="chart-top-values-row">
-                {chartBars.map((bar) => (
-                  <span 
-                    key={bar.key} 
-                    className={`bar-top-value ${bar.isPrimary ? "is-primary-val" : ""}`}
-                  >
-                    {bar.value.toFixed(1)}%
-                  </span>
-                ))}
-              </div>
-
-              {/* 2. Precision Plot Area (Grid + Synchronized Bars) */}
-              <div className="chart-plot-area">
-                {/* Mathematical Y Axis Grid (0% to 100%) */}
-                <div className="chart-y-axis-grid">
-                  {[
-                    { label: "100%", percent: 100 },
-                    { label: "75%", percent: 75 },
-                    { label: "50%", percent: 50 },
-                    { label: "25%", percent: 25 },
-                    { label: "0%", percent: 0 }
-                  ].map((level) => (
-                    <div 
-                      key={level.label} 
-                      className="chart-grid-level" 
-                      style={{ top: `${100 - level.percent}%` }}
-                    >
-                      <span className="grid-y-label">{level.label}</span>
-                      <div className="grid-dash-rule" />
-                    </div>
-                  ))}
-                </div>
-
-                {/* 4 Synchronized Vertical Bars - strictly anchored at 0% baseline */}
-                <div className="chart-bars-track-layer">
-                  {chartBars.map((bar) => (
-                    <div key={bar.key} className="chart-bar-pillar-wrap">
-                      <div 
-                        className={`bar-fill-pillar ${bar.isPrimary ? "pillar-primary" : "pillar-secondary"}`}
-                        style={{ height: `${Math.max(2, Math.min(100, bar.value))}%` }}
-                        title={`${bar.displayName}: ${bar.value.toFixed(1)}%`}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 3. Aligned Bottom Category Labels Row */}
-              <div className="chart-bottom-labels-row">
-                {chartBars.map((bar) => (
-                  <span 
-                    key={bar.key} 
-                    className={`bar-bottom-label ${bar.isPrimary ? "is-primary-label" : ""}`}
-                  >
-                    {bar.displayName}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* COLUMN 3: Diagnosis + Probability */}
+        {diagnosisPanel}
       </div>
     </div>
   );

@@ -22,6 +22,11 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Pulmo AI — Precision Clinical Thoracic Oncology",
   description: "Deep Multi-Backbone Tri-Ensemble (90.16% Accuracy) for Automated Lung Cancer Detection & Histopathological Subtyping",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

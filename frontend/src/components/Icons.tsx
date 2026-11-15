@@ -218,3 +218,29 @@ export const LockIcon: React.FC<IconProps> = ({ className, size = 20, ...props }
     <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
   </svg>
 );
+
+export const SparkleIcon: React.FC<IconProps> = ({ className, size = 18, ...props }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} {...props}>
+    <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z"/>
+  </svg>
+);
+
+export const DocumentUploadIcon: React.FC<IconProps> = ({ className, size = 36, ...props }) => (
+  <svg width={size} height={size} viewBox="0 0 36 36" fill="none" className={className} {...props}>
+    <path d="M9 5C9 3.89543 9.89543 3 11 3H20L27 10V27C27 28.1046 26.1046 29 25 29H11C9.89543 29 9 28.1046 9 27V5Z" fill="#F1F5F9" />
+    <path d="M20 3V9C20 9.55228 20.4477 10 21 10H27" stroke="#CBD5E1" strokeWidth="1.5" />
+    <path d="M9 5C9 3.89543 9.89543 3 11 3H20L27 10V27C27 28.1046 26.1046 29 25 29H11C9.89543 29 9 28.1046 9 27V5Z" stroke="#CBD5E1" strokeWidth="1.5" />
+    <circle cx="23" cy="23" r="6.5" fill="#0F172A" />
+    <path d="M23 26V20M23 20L20.5 22.5M23 20L25.5 22.5" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+export const ScanFileIcon: React.FC<IconProps> = ({ className, size = 20, ...props }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} {...props}>
+    <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" strokeWidth="1.75" />
+    <circle cx="6.5" cy="7" r="1" fill="currentColor" />
+    <circle cx="6.5" cy="12" r="1" fill="currentColor" />
+    <circle cx="6.5" cy="17" r="1" fill="currentColor" />
+    <rect x="10.5" y="6" width="7" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.1" />
+  </svg>
+);

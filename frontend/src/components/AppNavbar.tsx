@@ -107,9 +107,12 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
               className="navbar-brand-pill"
             >
               <div className="navbar-brand-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 4v16M12 8c-3 0-6 2-6 6a6 6 0 0 0 6 6M12 8c3 0 6 2 6 6a6 6 0 0 1-6 6"/>
-                </svg>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/logo.png" 
+                  alt="Pulmo Clinical AI Logo" 
+                  className="navbar-brand-img"
+                />
               </div>
               <div className="navbar-brand-text">
                 <span className="navbar-brand-title">Pulmo</span>

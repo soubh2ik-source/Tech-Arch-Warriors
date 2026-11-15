@@ -174,10 +174,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* Left Sidebar */}
           <aside className="mockup-sidebar">
             <div className="mockup-user-box">
-              <div className="mockup-avatar-circle" style={{ background: "#0c1b24", color: "#38bdf8" }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 4v16M12 8c-3 0-6 2-6 6a6 6 0 0 0 6 6M12 8c3 0 6 2 6 6a6 6 0 0 1-6 6"/>
-                </svg>
+              <div className="mockup-avatar-circle" style={{ background: "#0c1b24", color: "#38bdf8", overflow: "hidden", padding: "2px" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/logo.png" 
+                  alt="Pulmo Clinical AI Logo" 
+                  style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                />
               </div>
               <div className="mockup-user-info">
                 <span className="mockup-user-name" style={{ fontSize: 12, fontWeight: 700 }}>Pulmo Clinical AI <span style={{ fontSize: 9, opacity: 0.6 }}>&#9662;</span></span>

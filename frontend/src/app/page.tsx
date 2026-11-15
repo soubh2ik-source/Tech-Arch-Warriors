@@ -6,17 +6,10 @@ import { DiagnosticStudio } from "@/components/DiagnosticStudio";
 import { BenchmarksView } from "@/components/BenchmarksView";
 import { ReportModal } from "@/components/ReportModal";
 import { PredictionResult, ActiveScan } from "@/types/medical";
-import { SAMPLE_SCANS } from "@/lib/constants";
 
 export default function Home() {
-  const [activeScan, setActiveScan] = useState<ActiveScan | null>({
-    name: `${SAMPLE_SCANS[0].patientId} (${SAMPLE_SCANS[0].title})`,
-    dataUrl: SAMPLE_SCANS[0].path,
-    isSample: true,
-    sampleId: SAMPLE_SCANS[0].id,
-    meta: SAMPLE_SCANS[0]
-  });
-
+  // Start with no active scan — DiagnosticStudio will show pre-upload state
+  const [activeScan, setActiveScan] = useState<ActiveScan | null>(null);
   const [result, setResult] = useState<PredictionResult | null>(null);
   const [reportOpen, setReportOpen] = useState(false);
 

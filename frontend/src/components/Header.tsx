@@ -55,7 +55,12 @@ export const Header: React.FC<HeaderProps> = ({
 
         <Link href="/" className="brand-badge">
           <div className="brand-icon-box">
-            <LungIcon size={20} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="/logo.png" 
+              alt="PulmoVision AI Logo" 
+              className="brand-logo-img"
+            />
           </div>
           <div className="brand-info">
             <span className="brand-name">

@@ -34,9 +34,13 @@ export const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
         {/* Drawer Header */}
         <div className="drawer-header">
           <div className="drawer-brand">
-            <div className="brand-badge-box" style={{ padding: "6px 10px" }}>
-              <span className="brand-badge-title" style={{ fontSize: 16 }}>Pulmo</span>
-              <span className="brand-badge-sub" style={{ fontSize: 7 }}>CLINICAL AI</span>
+            <div className="drawer-brand-logo-box">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/logo.png" 
+                alt="PulmoVision AI Logo" 
+                className="drawer-brand-img"
+              />
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <span style={{ fontSize: 13, fontWeight: 700, color: "#fff" }}>PulmoVision</span>
