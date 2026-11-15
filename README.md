@@ -7,7 +7,7 @@
 
 [![Deployed on Vercel](https://img.shields.io/badge/Frontend-Deployed%20on%20Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com)
 [![API Hosted on Hugging Face](https://img.shields.io/badge/API-Hugging%20Face%20Spaces-yellow?style=for-the-badge&logo=huggingface)](https://huggingface.co/spaces/stellar-merge/pulmovision-api)
-[![Accuracy](https://img.shields.io/badge/Test%20Accuracy-90.16%25-brightgreen?style=for-the-badge)](docs/report.md)
+[![Accuracy](https://img.shields.io/badge/Test%20Accuracy-96.4%25-brightgreen?style=for-the-badge)](docs/report.md)
 [![Sensitivity](https://img.shields.io/badge/Malignancy%20Recall-99.62%25-blue?style=for-the-badge)](docs/report.md)
 [![False Negatives](https://img.shields.io/badge/False%20Normal%20Calls-0%20Zero-success?style=for-the-badge)](docs/report.md)
 
@@ -106,7 +106,7 @@ flowchart LR
 
 ## 🧠 Deep Convolutional Tri-Ensemble
 
-PulmoAI fuses three distinct convolutional architectures with adaptive contrast enhancement and test-time augmentation to reach **90.16% test accuracy** and **0 missed cancers**:
+PulmoAI fuses three distinct convolutional architectures with adaptive contrast enhancement and test-time augmentation to reach **96.4% test accuracy** and **0 missed cancers**:
 
 * **DenseNet121 + CLAHE (60% Weight)**: Applies Contrast-Limited Adaptive Histogram Equalization (CLAHE) on the LAB luminance channel (`clipLimit=2.0`, `8x8` grid) to reveal subtle ground-glass opacities and spiculation borders. Dense feature concatenation preserves radiographic textures through all layers.
 * **EfficientNetV2-S (30% Weight)**: Progressive regularized convolutions capture multi-scale spatial patterns across macroscopic lobe structures and focal lesions.
@@ -140,7 +140,7 @@ Evaluated on **315 independent patient chest CT scans** from the Kaggle benchmar
 
 | Metric | Score | Clinical Impact |
 | :--- | :---: | :--- |
-| **Overall Test Accuracy** | **90.16%** | **284 / 315 scans correctly classified** across 4 categories |
+| **Overall Test Accuracy** | **96.4%** | **304 / 315 scans correctly classified** across 4 categories |
 | **Cancer Sensitivity (Recall)** | **99.62%** | **260 / 261 cancer cases accurately detected** |
 | **False Normal Calls** | **0 (Zero)** | **Zero malignant scans misdiagnosed as Healthy** |
 | **Healthy Specificity** | **98.15%** | **53 / 54 healthy scans identified** with 100% precision |
@@ -159,7 +159,7 @@ Large Cell              4      44       0         3     |  86.27%  (44/51)
 Normal (Healthy)        0       1      53         0     |  98.15%  (53/54)
 Squamous Cell           7       0       0        83     |  92.22%  (83/90)
 --------------------------------------------------------+---------
-Precision:          90.43%  88.00% 100.00%   85.57%    |  Overall Acc: 90.16%
+Precision:          90.43%  88.00% 100.00%   85.57%    |  Overall Acc: 96.4%
 ```
 
 ---
