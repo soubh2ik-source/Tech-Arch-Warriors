@@ -2,6 +2,7 @@
 
 import React from "react";
 import { HeroOrbitalVisualizer } from "./HeroOrbitalVisualizer";
+import DarkVeil from "./DarkVeil/DarkVeil";
 
 interface HeroSectionProps {
   onGetStarted?: () => void;
@@ -22,6 +23,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <section className="hero-editorial-section" id="overview">
+      {/* DarkVeil WebGL background — absolute fill behind all content */}
+      <div className="hero-darkveil-bg" aria-hidden="true">
+        <DarkVeil
+          color="#02ffe0"
+          speed={1}
+          scale={1.25}
+          flow={1.5}
+          warp={1}
+          variation={10}
+          sheen={1}
+          glow={0.75}
+          brightness={1.25}
+          grain={0.07}
+          fade={0.5}
+          opacity={0.5}
+          mouseInteraction={false}
+        />
+      </div>
+
       <div className="hero-editorial-container">
         {/* Left Column: Headline, Pill, Subtitle, Actions, Metrics */}
         <div className="hero-editorial-left">

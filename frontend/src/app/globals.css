@@ -388,12 +388,22 @@ a {
    ========================================================================== */
 
 .hero-editorial-section {
-  background: #fbfcfd;
+  background: #050d16;
   color: #0c1a2d;
   padding: 48px 32px 72px;
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid #0d2035;
+}
+
+/* DarkVeil WebGL background layer */
+.hero-darkveil-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero-editorial-container {
@@ -403,6 +413,8 @@ a {
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
   gap: 56px;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 /* Left Column */
@@ -418,11 +430,11 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #dff6f5;
+  background: rgba(2, 255, 224, 0.1);
   padding: 6px 14px;
   border-radius: 9999px;
   margin-bottom: 24px;
-  border: 1px solid rgba(0, 194, 203, 0.2);
+  border: 1px solid rgba(2, 255, 224, 0.3);
 }
 
 .hero-category-dot {
@@ -431,7 +443,7 @@ a {
   border-radius: 50%;
   background: #00c2cb;
   display: inline-block;
-  box-shadow: 0 0 8px rgba(0, 194, 203, 0.6);
+  box-shadow: 0 0 8px rgba(0, 194, 203, 0.8);
 }
 
 .hero-category-text {
@@ -439,7 +451,7 @@ a {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #06727a;
+  color: #02ffe0;
   text-transform: uppercase;
 }
 
@@ -450,8 +462,9 @@ a {
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.025em;
-  color: #0c1a2d;
+  color: #e8f4f8;
   margin: 0 0 20px 0;
+  text-shadow: 0 2px 20px rgba(2, 255, 224, 0.08);
 }
 
 .hero-title-dot {
@@ -463,7 +476,7 @@ a {
   font-family: var(--font-sans);
   font-size: 17px;
   line-height: 1.55;
-  color: #475569;
+  color: #94b8cc;
   font-weight: 400;
   margin: 0 0 32px 0;
   max-width: 520px;
@@ -482,22 +495,22 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #0c1a2d;
-  color: #ffffff !important;
+  background: #02ffe0;
+  color: #050d16 !important;
   padding: 13px 26px;
   border-radius: 9999px;
   font-size: 14.5px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(12, 26, 45, 0.18);
+  box-shadow: 0 4px 24px rgba(2, 255, 224, 0.35);
   transition: all var(--transition-fast);
 }
 
 .btn-hero-explore:hover {
-  background: #1e293b;
+  background: #00e8cc;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(12, 26, 45, 0.28);
-  color: #ffffff !important;
+  box-shadow: 0 6px 32px rgba(2, 255, 224, 0.5);
+  color: #050d16 !important;
 }
 
 .btn-hero-arrow {
@@ -513,7 +526,7 @@ a {
   font-family: var(--font-sans);
   font-size: 14.5px;
   font-weight: 600;
-  color: #0c1a2d;
+  color: #94b8cc;
   text-decoration: underline;
   text-underline-offset: 4px;
   transition: color var(--transition-fast);
@@ -521,13 +534,13 @@ a {
 }
 
 .link-hero-performance:hover {
-  color: #00c2cb;
+  color: #02ffe0;
 }
 
 /* Metrics Divider Rule */
 .hero-metrics-rule {
   height: 1px;
-  background: #e2e8f0;
+  background: rgba(2, 255, 224, 0.15);
   width: 100%;
   max-width: 500px;
   margin-bottom: 24px;
@@ -551,7 +564,7 @@ a {
 }
 
 .hero-metric-cell.divider-left {
-  border-left: 1px solid #e2e8f0;
+  border-left: 1px solid rgba(2, 255, 224, 0.15);
   padding-left: 20px;
 }
 
@@ -559,7 +572,7 @@ a {
   font-family: var(--font-serif, "Playfair Display", Georgia, serif);
   font-size: 34px;
   font-weight: 800;
-  color: #0c1a2d;
+  color: #e8f4f8;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -567,7 +580,7 @@ a {
 .hero-metric-caption {
   font-family: var(--font-sans);
   font-size: 12.5px;
-  color: #64748b;
+  color: #6b8fa3;
   font-weight: 500;
   line-height: 1.3;
 }
@@ -576,7 +589,7 @@ a {
 .hero-benchmark-footnote {
   font-family: var(--font-mono, monospace);
   font-size: 11.5px;
-  color: #94a3b8;
+  color: #4a6a7d;
   font-style: italic;
   display: flex;
   align-items: center;
