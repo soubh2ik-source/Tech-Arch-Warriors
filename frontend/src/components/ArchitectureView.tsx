@@ -141,16 +141,16 @@ export const ArchitectureView: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ padding: 14, background: "rgba(21, 27, 39, 0.6)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-md)", fontFamily: "var(--font-mono)", fontSize: 12, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ padding: 14, background: "rgba(21, 27, 39, 0.6)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-md)", fontFamily: "var(--font-mono)", fontSize: 12, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
           <span>Mathematical Formulation:</span>
-          <span style={{ color: "var(--accent-cyan)" }}>
+          <span style={{ color: "var(--accent-cyan)", wordBreak: "break-all" }}>
             P_final = ({(densenet/100).toFixed(2)} &times; P_dense) + ({(effnet/100).toFixed(2)} &times; P_eff) + ({(xception/100).toFixed(2)} &times; P_xc)
           </span>
         </div>
       </div>
 
       {/* CLAHE & TTA Specs */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+      <div className="arch-dual-grid">
         <div className="studio-panel">
           <div className="panel-header">
             <span className="panel-title">

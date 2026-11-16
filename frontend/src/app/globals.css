@@ -952,29 +952,81 @@ a {
     font-size: 10px;
   }
   .hero-orbital-wrapper-outer {
-    max-width: 310px;
-    height: 310px;
+    max-width: 290px;
+    height: 290px;
     margin: 4px auto 0;
+    overflow: hidden;
   }
   .hero-orbital-fit {
-    transform: scale(0.72);
+    transform: scale(0.66);
+  }
+}
+
+/* Compact Mobile (< 480px) */
+@media (max-width: 480px) {
+  .hero-editorial-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 12px;
+  }
+  .btn-hero-explore,
+  .link-hero-performance {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .hero-orbital-wrapper-outer {
+    max-width: 250px;
+    height: 250px;
+    overflow: hidden;
+  }
+  .hero-orbital-fit {
+    transform: scale(0.56);
+  }
+  .hero-category-badge {
+    max-width: 100%;
+  }
+  .hero-category-text {
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+  .hero-metrics-grid {
+    gap: 6px;
+  }
+  .hero-metric-cell {
+    padding: 8px 4px;
+    text-align: center;
+  }
+  .hero-metric-number {
+    font-size: clamp(16px, 4.5vw, 19px);
+  }
+  .hero-metric-caption {
+    font-size: 9px;
   }
 }
 
 /* Very Small Mobile (< 380px) */
 @media (max-width: 380px) {
   .hero-orbital-wrapper-outer {
-    max-width: 270px;
-    height: 270px;
+    max-width: 220px;
+    height: 220px;
+    overflow: hidden;
   }
   .hero-orbital-fit {
-    transform: scale(0.62);
+    transform: scale(0.48);
+  }
+  .hero-metrics-grid {
+    gap: 4px;
+  }
+  .hero-metric-cell {
+    padding: 6px 2px;
   }
   .hero-metric-number {
-    font-size: 19px;
+    font-size: 15px;
   }
   .hero-metric-caption {
-    font-size: 9.5px;
+    font-size: 8px;
   }
 }
 
@@ -1359,6 +1411,40 @@ a {
   color: var(--text-muted);
 }
 
+/* App Header (Subpages) Responsive */
+@media (max-width: 860px) {
+  .app-header {
+    padding: 0 16px;
+  }
+  .header-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 580px) {
+  .system-status-indicator {
+    display: none;
+  }
+  .brand-sub {
+    display: none;
+  }
+  .clinician-text {
+    display: none;
+  }
+  .clinician-profile-btn {
+    padding: 4px 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-version {
+    display: none;
+  }
+  .app-header {
+    padding: 0 10px;
+  }
+}
+
 /* ==========================================================================
    WORKSTATION & PAGES (Analysis, Settings, Benchmarks) - PURE LIGHT THEME
    ========================================================================== */
@@ -1373,10 +1459,48 @@ a {
   border-top: 1px solid var(--border-subtle);
 }
 
+.site-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.site-content {
+  flex: 1;
+  width: 100%;
+}
+
+.main-content {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
 .section-container {
   max-width: 1360px;
   margin: 0 auto;
   padding: 60px 32px 90px;
+}
+
+@media (max-width: 768px) {
+  .section-container {
+    padding: 36px 16px 48px;
+  }
+  .main-content {
+    padding: 20px 14px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-container {
+    padding: 24px 12px 36px;
+  }
+  .main-content {
+    padding: 16px 10px 32px;
+  }
 }
 
 .section-header-row {
@@ -1666,8 +1790,12 @@ a {
     gap: 8px;
   }
   .btn-upload-cancel,
-  .btn-upload-attach {
-    width: 100%;
+  .btn-upload-attach,
+  .upload-card-hero .btn-upload-cancel,
+  .upload-card-hero .btn-upload-attach {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
     justify-content: center;
   }
   .card-top-header {
@@ -1676,6 +1804,9 @@ a {
   }
   .diagnosis-classification-title {
     font-size: 20px;
+  }
+  .chart-plot-area {
+    height: 120px;
   }
   .chart-top-values-row,
   .chart-bars-track-layer,
@@ -1695,6 +1826,17 @@ a {
   }
   .bar-bottom-label {
     font-size: 9.5px;
+  }
+}
+
+@media (max-width: 440px) {
+  .viewer-quick-tools {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .tool-vector-btn {
+    width: 28px;
+    height: 28px;
   }
 }
 
@@ -2743,6 +2885,37 @@ a {
   }
 }
 
+@media (max-width: 400px) {
+  .benchmark-kpi-card {
+    padding: 12px 10px;
+    gap: 10px;
+  }
+  .benchmark-kpi-val {
+    font-size: 22px !important;
+  }
+  .benchmark-kpi-title {
+    font-size: 11px !important;
+  }
+}
+
+.table-scroll-hint {
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #005f50;
+  margin-bottom: 8px;
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .table-scroll-hint {
+    display: flex;
+  }
+}
+
 .table-responsive-scroll {
   width: 100%;
   overflow-x: auto;
@@ -2911,6 +3084,51 @@ a {
   gap: 16px;
   overflow-x: auto;
   padding: 20px 0;
+}
+
+@media (max-width: 800px) {
+  .pipeline-flow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 0;
+  }
+  .pipeline-node {
+    width: 100%;
+    min-width: 0;
+  }
+  .pipeline-arrow {
+    transform: rotate(90deg);
+    margin: 2px auto;
+  }
+}
+
+.arch-dual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .arch-dual-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.pathology-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .pathology-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 .pipeline-node {
@@ -3134,6 +3352,7 @@ a {
     padding: 10px;
   }
   .modal-dialog {
+    max-width: min(740px, 95vw);
     max-height: 94vh;
     border-radius: 14px;
   }
@@ -3162,7 +3381,13 @@ a {
     grid-template-columns: 1fr !important;
   }
   .modal-footer {
-    padding: 12px 16px;
+    padding: 12px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .modal-footer button {
+    flex: 1 1 auto;
+    min-width: 110px;
   }
 }
 

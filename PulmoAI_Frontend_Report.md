@@ -375,16 +375,17 @@ The frontend contains an intelligent client (`src/lib/inferenceClient.ts`) capab
 
 ## 9. Responsive Design Matrix & Multi-Device Optimization
 
-The CSS architecture contains explicit responsive breakpoints ensuring seamless operation on everything from multi-monitor 4K radiology workstations to mobile tablets:
+The CSS architecture contains explicit responsive breakpoints ensuring seamless operation on everything from multi-monitor 4K radiology workstations to compact smartphones:
 
 | Breakpoint Range | Device Class | Layout Adaptations |
 | :--- | :--- | :--- |
-| **> 1220px** | Ultra-Wide & 4K Radiology Monitors | Full 2-column layout; 480px orbital visualizer; max-width 1280px container |
+| **> 1220px** | Ultra-Wide & 4K Radiology Monitors | Full 2-column layout; 480px orbital visualizer; max-width 1360px container |
 | **1024px – 1220px** | Standard Laptops & Desktops | Grid gap adjusted to 32px; orbital scale `1.02`; font sizes slightly scaled |
 | **840px – 1024px** | Small Laptops & Landscape Tablets | Hero padding reduced; orbital visualizer scale `0.88`; side-by-side columns preserved |
-| **640px – 839px** | Portrait Tablets | Single-column stacked layout; orbital scale `0.85`; 3-metric cards use 10px gap |
-| **380px – 640px** | Standard Mobile Phones | Single-column stacked; hamburger drawer activated; metric numbers scale to 20px |
-| **< 380px** | Ultra-Compact Mobile Phones | Minimal padding; metric numbers scale to 17px; orbital visualizer scale `0.62` |
+| **640px – 839px** | Portrait Tablets | Single-column stacked layout; orbital scale `0.85`; 3-metric cards use 10px gap; pipeline flow stacks vertically |
+| **480px – 640px** | Standard Mobile Phones | Single-column stacked; hamburger drawer activated; orbital scale `0.66` with `overflow: hidden`; metric cards 3-col compact |
+| **380px – 480px** | Compact Mobile Phones | Full-width action buttons stacked vertically; upload dropzone full-width actions; orbital scale `0.56`; chart plot scaled |
+| **< 380px** | Ultra-Compact Mobile Phones | Minimal padding; metric numbers scale to 15px; orbital visualizer scale `0.48`; quick tools 28px wrapped |
 
 ---
 
@@ -402,6 +403,8 @@ Over recent development cycles, the frontend has undergone meticulous visual ref
    - Removed distracting hand-drawn floating callout annotations ("Earlier Detection Brighter Tomorrows" and "AI for Lungs for Lives") to maintain a clean, distraction-free visual presentation.
 5. **Hero Metrics Stat Cards Refactoring**:
    - Replaced floating, asymmetrical vertical divider lines with three prominent, symmetrical clinical stat cards enclosed in 2px cyan borders with frosted glass backgrounds.
+6. **Comprehensive Mobile & Tablet Responsive Optimization**:
+   - Implemented zero-overflow orbital scaling (`overflow: hidden` + dynamic CSS transforms down to `0.48`), full-width touch-friendly CT upload controls, interactive table swipe indicators (`Swipe table horizontally →`), vertical architectural pipeline flow (`.pipeline-flow`), and wrapped modal action footers for all mobile screen form factors.
 
 ---
 

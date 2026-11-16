@@ -202,6 +202,11 @@ export const BenchmarksView: React.FC = () => {
           </div>
         </div>
 
+        <div className="table-scroll-hint">
+          <span>Swipe table horizontally</span>
+          <span>&rarr;</span>
+        </div>
+
         <div className="table-responsive-scroll table-card-frosted">
           <table style={{
             width: "100%",
@@ -367,6 +372,11 @@ export const BenchmarksView: React.FC = () => {
           <h3 style={{ fontSize: "19px", fontWeight: 850, color: "#051a15", margin: 0, letterSpacing: "-0.01em" }}>
             Architectural Evolution: Step-by-Step Milestones
           </h3>
+        </div>
+
+        <div className="table-scroll-hint">
+          <span>Swipe table horizontally</span>
+          <span>&rarr;</span>
         </div>
 
         <div className="table-responsive-scroll table-card-frosted">

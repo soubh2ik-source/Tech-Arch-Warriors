@@ -24,7 +24,7 @@ export const PathologyView: React.FC = () => {
       </div>
 
       {/* 4 Pathological Profiles */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
+      <div className="pathology-cards-grid">
         {/* Adenocarcinoma */}
         <div className="studio-panel" style={{ borderLeft: "3px solid var(--adeno-color)" }}>
           <div className="panel-header">
