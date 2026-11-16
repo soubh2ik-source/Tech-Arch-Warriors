@@ -1517,10 +1517,14 @@ a {
 }
 
 .upload-card-hero .upload-file-row {
-  padding: 8px 12px;
-  background: #f8fafc;
-  border: 1px solid #eef2f6;
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #0b1a2d;
+  border: 2px solid rgba(2, 255, 224, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), inset 0 0 10px rgba(2, 255, 224, 0.05);
 }
 
 .upload-card-hero .upload-footer-actions {
@@ -1849,23 +1853,27 @@ a {
 
 .upload-file-row {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 4px 2px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #0b1a2d;
+  border: 2px solid rgba(2, 255, 224, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), inset 0 0 10px rgba(2, 255, 224, 0.05);
 }
 
 .upload-file-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: #0c1825;
-  border: 1px solid #1a324a;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #051a15;
+  border: 1.5px solid rgba(2, 255, 224, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #02ffe0;
   flex-shrink: 0;
-  margin-top: 1px;
+  box-shadow: 0 0 8px rgba(2, 255, 224, 0.2);
 }
 
 .upload-file-info {
@@ -1883,33 +1891,37 @@ a {
 }
 
 .upload-file-name {
-  font-size: 12px;
-  font-weight: 700;
-  color: #e8f4f8;
+  font-size: 13px;
+  font-weight: 800;
+  color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .upload-file-remove {
   background: transparent;
   border: none;
-  font-size: 12px;
-  color: #648299;
+  font-size: 14px;
+  color: #94b8cc;
   cursor: pointer;
-  padding: 0 2px;
+  padding: 2px 4px;
   line-height: 1;
-  transition: color 0.15s ease;
+  border-radius: 4px;
+  transition: all 0.15s ease;
 }
 
 .upload-file-remove:hover {
   color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
 }
 
 .upload-file-size {
-  font-size: 11px;
+  font-size: 11.5px;
   color: #94b8cc;
-  margin: 2px 0 5px 0;
+  font-weight: 600;
+  margin: 2px 0 6px 0;
 }
 
 .upload-file-progress-row {
@@ -1920,8 +1932,9 @@ a {
 
 .upload-file-progress-bar {
   flex: 1;
-  height: 4px;
-  background: #14283c;
+  height: 5px;
+  background: #050d16;
+  border: 1px solid rgba(2, 255, 224, 0.25);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -1929,16 +1942,18 @@ a {
 .upload-file-progress-fill {
   height: 100%;
   background: #02ffe0;
+  box-shadow: 0 0 8px #02ffe0;
   border-radius: 999px;
   transition: width 0.3s ease;
 }
 
 .upload-file-progress-pct {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: #94b8cc;
-  min-width: 28px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #02ffe0;
+  min-width: 32px;
   text-align: right;
+  text-shadow: 0 0 6px rgba(2, 255, 224, 0.5);
 }
 
 /* Footer Actions */
