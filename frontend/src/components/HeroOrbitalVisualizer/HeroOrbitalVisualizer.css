@@ -203,23 +203,8 @@
 
 /* CARD CONTENT (Counter-rotates so it stays completely upright and level) */
 .orbit-card-content {
-  background-color: #02ffe0;
-  background-image: 
-    repeating-linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.25) 0px,
-      rgba(255, 255, 255, 0.25) 2px,
-      transparent 2px,
-      transparent 4.5px,
-      rgba(0, 95, 80, 0.22) 4.5px,
-      rgba(0, 95, 80, 0.22) 6.5px,
-      transparent 6.5px,
-      transparent 9px
-    ),
-    url('/navbar-texture.png');
-  background-repeat: repeat, repeat;
-  background-size: auto, 100px 89px;
-  border: 2px solid rgba(0, 95, 80, 0.75);
+  background: #d0fcf4;
+  border: 2px solid #02ffe0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(2, 255, 224, 0.45);
   border-radius: 12px;
   padding: 6px 13px;
