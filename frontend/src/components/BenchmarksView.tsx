@@ -156,32 +156,45 @@ export const BenchmarksView: React.FC = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: "16px",
+          marginBottom: "18px",
           flexWrap: "wrap",
-          gap: "10px"
+          gap: "12px"
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="3" width="7" height="7" rx="1.5" />
-              <rect x="14" y="3" width="7" height="7" rx="1.5" />
-              <rect x="3" y="14" width="7" height="7" rx="1.5" />
-              <rect x="14" y="14" width="7" height="7" rx="1.5" />
-            </svg>
-            <h3 style={{ fontSize: "17px", fontWeight: 800, color: "#0f172a", margin: 0, display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div style={{
+              width: "38px",
+              height: "38px",
+              borderRadius: "10px",
+              background: "rgba(2, 132, 199, 0.15)",
+              border: "1.5px solid rgba(2, 132, 199, 0.35)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#0284c7",
+              flexShrink: 0
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                <rect x="14" y="14" width="7" height="7" rx="1.5" />
+              </svg>
+            </div>
+            <h3 style={{ fontSize: "18px", fontWeight: 800, color: "#0f172a", margin: 0, display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
               <span>Multi-Class Holdout Confusion Matrix</span>
-              <span style={{ fontSize: "14px", fontWeight: 500, color: "#64748b" }}>(315 Independent Patients)</span>
+              <span style={{ fontSize: "14px", fontWeight: 600, color: "#334155" }}>(315 Independent Patients)</span>
             </h3>
           </div>
 
           <div style={{
-            background: "#e0f2fe",
-            border: "1px solid #bae6fd",
-            color: "#0369a1",
+            background: "#0284c7",
+            color: "#ffffff",
             borderRadius: "9999px",
-            padding: "5px 14px",
-            fontSize: "12px",
-            fontWeight: 700,
-            letterSpacing: "0.02em"
+            padding: "6px 16px",
+            fontSize: "12.5px",
+            fontWeight: 800,
+            letterSpacing: "0.03em",
+            boxShadow: "0 2px 8px rgba(2, 132, 199, 0.3)"
           }}>
             Macro F1: 98.87%
           </div>
@@ -197,118 +210,118 @@ export const BenchmarksView: React.FC = () => {
             minWidth: "620px"
           }}>
             <thead>
-              <tr style={{ background: "#f8fafc", color: "#1e293b" }}>
-                <th style={{ textAlign: "left", padding: "12px 16px", fontWeight: 700, borderBottom: "1px solid #e2e8f0" }}>
+              <tr style={{ background: "rgba(255, 255, 255, 0.75)", color: "#0f172a" }}>
+                <th style={{ textAlign: "left", padding: "12px 16px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)" }}>
                   Ground Truth \ Predicted
                 </th>
-                <th style={{ padding: "12px", fontWeight: 700, borderBottom: "1px solid #e2e8f0" }}>Adeno</th>
-                <th style={{ padding: "12px", fontWeight: 700, borderBottom: "1px solid #e2e8f0" }}>Large Cell</th>
-                <th style={{ padding: "12px", fontWeight: 700, borderBottom: "1px solid #e2e8f0" }}>Normal (Healthy)</th>
-                <th style={{ padding: "12px", fontWeight: 700, borderBottom: "1px solid #e2e8f0" }}>Squamous</th>
-                <th style={{ padding: "12px 16px", fontWeight: 700, borderBottom: "1px solid #e2e8f0" }}>Sensitivity (Recall)</th>
+                <th style={{ padding: "12px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)" }}>Adeno</th>
+                <th style={{ padding: "12px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)" }}>Large Cell</th>
+                <th style={{ padding: "12px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)" }}>Normal (Healthy)</th>
+                <th style={{ padding: "12px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)" }}>Squamous</th>
+                <th style={{ padding: "12px 16px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)" }}>Sensitivity (Recall)</th>
               </tr>
             </thead>
             <tbody>
               {/* Row 1: Adenocarcinoma */}
-              <tr style={{ borderBottom: "1px solid #f1f5f9" }}>
-                <td style={{ textAlign: "left", padding: "13px 16px", fontWeight: 600, color: "#0f172a" }}>
+              <tr style={{ borderBottom: "1px solid rgba(2, 255, 224, 0.28)" }}>
+                <td style={{ textAlign: "left", padding: "13px 16px", fontWeight: 700, color: "#0f172a" }}>
                   Adenocarcinoma (120)
                 </td>
-                <td style={{ padding: "10px", background: "#dcfce7", color: "#15803d", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#dcfce7", color: "#15803d", fontWeight: 800, borderRadius: "6px" }}>
                   104
                 </td>
-                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 800, borderRadius: "6px" }}>
                   5
                 </td>
-                <td style={{ padding: "10px", color: "#475569" }}>
+                <td style={{ padding: "10px", color: "#475569", fontWeight: 600 }}>
                   0
                 </td>
-                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 800, borderRadius: "6px" }}>
                   11
                 </td>
-                <td style={{ padding: "13px 16px", fontWeight: 700, color: "#0f172a" }}>
-                  86.67% <span style={{ fontWeight: 500, color: "#64748b" }}>(104/120)</span>
+                <td style={{ padding: "13px 16px", fontWeight: 800, color: "#0f172a" }}>
+                  86.67% <span style={{ fontWeight: 600, color: "#475569" }}>(104/120)</span>
                 </td>
               </tr>
 
               {/* Row 2: Large Cell Carcinoma */}
-              <tr style={{ borderBottom: "1px solid #f1f5f9" }}>
-                <td style={{ textAlign: "left", padding: "13px 16px", fontWeight: 600, color: "#0f172a" }}>
+              <tr style={{ borderBottom: "1px solid rgba(2, 255, 224, 0.28)" }}>
+                <td style={{ textAlign: "left", padding: "13px 16px", fontWeight: 700, color: "#0f172a" }}>
                   Large Cell Carcinoma (51)
                 </td>
-                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 800, borderRadius: "6px" }}>
                   4
                 </td>
-                <td style={{ padding: "10px", background: "#dcfce7", color: "#15803d", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#dcfce7", color: "#15803d", fontWeight: 800, borderRadius: "6px" }}>
                   44
                 </td>
-                <td style={{ padding: "10px", color: "#475569" }}>
+                <td style={{ padding: "10px", color: "#475569", fontWeight: 600 }}>
                   0
                 </td>
-                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 800, borderRadius: "6px" }}>
                   3
                 </td>
-                <td style={{ padding: "13px 16px", fontWeight: 700, color: "#0f172a" }}>
-                  86.27% <span style={{ fontWeight: 500, color: "#64748b" }}>(44/51)</span>
+                <td style={{ padding: "13px 16px", fontWeight: 800, color: "#0f172a" }}>
+                  86.27% <span style={{ fontWeight: 600, color: "#475569" }}>(44/51)</span>
                 </td>
               </tr>
 
               {/* Row 3: Normal Healthy */}
-              <tr style={{ borderBottom: "1px solid #f1f5f9" }}>
-                <td style={{ textAlign: "left", padding: "13px 16px", fontWeight: 600, color: "#0f172a" }}>
+              <tr style={{ borderBottom: "1px solid rgba(2, 255, 224, 0.28)" }}>
+                <td style={{ textAlign: "left", padding: "13px 16px", fontWeight: 700, color: "#0f172a" }}>
                   Normal Healthy (54)
                 </td>
-                <td style={{ padding: "10px", color: "#475569" }}>
+                <td style={{ padding: "10px", color: "#475569", fontWeight: 600 }}>
                   0
                 </td>
-                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 800, borderRadius: "6px" }}>
                   1
                 </td>
-                <td style={{ padding: "10px", background: "#dcfce7", color: "#15803d", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#dcfce7", color: "#15803d", fontWeight: 800, borderRadius: "6px" }}>
                   53
                 </td>
-                <td style={{ padding: "10px", color: "#475569" }}>
+                <td style={{ padding: "10px", color: "#475569", fontWeight: 600 }}>
                   0
                 </td>
-                <td style={{ padding: "13px 16px", fontWeight: 700, color: "#16a34a" }}>
-                  98.15% <span style={{ fontWeight: 600 }}>(53/54)</span>
+                <td style={{ padding: "13px 16px", fontWeight: 800, color: "#15803d" }}>
+                  98.15% <span style={{ fontWeight: 700 }}>(53/54)</span>
                 </td>
               </tr>
 
               {/* Row 4: Squamous Cell Carcinoma */}
-              <tr style={{ borderBottom: "1px solid #e2e8f0" }}>
-                <td style={{ textAlign: "left", padding: "13px 16px", fontWeight: 600, color: "#0f172a" }}>
+              <tr style={{ borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)" }}>
+                <td style={{ textAlign: "left", padding: "13px 16px", fontWeight: 700, color: "#0f172a" }}>
                   Squamous Cell Carcinoma (90)
                 </td>
-                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#fee2e2", color: "#b91c1c", fontWeight: 800, borderRadius: "6px" }}>
                   7
                 </td>
-                <td style={{ padding: "10px", color: "#475569" }}>
+                <td style={{ padding: "10px", color: "#475569", fontWeight: 600 }}>
                   0
                 </td>
-                <td style={{ padding: "10px", color: "#475569" }}>
+                <td style={{ padding: "10px", color: "#475569", fontWeight: 600 }}>
                   0
                 </td>
-                <td style={{ padding: "10px", background: "#dcfce7", color: "#15803d", fontWeight: 700, borderRadius: "4px" }}>
+                <td style={{ padding: "10px", background: "#dcfce7", color: "#15803d", fontWeight: 800, borderRadius: "6px" }}>
                   83
                 </td>
-                <td style={{ padding: "13px 16px", fontWeight: 700, color: "#0f172a" }}>
-                  92.22% <span style={{ fontWeight: 500, color: "#64748b" }}>(83/90)</span>
+                <td style={{ padding: "13px 16px", fontWeight: 800, color: "#0f172a" }}>
+                  92.22% <span style={{ fontWeight: 600, color: "#475569" }}>(83/90)</span>
                 </td>
               </tr>
             </tbody>
 
             {/* Footer Summary Row: Precision */}
             <tfoot>
-              <tr style={{ background: "#f8fafc", fontWeight: 700 }}>
-                <td style={{ textAlign: "left", padding: "13px 16px", color: "#0f172a", fontWeight: 800 }}>
+              <tr style={{ background: "rgba(255, 255, 255, 0.85)", fontWeight: 800 }}>
+                <td style={{ textAlign: "left", padding: "14px 16px", color: "#0f172a", fontWeight: 800 }}>
                   Precision
                 </td>
-                <td style={{ padding: "12px", color: "#0f172a", fontWeight: 700 }}>90.43%</td>
-                <td style={{ padding: "12px", color: "#0f172a", fontWeight: 700 }}>88.00%</td>
-                <td style={{ padding: "12px", color: "#16a34a", fontWeight: 800 }}>100.00%</td>
-                <td style={{ padding: "12px", color: "#0f172a", fontWeight: 700 }}>85.57%</td>
-                <td style={{ padding: "13px 16px", color: "#0284c7", fontWeight: 800 }}>
+                <td style={{ padding: "12px", color: "#0f172a", fontWeight: 800 }}>90.43%</td>
+                <td style={{ padding: "12px", color: "#0f172a", fontWeight: 800 }}>88.00%</td>
+                <td style={{ padding: "12px", color: "#15803d", fontWeight: 800 }}>100.00%</td>
+                <td style={{ padding: "12px", color: "#0f172a", fontWeight: 800 }}>85.57%</td>
+                <td style={{ padding: "14px 16px", color: "#0284c7", fontWeight: 800 }}>
                   Overall: 98.16%
                 </td>
               </tr>
@@ -324,18 +337,31 @@ export const BenchmarksView: React.FC = () => {
         <div style={{
           display: "flex",
           alignItems: "center",
-          gap: "10px",
-          marginBottom: "16px"
+          gap: "12px",
+          marginBottom: "18px"
         }}>
-          {/* 3 Interconnected Nodes Icon */}
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="18" cy="5" r="3" />
-            <circle cx="6" cy="12" r="3" />
-            <circle cx="18" cy="19" r="3" />
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-          </svg>
-          <h3 style={{ fontSize: "17px", fontWeight: 800, color: "#0f172a", margin: 0 }}>
+          <div style={{
+            width: "38px",
+            height: "38px",
+            borderRadius: "10px",
+            background: "rgba(2, 132, 199, 0.15)",
+            border: "1.5px solid rgba(2, 132, 199, 0.35)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#0284c7",
+            flexShrink: 0
+          }}>
+            {/* 3 Interconnected Nodes Icon */}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+          </div>
+          <h3 style={{ fontSize: "18px", fontWeight: 800, color: "#0f172a", margin: 0 }}>
             Architectural Evolution: Step-by-Step Milestones
           </h3>
         </div>
@@ -349,13 +375,13 @@ export const BenchmarksView: React.FC = () => {
             minWidth: "760px"
           }}>
             <thead>
-              <tr style={{ background: "#f8fafc", color: "#1e293b", textAlign: "left" }}>
-                <th style={{ padding: "12px 14px", fontWeight: 700, borderBottom: "1px solid #e2e8f0", width: "19%" }}>Iteration</th>
-                <th style={{ padding: "12px 14px", fontWeight: 700, borderBottom: "1px solid #e2e8f0", width: "31%" }}>Architectural Configuration</th>
-                <th style={{ padding: "12px 14px", fontWeight: 700, borderBottom: "1px solid #e2e8f0", width: "15%" }}>Test Accuracy (315 Scans)</th>
-                <th style={{ padding: "12px 14px", fontWeight: 700, borderBottom: "1px solid #e2e8f0", width: "11%" }}>Cancer Recall</th>
-                <th style={{ padding: "12px 14px", fontWeight: 700, borderBottom: "1px solid #e2e8f0", width: "11%" }}>False Normal Miscalls</th>
-                <th style={{ padding: "12px 14px", fontWeight: 700, borderBottom: "1px solid #e2e8f0", width: "23%" }}>Clinical Assessment</th>
+              <tr style={{ background: "rgba(255, 255, 255, 0.75)", color: "#0f172a", textAlign: "left" }}>
+                <th style={{ padding: "12px 14px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)", width: "19%" }}>Iteration</th>
+                <th style={{ padding: "12px 14px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)", width: "31%" }}>Architectural Configuration</th>
+                <th style={{ padding: "12px 14px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)", width: "15%" }}>Test Accuracy (315 Scans)</th>
+                <th style={{ padding: "12px 14px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)", width: "11%" }}>Cancer Recall</th>
+                <th style={{ padding: "12px 14px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)", width: "11%" }}>False Normal Miscalls</th>
+                <th style={{ padding: "12px 14px", fontWeight: 800, borderBottom: "1.5px solid rgba(2, 255, 224, 0.45)", width: "23%" }}>Clinical Assessment</th>
               </tr>
             </thead>
             <tbody>
