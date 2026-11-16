@@ -2595,47 +2595,64 @@ a {
 }
 
 .benchmark-kpi-card {
-  background: #ffffff;
+  position: relative;
   border-radius: 14px;
   padding: 20px 22px;
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.45), 0 0 18px rgba(2, 255, 224, 0.18);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease;
 }
 
 .benchmark-kpi-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.55), 0 0 24px rgba(2, 255, 224, 0.3);
+  transform: translateY(-4px);
 }
 
 .benchmark-kpi-card.kpi-accuracy {
-  border: 1.5px solid #6ee7b7;
+  background: radial-gradient(140px circle at 100% 0%, rgba(16, 185, 129, 0.22) 0%, transparent 75%),
+              linear-gradient(150deg, #ffffff 0%, #f2fbf7 42%, #e1f7ed 100%);
+  border: 1.5px solid #34d399;
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.45), 0 0 20px rgba(16, 185, 129, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 .benchmark-kpi-card.kpi-accuracy:hover {
-  border-color: #34d399;
+  border-color: #10b981;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.55), 0 0 28px rgba(16, 185, 129, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 .benchmark-kpi-card.kpi-sensitivity {
-  border: 1.5px solid #93c5fd;
+  background: radial-gradient(140px circle at 100% 0%, rgba(37, 99, 235, 0.22) 0%, transparent 75%),
+              linear-gradient(150deg, #ffffff 0%, #f2f7fe 42%, #e0effe 100%);
+  border: 1.5px solid #60a5fa;
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.45), 0 0 20px rgba(37, 99, 235, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 .benchmark-kpi-card.kpi-sensitivity:hover {
-  border-color: #60a5fa;
+  border-color: #2563eb;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.55), 0 0 28px rgba(37, 99, 235, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 .benchmark-kpi-card.kpi-specificity {
-  border: 1.5px solid #c4b5fd;
+  background: radial-gradient(140px circle at 100% 0%, rgba(124, 58, 237, 0.22) 0%, transparent 75%),
+              linear-gradient(150deg, #ffffff 0%, #f7f4fe 42%, #ede4fe 100%);
+  border: 1.5px solid #a78bfa;
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.45), 0 0 20px rgba(124, 58, 237, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 .benchmark-kpi-card.kpi-specificity:hover {
-  border-color: #a78bfa;
+  border-color: #7c3aed;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.55), 0 0 28px rgba(124, 58, 237, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 .benchmark-kpi-card.kpi-falsenormal {
-  border: 1.5px solid #fda4af;
+  background: radial-gradient(140px circle at 100% 0%, rgba(225, 29, 72, 0.22) 0%, transparent 75%),
+              linear-gradient(150deg, #ffffff 0%, #fff1f3 42%, #ffe2e6 100%);
+  border: 1.5px solid #fb7185;
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.45), 0 0 20px rgba(225, 29, 72, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 .benchmark-kpi-card.kpi-falsenormal:hover {
-  border-color: #fb7185;
+  border-color: #e11d48;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.55), 0 0 28px rgba(225, 29, 72, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 @media (max-width: 680px) {
