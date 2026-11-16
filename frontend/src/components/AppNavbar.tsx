@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SideRays from "./SideRays/SideRays";
 interface AppNavbarProps {
   activeSection?: string;
   onSelectSection?: (sectionId: string) => void;
@@ -98,6 +99,24 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
   return (
     <>
       <header className="site-navbar">
+        {/* SideRays WebGL background — absolute fill behind navbar content */}
+        <div className="navbar-siderays-bg" aria-hidden="true">
+          <SideRays
+            rayColor1="#02ffe0"
+            rayColor2="#ffffff"
+            origin="right"
+            speed={3}
+            intensity={2}
+            spread={2}
+            density={10}
+            followMouse={false}
+            blend={0.5}
+            tilt={-20}
+            falloff={1}
+            glow={0.75}
+            opacity={0.9}
+          />
+        </div>
         <div className="navbar-container">
           {/* Left: Clean Brand Logo + Text (PalmoAI) */}
           <div className="navbar-left-group">
