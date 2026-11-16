@@ -2555,18 +2555,43 @@ a {
 }
 
 .benchmark-card-box {
-  background: #d0fcf4;
-  border: 1.5px solid #02ffe0;
-  border-radius: 14px;
-  padding: 22px 26px;
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.45), 0 0 24px rgba(2, 255, 224, 0.32);
+  background-color: #02ffe0;
+  background-image: 
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25) 0px,
+      rgba(255, 255, 255, 0.25) 2px,
+      transparent 2px,
+      transparent 4.5px,
+      rgba(0, 95, 80, 0.22) 4.5px,
+      rgba(0, 95, 80, 0.22) 6.5px,
+      transparent 6.5px,
+      transparent 9px
+    ),
+    url('/navbar-texture.png');
+  background-repeat: repeat, repeat;
+  background-size: auto, 100px 89px;
+  border: 1.5px solid rgba(0, 140, 120, 0.45);
+  border-radius: 16px;
+  padding: 24px 26px;
+  box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.55), 0 0 24px rgba(2, 255, 224, 0.35);
   width: 100%;
   overflow: hidden;
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .benchmark-card-box:hover {
-  box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.55), 0 0 32px rgba(2, 255, 224, 0.45);
+  box-shadow: 0 20px 48px -4px rgba(0, 0, 0, 0.65), 0 0 32px rgba(2, 255, 224, 0.45);
+}
+
+.table-card-frosted {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1.5px solid rgba(0, 95, 80, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 50, 40, 0.1);
+  overflow: hidden;
 }
 
 .benchmark-kpi-card {
