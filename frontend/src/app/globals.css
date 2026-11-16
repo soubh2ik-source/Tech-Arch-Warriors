@@ -2428,6 +2428,10 @@ a {
   box-shadow: 0 0 16px rgba(2, 255, 224, 0.1);
 }
 
+.section-benchmark .section-container {
+  padding: 80px 36px 110px;
+}
+
 .benchmark-layout {
   display: flex;
   flex-direction: column;
