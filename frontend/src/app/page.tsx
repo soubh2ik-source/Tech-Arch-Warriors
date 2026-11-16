@@ -41,7 +41,7 @@ export default function Home() {
         <div className="benchmark-darkveil-bg" aria-hidden="true">
           <DarkVeil
             color="#02ffe0"
-            speed={1.1}
+            speed={0.45}
             scale={3.0}
             flow={1.8}
             warp={1.3}
