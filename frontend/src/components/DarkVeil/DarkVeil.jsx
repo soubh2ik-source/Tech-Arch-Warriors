@@ -299,16 +299,22 @@ export const DarkVeil = ({
     gl.enableVertexAttribArray(0);
     gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
 
-    const texture = gl.createTexture();
+    let texture = null;
     const framebuffer = gl.createFramebuffer();
     const target = { width: 0, height: 0 };
     const sizeTarget = (width, height) => {
-      if (target.width === width && target.height === height) return;
-      target.width = width;
-      target.height = height;
+      const w = Math.max(1, Math.round(width));
+      const h = Math.max(1, Math.round(height));
+      if (target.width === w && target.height === h && texture) return;
+      target.width = w;
+      target.height = h;
+      if (texture) {
+        gl.deleteTexture(texture);
+      }
+      texture = gl.createTexture();
       gl.bindTexture(gl.TEXTURE_2D, texture);
-      const levels = Math.floor(Math.log2(Math.max(width, height))) + 1;
-      gl.texStorage2D(gl.TEXTURE_2D, levels, floatTargets ? gl.RGBA16F : gl.RGBA8, width, height);
+      const levels = Math.max(1, Math.floor(Math.log2(Math.max(w, h))) + 1);
+      gl.texStorage2D(gl.TEXTURE_2D, levels, floatTargets ? gl.RGBA16F : gl.RGBA8, w, h);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -514,6 +520,7 @@ export const DarkVeil = ({
     window.addEventListener('pointermove', onPointerMove, { passive: true });
     document.documentElement.addEventListener('pointerleave', onPointerLeave);
     document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('resize', resize, { passive: true });
     resize();
 
     let lastQuality = settingsRef.current.quality;
@@ -538,7 +545,8 @@ export const DarkVeil = ({
       window.removeEventListener('pointermove', onPointerMove);
       document.documentElement.removeEventListener('pointerleave', onPointerLeave);
       document.removeEventListener('visibilitychange', onVisibility);
-      gl.deleteTexture(texture);
+      window.removeEventListener('resize', resize);
+      if (texture) gl.deleteTexture(texture);
       gl.deleteFramebuffer(framebuffer);
       gl.deleteProgram(fieldProgram.program);
       gl.deleteProgram(compositeProgram.program);
