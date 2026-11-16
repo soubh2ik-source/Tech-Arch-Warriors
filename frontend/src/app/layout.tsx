@@ -28,9 +28,12 @@ export const metadata: Metadata = {
   title: "PalmoAI — Precision Clinical Thoracic Oncology",
   description: "AI-assisted analysis of chest CT images, classifying pulmonary scans across four diagnostic categories with 90.16% accuracy.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 
