@@ -106,13 +106,13 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
             rayColor2="#ffffff"
             origin="right"
             speed={3}
-            intensity={2}
-            spread={2}
+            intensity={2.5}
+            spread={4}
             density={10}
             followMouse={false}
             blend={0.5}
             tilt={-20}
-            falloff={1}
+            falloff={0.3}
             glow={0.75}
             opacity={0.9}
           />
