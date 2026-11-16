@@ -188,6 +188,20 @@ a {
   text-decoration: none;
 }
 
+.navbar-brand-full-img {
+  height: 44px;
+  width: auto;
+  max-width: 175px;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: multiply;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.navbar-brand-clean:hover .navbar-brand-full-img {
+  transform: scale(1.04);
+}
+
 .navbar-brand-img-clean {
   width: 48px;
   height: 48px;
@@ -329,6 +343,10 @@ a {
     width: 38px;
     height: 38px;
   }
+  .navbar-brand-full-img {
+    height: 36px;
+    max-width: 140px;
+  }
   .navbar-cta-pill {
     padding: 7px 14px;
     font-size: 12px;
@@ -338,6 +356,10 @@ a {
 @media (max-width: 480px) {
   .navbar-links {
     display: none;
+  }
+  .navbar-brand-full-img {
+    height: 32px;
+    max-width: 120px;
   }
 }
 
