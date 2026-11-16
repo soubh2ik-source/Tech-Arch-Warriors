@@ -32,13 +32,13 @@
 .orbit-ring.ring-outer {
   width: 350px;
   height: 350px;
-  border: 1px dashed rgba(56, 189, 248, 0.28);
+  border: 1.5px dashed rgba(56, 189, 248, 0.45);
 }
 
 .orbit-ring.ring-mid {
   width: 280px;
   height: 280px;
-  border: 1.5px dashed rgba(2, 132, 199, 0.32);
+  border: 2px dashed rgba(2, 132, 199, 0.5);
 }
 
 .orbit-center-glow {
@@ -46,8 +46,8 @@
   height: 180px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(186, 230, 253, 0.5) 0%, rgba(224, 242, 254, 0.25) 55%, transparent 75%);
-  border: 1.5px solid rgba(56, 189, 248, 0.3);
-  box-shadow: 0 0 35px rgba(56, 189, 248, 0.15);
+  border: 2px solid rgba(56, 189, 248, 0.55);
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.22);
 }
 
 /* Ambient Sparkles */
@@ -202,8 +202,8 @@
 /* CARD CONTENT (Counter-rotates so it stays completely upright and level) */
 .orbit-card-content {
   background: #ffffff;
-  border: 1px solid rgba(186, 230, 253, 0.85);
-  box-shadow: 0 8px 24px -4px rgba(14, 165, 233, 0.16), 0 2px 6px rgba(15, 23, 42, 0.04);
+  border: 2px solid #38bdf8;
+  box-shadow: 0 8px 24px -4px rgba(14, 165, 233, 0.28), 0 0 12px rgba(56, 189, 248, 0.22);
   border-radius: 12px;
   padding: 6px 12px;
   display: flex;
@@ -218,7 +218,7 @@
 
 .orbit-card-content:hover {
   border-color: #0284c7;
-  box-shadow: 0 12px 28px -4px rgba(14, 165, 233, 0.32), 0 0 0 2px rgba(56, 189, 248, 0.35);
+  box-shadow: 0 12px 28px -4px rgba(14, 165, 233, 0.4), 0 0 0 3px rgba(56, 189, 248, 0.4);
   transform: scale(1.05);
 }
 
@@ -236,7 +236,7 @@
   height: 28px;
   border-radius: 8px;
   background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border: 1px solid rgba(186, 230, 253, 0.6);
+  border: 1.5px solid rgba(56, 189, 248, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
