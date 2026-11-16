@@ -192,6 +192,7 @@ a {
   height: 48px;
   object-fit: contain;
   display: block;
+  mix-blend-mode: multiply;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.22)) drop-shadow(0 0 10px rgba(2, 255, 224, 0.45));
   transition: transform 0.2s ease, filter 0.2s ease;
 }

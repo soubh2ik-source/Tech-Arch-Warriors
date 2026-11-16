@@ -127,7 +127,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
-                src="/logo.png" 
+                src="/logo.jpg" 
                 alt="PalmoAI Logo" 
                 className="navbar-brand-img-clean"
               />
