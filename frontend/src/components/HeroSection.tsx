@@ -27,17 +27,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="hero-darkveil-bg" aria-hidden="true">
         <DarkVeil
           color="#02ffe0"
-          speed={1}
-          scale={1.25}
-          flow={1.5}
-          warp={1}
+          speed={1.1}
+          scale={3.0}
+          flow={1.8}
+          warp={1.3}
           variation={10}
-          sheen={1}
-          glow={0.75}
-          brightness={1.25}
-          grain={0.07}
-          fade={0.5}
-          opacity={0.5}
+          sheen={1.2}
+          glow={1.15}
+          brightness={1.45}
+          grain={0.05}
+          fade={0.03}
+          opacity={0.9}
           mouseInteraction={false}
         />
       </div>
