@@ -188,10 +188,17 @@ a {
 }
 
 .navbar-brand-img-clean {
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.22)) drop-shadow(0 0 10px rgba(2, 255, 224, 0.45));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.navbar-brand-clean:hover .navbar-brand-img-clean {
+  transform: scale(1.06);
+  filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.28)) drop-shadow(0 0 14px rgba(2, 255, 224, 0.7));
 }
 
 .navbar-brand-name {
@@ -312,11 +319,11 @@ a {
     font-size: 12px;
   }
   .navbar-brand-name {
-    font-size: 18px;
+    font-size: 19px;
   }
   .navbar-brand-img-clean {
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
   }
   .navbar-cta-pill {
     padding: 7px 14px;
