@@ -203,9 +203,24 @@
 
 /* CARD CONTENT (Counter-rotates so it stays completely upright and level) */
 .orbit-card-content {
-  background: #ffffff;
-  border: 2px solid #02ffe0;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), 0 0 16px rgba(2, 255, 224, 0.35);
+  background-color: #02ffe0;
+  background-image: 
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25) 0px,
+      rgba(255, 255, 255, 0.25) 2px,
+      transparent 2px,
+      transparent 4.5px,
+      rgba(0, 95, 80, 0.22) 4.5px,
+      rgba(0, 95, 80, 0.22) 6.5px,
+      transparent 6.5px,
+      transparent 9px
+    ),
+    url('/navbar-texture.png');
+  background-repeat: repeat, repeat;
+  background-size: auto, 100px 89px;
+  border: 2px solid rgba(0, 95, 80, 0.75);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(2, 255, 224, 0.45);
   border-radius: 12px;
   padding: 6px 13px;
   display: flex;
@@ -220,7 +235,7 @@
 
 .orbit-card-content:hover {
   border-color: #ffffff;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 24px rgba(2, 255, 224, 0.65);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 28px rgba(2, 255, 224, 0.75);
   transform: scale(1.06);
 }
 
@@ -237,13 +252,14 @@
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-  border: 1.5px solid #0284c7;
-  box-shadow: 0 0 8px rgba(2, 132, 199, 0.25);
+  background: #051a15;
+  border: 1.5px solid rgba(2, 255, 224, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: #02ffe0;
 }
 
 .orbit-card-text {
@@ -255,15 +271,16 @@
 .orbit-card-text .card-title {
   font-family: var(--font-display, sans-serif);
   font-size: 12.5px;
-  font-weight: 800;
-  color: #0b1727;
+  font-weight: 850;
+  color: #051a15;
+  letter-spacing: -0.01em;
 }
 
 .orbit-card-text .card-subtitle {
   font-family: var(--font-sans, sans-serif);
   font-size: 10.5px;
-  color: #0284c7;
-  font-weight: 700;
+  color: #083328;
+  font-weight: 750;
 }
 
 /* Callout Text & Arrows */
