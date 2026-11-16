@@ -1364,8 +1364,26 @@ a {
    ========================================================================== */
 
 .section-analysis-clean {
-  background: #f0f5fa;
-  padding: 40px 24px 70px;
+  background-color: #02ffe0;
+  background-image: 
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25) 0px,
+      rgba(255, 255, 255, 0.25) 2px,
+      transparent 2px,
+      transparent 4.5px,
+      rgba(0, 95, 80, 0.22) 4.5px,
+      rgba(0, 95, 80, 0.22) 6.5px,
+      transparent 6.5px,
+      transparent 9px
+    ),
+    url('/navbar-texture.png');
+  background-repeat: repeat, repeat;
+  background-size: auto, 100px 89px;
+  padding: 48px 24px 72px;
+  border-bottom: 1.5px solid rgba(0, 140, 120, 0.45);
+  position: relative;
+  overflow: hidden;
 }
 
 .section-analysis-container {
@@ -1513,10 +1531,10 @@ a {
 /* Base Clean Card */
 .clean-card {
   background: #ffffff;
-  border: 1px solid #eef2f6;
+  border: 1px solid rgba(0, 140, 120, 0.22);
   border-radius: 18px;
   padding: 22px;
-  box-shadow: 0 1px 4px rgba(0, 40, 80, 0.03);
+  box-shadow: 0 12px 36px -4px rgba(0, 70, 60, 0.16), 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: box-shadow var(--transition-fast);
 }
 
