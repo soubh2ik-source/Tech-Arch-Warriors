@@ -11,21 +11,13 @@ export const BenchmarksView: React.FC = () => {
       <div className="benchmark-kpi-grid">
         
         {/* Card 1: Holdout Test Accuracy */}
-        <div style={{
-          background: "#f0fdf9",
-          border: "1.5px solid #a7f3d0",
-          borderRadius: "12px",
-          padding: "18px 20px",
-          display: "flex",
-          alignItems: "flex-start",
-          gap: "14px",
-          boxShadow: "0 2px 6px rgba(16, 185, 129, 0.05)"
-        }}>
+        <div className="benchmark-kpi-card kpi-accuracy">
           <div style={{
-            width: "40px",
-            height: "40px",
+            width: "42px",
+            height: "42px",
             borderRadius: "50%",
-            background: "#d1fae5",
+            background: "#ecfdf5",
+            border: "1.5px solid #a7f3d0",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -43,31 +35,23 @@ export const BenchmarksView: React.FC = () => {
             <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.06em", color: "#047857", textTransform: "uppercase", marginBottom: "4px" }}>
               HOLDOUT TEST ACCURACY
             </span>
-            <span style={{ fontSize: "32px", fontWeight: 800, color: "#065f46", lineHeight: 1.1, marginBottom: "4px", fontFamily: "var(--font-display, sans-serif)" }}>
+            <span className="benchmark-kpi-val" style={{ fontSize: "32px", fontWeight: 800, color: "#065f46", lineHeight: 1.1, marginBottom: "4px", fontFamily: "var(--font-display, sans-serif)" }}>
               90.16%
             </span>
-            <span style={{ fontSize: "12px", color: "#64748b", fontWeight: 500 }}>
+            <span style={{ fontSize: "12px", color: "#475569", fontWeight: 500 }}>
               284 of 315 independent patient scans
             </span>
           </div>
         </div>
 
         {/* Card 2: Malignancy Sensitivity */}
-        <div style={{
-          background: "#f0f7ff",
-          border: "1.5px solid #bfdbfe",
-          borderRadius: "12px",
-          padding: "18px 20px",
-          display: "flex",
-          alignItems: "flex-start",
-          gap: "14px",
-          boxShadow: "0 2px 6px rgba(37, 99, 235, 0.05)"
-        }}>
+        <div className="benchmark-kpi-card kpi-sensitivity">
           <div style={{
-            width: "40px",
-            height: "40px",
+            width: "42px",
+            height: "42px",
             borderRadius: "50%",
-            background: "#dbeafe",
+            background: "#eff6ff",
+            border: "1.5px solid #bfdbfe",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -86,31 +70,23 @@ export const BenchmarksView: React.FC = () => {
             <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.06em", color: "#1d4ed8", textTransform: "uppercase", marginBottom: "4px" }}>
               MALIGNANCY SENSITIVITY
             </span>
-            <span style={{ fontSize: "32px", fontWeight: 800, color: "#1e40af", lineHeight: 1.1, marginBottom: "4px", fontFamily: "var(--font-display, sans-serif)" }}>
+            <span className="benchmark-kpi-val" style={{ fontSize: "32px", fontWeight: 800, color: "#1e40af", lineHeight: 1.1, marginBottom: "4px", fontFamily: "var(--font-display, sans-serif)" }}>
               99.62%
             </span>
-            <span style={{ fontSize: "12px", color: "#64748b", fontWeight: 500 }}>
+            <span style={{ fontSize: "12px", color: "#475569", fontWeight: 500 }}>
               260 of 261 cancers detected (0 missed)
             </span>
           </div>
         </div>
 
         {/* Card 3: Healthy Specificity */}
-        <div style={{
-          background: "#faf5ff",
-          border: "1.5px solid #ddd6fe",
-          borderRadius: "12px",
-          padding: "18px 20px",
-          display: "flex",
-          alignItems: "flex-start",
-          gap: "14px",
-          boxShadow: "0 2px 6px rgba(124, 58, 237, 0.05)"
-        }}>
+        <div className="benchmark-kpi-card kpi-specificity">
           <div style={{
-            width: "40px",
-            height: "40px",
+            width: "42px",
+            height: "42px",
             borderRadius: "50%",
-            background: "#ede9fe",
+            background: "#f5f3ff",
+            border: "1.5px solid #ddd6fe",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -127,31 +103,23 @@ export const BenchmarksView: React.FC = () => {
             <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.06em", color: "#6d28d9", textTransform: "uppercase", marginBottom: "4px" }}>
               HEALTHY SPECIFICITY
             </span>
-            <span style={{ fontSize: "32px", fontWeight: 800, color: "#5b21b6", lineHeight: 1.1, marginBottom: "4px", fontFamily: "var(--font-display, sans-serif)" }}>
+            <span className="benchmark-kpi-val" style={{ fontSize: "32px", fontWeight: 800, color: "#5b21b6", lineHeight: 1.1, marginBottom: "4px", fontFamily: "var(--font-display, sans-serif)" }}>
               98.15%
             </span>
-            <span style={{ fontSize: "12px", color: "#64748b", fontWeight: 500 }}>
+            <span style={{ fontSize: "12px", color: "#475569", fontWeight: 500 }}>
               53 of 54 healthy controls confirmed
             </span>
           </div>
         </div>
 
         {/* Card 4: False Normal Diagnoses */}
-        <div style={{
-          background: "#fff1f2",
-          border: "1.5px solid #fecdd3",
-          borderRadius: "12px",
-          padding: "18px 20px",
-          display: "flex",
-          alignItems: "flex-start",
-          gap: "14px",
-          boxShadow: "0 2px 6px rgba(225, 29, 72, 0.05)"
-        }}>
+        <div className="benchmark-kpi-card kpi-falsenormal">
           <div style={{
-            width: "40px",
-            height: "40px",
+            width: "42px",
+            height: "42px",
             borderRadius: "50%",
-            background: "#ffe4e6",
+            background: "#fff1f2",
+            border: "1.5px solid #fecdd3",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -169,10 +137,10 @@ export const BenchmarksView: React.FC = () => {
             <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.06em", color: "#be185d", textTransform: "uppercase", marginBottom: "4px" }}>
               FALSE NORMAL DIAGNOSES
             </span>
-            <span style={{ fontSize: "32px", fontWeight: 800, color: "#e11d48", lineHeight: 1.1, marginBottom: "4px", fontFamily: "var(--font-display, sans-serif)" }}>
+            <span className="benchmark-kpi-val" style={{ fontSize: "32px", fontWeight: 800, color: "#e11d48", lineHeight: 1.1, marginBottom: "4px", fontFamily: "var(--font-display, sans-serif)" }}>
               0 (Zero)
             </span>
-            <span style={{ fontSize: "12px", color: "#64748b", fontWeight: 500 }}>
+            <span style={{ fontSize: "12px", color: "#475569", fontWeight: 500 }}>
               Zero malignant scans mislabelled as healthy
             </span>
           </div>

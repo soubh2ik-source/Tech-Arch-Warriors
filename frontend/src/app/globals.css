@@ -2516,13 +2516,63 @@ a {
   border: 1.5px solid #bae6fd;
   border-radius: 14px;
   padding: 20px 24px;
-  box-shadow: 0 4px 16px rgba(186, 230, 253, 0.25);
+  box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.45), 0 0 18px rgba(186, 230, 253, 0.25);
   width: 100%;
   overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.benchmark-card-box:hover {
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.55), 0 0 24px rgba(2, 255, 224, 0.28);
+}
+
+.benchmark-kpi-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.45), 0 0 18px rgba(2, 255, 224, 0.18);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.benchmark-kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.55), 0 0 24px rgba(2, 255, 224, 0.3);
+}
+
+.benchmark-kpi-card.kpi-accuracy {
+  border: 1.5px solid #6ee7b7;
+}
+.benchmark-kpi-card.kpi-accuracy:hover {
+  border-color: #34d399;
+}
+
+.benchmark-kpi-card.kpi-sensitivity {
+  border: 1.5px solid #93c5fd;
+}
+.benchmark-kpi-card.kpi-sensitivity:hover {
+  border-color: #60a5fa;
+}
+
+.benchmark-kpi-card.kpi-specificity {
+  border: 1.5px solid #c4b5fd;
+}
+.benchmark-kpi-card.kpi-specificity:hover {
+  border-color: #a78bfa;
+}
+
+.benchmark-kpi-card.kpi-falsenormal {
+  border: 1.5px solid #fda4af;
+}
+.benchmark-kpi-card.kpi-falsenormal:hover {
+  border-color: #fb7185;
 }
 
 @media (max-width: 680px) {
-  .benchmark-card-box {
+  .benchmark-card-box,
+  .benchmark-kpi-card {
     padding: 16px 14px;
     border-radius: 12px;
   }
