@@ -1583,16 +1583,17 @@ a {
 
 /* Base Clean Card */
 .clean-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 140, 120, 0.22);
+  background: #050d16;
+  border: 1px solid rgba(2, 255, 224, 0.22);
   border-radius: 18px;
   padding: 22px;
-  box-shadow: 0 12px 36px -4px rgba(0, 70, 60, 0.16), 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: box-shadow var(--transition-fast);
+  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.55), 0 0 1px rgba(2, 255, 224, 0.2);
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
 .clean-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 40, 80, 0.06);
+  box-shadow: 0 20px 48px -6px rgba(0, 0, 0, 0.65), 0 0 8px rgba(2, 255, 224, 0.25);
+  border-color: rgba(2, 255, 224, 0.4);
 }
 
 /* Card Header Brand & Vector Badge */
@@ -1610,7 +1611,7 @@ a {
 }
 
 .header-vector-badge {
-  color: #1d72fe;
+  color: #02ffe0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1620,7 +1621,7 @@ a {
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 700;
-  color: #0f172a;
+  color: #e8f4f8;
 }
 
 /* ==========================================================================
@@ -1637,11 +1638,11 @@ a {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  background: #ffffff;
-  border: 1px solid #eef2f6;
+  background: #050d16;
+  border: 1px solid rgba(2, 255, 224, 0.22);
   border-radius: 18px;
   padding: 20px 22px;
-  box-shadow: 0 1px 4px rgba(0, 40, 80, 0.03);
+  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.55), 0 0 1px rgba(2, 255, 224, 0.2);
   transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1656,21 +1657,21 @@ a {
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
-  color: #0f172a;
+  color: #e8f4f8;
   margin: 0;
   line-height: 1.3;
 }
 
 .upload-header-subtitle {
   font-size: 11.5px;
-  color: #64748b;
+  color: #94b8cc;
   margin: 3px 0 0 0;
   line-height: 1.4;
 }
 
 .upload-pin-star,
 .card-sparkle-icon {
-  color: #0f172a;
+  color: #02ffe0;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1679,7 +1680,7 @@ a {
 
 /* Dashed Dropzone */
 .upload-dropzone {
-  border: 1.5px dashed #cbd5e1;
+  border: 1.5px dashed rgba(2, 255, 224, 0.3);
   border-radius: 12px;
   padding: 18px 14px 14px;
   display: flex;
@@ -1687,19 +1688,19 @@ a {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: #ffffff;
+  background: #09131f;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .upload-dropzone:hover {
-  border-color: #94a3b8;
-  background: #f8fafc;
+  border-color: #02ffe0;
+  background: #0c1827;
 }
 
 .upload-dropzone.dragging {
-  border-color: #0f172a;
-  background: #f1f5f9;
+  border-color: #02ffe0;
+  background: rgba(2, 255, 224, 0.1);
 }
 
 .upload-dropzone-icon {
@@ -1707,25 +1708,26 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #02ffe0;
 }
 
 .upload-dropzone-text {
   font-size: 12px;
-  color: #334155;
+  color: #cbd5e1;
   margin: 0;
   line-height: 1.4;
 }
 
 .upload-dropzone-link {
   font-weight: 700;
-  color: #0f172a;
+  color: #02ffe0;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .upload-dropzone-hint {
   font-size: 10.5px;
-  color: #94a3b8;
+  color: #648299;
   margin: 4px 0 0 0;
   line-height: 1.3;
 }
@@ -1748,12 +1750,12 @@ a {
   width: 28px;
   height: 28px;
   border-radius: 6px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: #0c1825;
+  border: 1px solid #1a324a;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #64748b;
+  color: #02ffe0;
   flex-shrink: 0;
   margin-top: 1px;
 }
@@ -1775,7 +1777,7 @@ a {
 .upload-file-name {
   font-size: 12px;
   font-weight: 700;
-  color: #0f172a;
+  color: #e8f4f8;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1785,7 +1787,7 @@ a {
   background: transparent;
   border: none;
   font-size: 12px;
-  color: #94a3b8;
+  color: #648299;
   cursor: pointer;
   padding: 0 2px;
   line-height: 1;
@@ -1798,7 +1800,7 @@ a {
 
 .upload-file-size {
   font-size: 11px;
-  color: #64748b;
+  color: #94b8cc;
   margin: 2px 0 5px 0;
 }
 
@@ -1811,14 +1813,14 @@ a {
 .upload-file-progress-bar {
   flex: 1;
   height: 4px;
-  background: #f1f5f9;
+  background: #14283c;
   border-radius: 999px;
   overflow: hidden;
 }
 
 .upload-file-progress-fill {
   height: 100%;
-  background: #0f172a;
+  background: #02ffe0;
   border-radius: 999px;
   transition: width 0.3s ease;
 }
@@ -1826,7 +1828,7 @@ a {
 .upload-file-progress-pct {
   font-size: 10.5px;
   font-weight: 600;
-  color: #475569;
+  color: #94b8cc;
   min-width: 28px;
   text-align: right;
 }
@@ -1842,46 +1844,46 @@ a {
 
 .btn-upload-cancel {
   flex: 1;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: #0c1825;
+  border: 1px solid #1e3852;
   border-radius: 8px;
   padding: 9px 14px;
   font-size: 12.5px;
   font-weight: 600;
-  color: #475569;
+  color: #94b8cc;
   cursor: pointer;
   text-align: center;
   transition: all 0.15s ease;
 }
 
 .btn-upload-cancel:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
-  color: #0f172a;
+  background: #14283c;
+  border-color: #94b8cc;
+  color: #ffffff;
 }
 
 .btn-upload-attach {
   flex: 1.4;
-  background: #0f172a;
-  border: 1px solid #0f172a;
+  background: #02ffe0;
+  border: 1px solid #02ffe0;
   border-radius: 8px;
   padding: 9px 16px;
   font-size: 12.5px;
-  font-weight: 600;
-  color: #ffffff;
+  font-weight: 700;
+  color: #050d16;
   cursor: pointer;
   text-align: center;
   transition: all 0.15s ease;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 2px 8px rgba(2, 255, 224, 0.25);
 }
 
 .btn-upload-attach:hover {
-  background: #1e293b;
-  border-color: #1e293b;
+  background: #38ffea;
+  border-color: #38ffea;
 }
 
 .btn-upload-attach:disabled {
-  opacity: 0.45;
+  opacity: 0.35;
   cursor: not-allowed;
   box-shadow: none;
 }
@@ -1891,7 +1893,7 @@ a {
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #64748b;
+  color: #02ffe0;
   margin-bottom: 14px;
 }
 
@@ -1906,8 +1908,8 @@ a {
   align-items: center;
   gap: 12px;
   padding: 9px 12px;
-  background: #ffffff;
-  border: 1px solid #f1f5f9;
+  background: #09131f;
+  border: 1px solid #14283c;
   border-radius: 12px;
   text-align: left;
   cursor: pointer;
@@ -1916,14 +1918,14 @@ a {
 }
 
 .cohort-row-item:hover {
-  background: #f8fafc;
-  border-color: #e2e8f0;
+  background: #0c1825;
+  border-color: #1e3852;
 }
 
 .cohort-row-item.selected {
-  background: #f0f7ff;
-  border-color: #bfdbfe;
-  box-shadow: 0 1px 4px rgba(29, 114, 254, 0.08);
+  background: rgba(2, 255, 224, 0.1);
+  border-color: #02ffe0;
+  box-shadow: 0 0 12px rgba(2, 255, 224, 0.15);
 }
 
 .cohort-row-thumb {
@@ -1945,13 +1947,13 @@ a {
 .cohort-row-title {
   font-size: 13.5px;
   font-weight: 700;
-  color: #0f172a;
+  color: #e8f4f8;
   line-height: 1.25;
 }
 
 .cohort-row-subtitle {
   font-size: 11px;
-  color: #64748b;
+  color: #94b8cc;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1960,16 +1962,17 @@ a {
 .cohort-row-id {
   font-size: 10.5px;
   font-family: var(--font-mono);
-  color: #94a3b8;
+  color: #648299;
   margin-top: 1px;
 }
 
 .cohort-row-item.selected .cohort-row-id {
-  color: #2563eb;
+  color: #02ffe0;
+  font-weight: 600;
 }
 
 .cohort-row-chevron {
-  color: #94a3b8;
+  color: #648299;
   flex-shrink: 0;
 }
 
@@ -1995,22 +1998,24 @@ a {
   align-items: center;
   justify-content: center;
   border-radius: 7px;
-  color: #64748b;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  color: #94b8cc;
+  background: #0c1825;
+  border: 1px solid #1e3852;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .tool-vector-btn:hover {
-  background: #eef2f6;
-  color: #0f172a;
+  background: #14283c;
+  border-color: #02ffe0;
+  color: #ffffff;
 }
 
 .tool-vector-btn.active {
-  background: #e0f2fe;
-  color: #0284c7;
-  border-color: #bae6fd;
+  background: rgba(2, 255, 224, 0.15);
+  color: #02ffe0;
+  border-color: #02ffe0;
+  box-shadow: 0 0 8px rgba(2, 255, 224, 0.25);
 }
 
 .ct-viewport-stage {
@@ -2023,6 +2028,7 @@ a {
   align-items: center;
   justify-content: center;
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+  border: 1px solid #14283c;
 }
 
 .ct-viewport-scaler {
@@ -2050,7 +2056,7 @@ a {
   flex-direction: column;
   font-family: var(--font-mono);
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.4;
   pointer-events: none;
   z-index: 5;
@@ -2061,7 +2067,7 @@ a {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  color: #64748b;
+  color: #94b8cc;
   text-align: center;
 }
 
@@ -2083,15 +2089,16 @@ a {
   padding: 10px 14px;
   border-radius: 10px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   border: none;
   cursor: pointer;
   transition: all var(--transition-fast);
-  box-shadow: 0 2px 6px rgba(29, 114, 254, 0.2);
+  box-shadow: 0 4px 14px rgba(29, 114, 254, 0.35);
 }
 
 .btn-minimal-consensus:hover:not(:disabled) {
-  background: #155bd5;
+  background: #2563eb;
+  box-shadow: 0 6px 18px rgba(29, 114, 254, 0.45);
 }
 
 .btn-minimal-consensus:disabled {
@@ -2103,20 +2110,21 @@ a {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #ffffff;
-  color: #0f172a;
+  background: #0c1825;
+  color: #e8f4f8;
   padding: 10px 14px;
   border-radius: 10px;
   font-size: 13px;
   font-weight: 600;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #1e3852;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .btn-minimal-report:hover:not(:disabled) {
-  background: #f8fafc;
-  border-color: #94a3b8;
+  background: #14283c;
+  border-color: #02ffe0;
+  color: #02ffe0;
 }
 
 .crosshairs-overlay {
@@ -2176,19 +2184,21 @@ a {
 }
 
 .diagnosis-tinted-panel.is-malignant {
-  background: #fff5f5;
-  border: 1px solid #fee2e2;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .diagnosis-tinted-panel.is-healthy {
-  background: #f0fdf4;
-  border: 1px solid #dcfce7;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .diagnosis-eyebrow-text {
-  font-size: 12px;
-  color: #64748b;
-  font-weight: 500;
+  font-size: 11px;
+  color: #94b8cc;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .diagnosis-headline-row {
@@ -2202,7 +2212,7 @@ a {
   font-family: var(--font-display);
   font-size: 24px;
   font-weight: 800;
-  color: #0f172a;
+  color: #ffffff;
   letter-spacing: -0.02em;
 }
 
@@ -2215,20 +2225,22 @@ a {
 }
 
 .tag-malignant {
-  background: #fee2e2;
-  color: #ef4444;
+  background: rgba(239, 68, 68, 0.22);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
 .tag-normal {
-  background: #dcfce7;
-  color: #16a34a;
+  background: rgba(16, 185, 129, 0.22);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
 }
 
 .diagnosis-summary-desc {
-  font-size: 12.5px;
-  color: #475569;
-  line-height: 1.45;
-  margin-top: 2px;
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin-top: 4px;
 }
 
 /* Vertical Probability Distribution Bar Chart with Precision Leveling */
@@ -2251,13 +2263,15 @@ a {
 .bar-top-value {
   font-size: 12px;
   font-weight: 700;
-  color: #0f172a;
+  color: #94b8cc;
   text-align: center;
   display: block;
 }
 
 .bar-top-value.is-primary-val {
-  color: #1d72fe;
+  color: #02ffe0;
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(2, 255, 224, 0.4);
 }
 
 /* 2. Precision Plot Area */
@@ -2292,7 +2306,7 @@ a {
   width: 30px;
   font-family: var(--font-mono);
   font-size: 10.5px;
-  color: #64748b;
+  color: #648299;
   text-align: right;
   line-height: 1;
   flex-shrink: 0;
@@ -2300,7 +2314,7 @@ a {
 
 .grid-dash-rule {
   flex: 1;
-  border-bottom: 1px dashed #e2e8f0;
+  border-bottom: 1px dashed rgba(2, 255, 224, 0.14);
   height: 0px;
 }
 
@@ -2331,11 +2345,13 @@ a {
 }
 
 .pillar-primary {
-  background: #1d72fe;
+  background: #02ffe0;
+  box-shadow: 0 0 12px rgba(2, 255, 224, 0.45);
 }
 
 .pillar-secondary {
-  background: #93c5fd;
+  background: #1d72fe;
+  opacity: 0.85;
 }
 
 /* 3. Aligned Bottom Category Labels Row */
@@ -2350,7 +2366,7 @@ a {
 
 .bar-bottom-label {
   font-size: 11px;
-  color: #475569;
+  color: #94b8cc;
   text-align: center;
   line-height: 1.25;
   font-weight: 500;
@@ -2360,7 +2376,7 @@ a {
 }
 
 .bar-bottom-label.is-primary-label {
-  color: #0f172a;
+  color: #ffffff;
   font-weight: 700;
 }
 
