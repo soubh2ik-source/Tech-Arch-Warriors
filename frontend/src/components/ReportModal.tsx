@@ -94,7 +94,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                   <h3 style={{ fontSize: 13, fontWeight: 700, marginBottom: 8, borderBottom: "1px solid #cbd5e1", paddingBottom: 4 }}>
                     Multi-Class Probability Distribution
                   </h3>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, fontSize: 12 }}>
+                  <div className="report-prob-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, fontSize: 12 }}>
                     {Object.entries(result.probabilities).map(([cls, prob]) => (
                       <div key={cls} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px dashed #e2e8f0", padding: "4px 0" }}>
                         <span>{cls}:</span>

@@ -8,7 +8,7 @@ export const BenchmarksView: React.FC = () => {
       {/* ========================================================================= */}
       {/* TOP ROW: 4 HIGH-IMPACT KPI METRIC CARDS                                   */}
       {/* ========================================================================= */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px" }}>
+      <div className="benchmark-kpi-grid">
         
         {/* Card 1: Holdout Test Accuracy */}
         <div style={{
@@ -183,18 +183,14 @@ export const BenchmarksView: React.FC = () => {
       {/* ========================================================================= */}
       {/* MIDDLE SECTION: MULTI-CLASS HOLDOUT CONFUSION MATRIX                      */}
       {/* ========================================================================= */}
-      <div style={{
-        background: "#ffffff",
-        border: "1.5px solid #bae6fd",
-        borderRadius: "14px",
-        padding: "20px 24px",
-        boxShadow: "0 4px 16px rgba(186, 230, 253, 0.25)"
-      }}>
+      <div className="benchmark-card-box">
         <div style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: "16px"
+          marginBottom: "16px",
+          flexWrap: "wrap",
+          gap: "10px"
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -203,7 +199,7 @@ export const BenchmarksView: React.FC = () => {
               <rect x="3" y="14" width="7" height="7" rx="1.5" />
               <rect x="14" y="14" width="7" height="7" rx="1.5" />
             </svg>
-            <h3 style={{ fontSize: "17px", fontWeight: 800, color: "#0f172a", margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
+            <h3 style={{ fontSize: "17px", fontWeight: 800, color: "#0f172a", margin: 0, display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
               <span>Multi-Class Holdout Confusion Matrix</span>
               <span style={{ fontSize: "14px", fontWeight: 500, color: "#64748b" }}>(315 Independent Patients)</span>
             </h3>
@@ -223,13 +219,14 @@ export const BenchmarksView: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ overflowX: "auto" }}>
+        <div className="table-responsive-scroll">
           <table style={{
             width: "100%",
             borderCollapse: "separate",
             borderSpacing: "0",
             fontSize: "13.5px",
-            textAlign: "center"
+            textAlign: "center",
+            minWidth: "620px"
           }}>
             <thead>
               <tr style={{ background: "#f8fafc", color: "#1e293b" }}>
@@ -355,13 +352,7 @@ export const BenchmarksView: React.FC = () => {
       {/* ========================================================================= */}
       {/* BOTTOM SECTION: ARCHITECTURAL EVOLUTION: STEP-BY-STEP MILESTONES          */}
       {/* ========================================================================= */}
-      <div style={{
-        background: "#ffffff",
-        border: "1.5px solid #bae6fd",
-        borderRadius: "14px",
-        padding: "20px 24px",
-        boxShadow: "0 4px 16px rgba(186, 230, 253, 0.25)"
-      }}>
+      <div className="benchmark-card-box">
         <div style={{
           display: "flex",
           alignItems: "center",
@@ -381,12 +372,13 @@ export const BenchmarksView: React.FC = () => {
           </h3>
         </div>
 
-        <div style={{ overflowX: "auto" }}>
+        <div className="table-responsive-scroll">
           <table style={{
             width: "100%",
             borderCollapse: "separate",
             borderSpacing: "0",
-            fontSize: "13px"
+            fontSize: "13px",
+            minWidth: "760px"
           }}>
             <thead>
               <tr style={{ background: "#f8fafc", color: "#1e293b", textAlign: "left" }}>
