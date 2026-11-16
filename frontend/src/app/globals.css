@@ -194,7 +194,6 @@ a {
   max-width: 175px;
   object-fit: contain;
   display: block;
-  mix-blend-mode: multiply;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
