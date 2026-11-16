@@ -315,7 +315,7 @@ export const BenchmarksView: React.FC = () => {
 
             {/* Footer Summary Row: Precision */}
             <tfoot>
-              <tr style={{ background: "#a7ebd9", fontWeight: 850 }}>
+              <tr className="benchmark-row-highlighted" style={{ background: "#a7ebd9", fontWeight: 850 }}>
                 <td style={{ textAlign: "left", padding: "14px 16px", color: "#051a15", fontWeight: 900, background: "#a7ebd9", borderTop: "2px solid rgba(0, 95, 80, 0.35)" }}>
                   Precision
                 </td>
@@ -480,37 +480,37 @@ export const BenchmarksView: React.FC = () => {
               </tr>
 
               {/* Milestone 8: TRI-MODEL ENSEMBLE (FINAL) - HIGHLIGHTED CLINICAL GRADE */}
-              <tr style={{
-                background: "#dcfce7",
-                border: "2px solid #16a34a",
+              <tr className="benchmark-row-highlighted" style={{
+                background: "#a7ebd9",
+                border: "2px solid #059669",
                 fontWeight: 800
               }}>
-                <td style={{ padding: "14px", display: "flex", alignItems: "center", gap: "8px", color: "#14532d" }}>
-                  <span style={{ width: "22px", height: "22px", borderRadius: "50%", background: "#16a34a", color: "#ffffff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 900, flexShrink: 0 }}>8</span>
-                  <span style={{ fontWeight: 900, color: "#14532d" }}>Tri-Model Ensemble (Final)</span>
+                <td style={{ padding: "14px", display: "flex", alignItems: "center", gap: "8px", color: "#051a15", background: "#a7ebd9" }}>
+                  <span style={{ width: "22px", height: "22px", borderRadius: "50%", background: "#051a15", color: "#02ffe0", border: "1px solid rgba(2, 255, 224, 0.4)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 900, flexShrink: 0 }}>8</span>
+                  <span style={{ fontWeight: 900, color: "#051a15" }}>Tri-Model Ensemble (Final)</span>
                   {/* Green Trophy Vector Icon */}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "2px" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "2px" }}>
                     <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
                     <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
                     <path d="M4 22h16" />
                     <path d="M10 14.66V17c0 .55-.45 1-1 1H7" />
                     <path d="M14 14.66V17c0 .55.45 1 1 1h2" />
-                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" fill="#16a34a" fillOpacity="0.25" />
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" fill="#047857" fillOpacity="0.25" />
                   </svg>
                 </td>
-                <td style={{ padding: "14px", color: "#14532d", fontWeight: 800 }}>
+                <td style={{ padding: "14px", color: "#051a15", fontWeight: 800, background: "#a7ebd9" }}>
                   Xception (10%) + EfficientNet (30%) + DenseNet (60%)
                 </td>
-                <td style={{ padding: "14px", color: "#14532d", fontWeight: 900, fontSize: "14px" }}>
+                <td style={{ padding: "14px", color: "#051a15", fontWeight: 900, fontSize: "14px", background: "#a7ebd9" }}>
                   90.16%
                 </td>
-                <td style={{ padding: "14px", color: "#14532d", fontWeight: 900, fontSize: "14px" }}>
+                <td style={{ padding: "14px", color: "#051a15", fontWeight: 900, fontSize: "14px", background: "#a7ebd9" }}>
                   99.62%
                 </td>
-                <td style={{ padding: "14px", color: "#14532d", fontWeight: 900, fontSize: "14px" }}>
+                <td style={{ padding: "14px", color: "#051a15", fontWeight: 900, fontSize: "14px", background: "#a7ebd9" }}>
                   0 (Zero)
                 </td>
-                <td style={{ padding: "14px", color: "#14532d", fontWeight: 850 }}>
+                <td style={{ padding: "14px", color: "#047857", fontWeight: 850, background: "#a7ebd9" }}>
                   Clinical Grade: Zero Missed Cancers
                 </td>
               </tr>

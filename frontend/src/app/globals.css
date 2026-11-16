@@ -2656,7 +2656,9 @@ a {
 }
 
 .table-card-frosted tfoot tr,
-.table-card-frosted tfoot td {
+.table-card-frosted tfoot td,
+.table-card-frosted .benchmark-row-highlighted,
+.table-card-frosted .benchmark-row-highlighted td {
   background: #a7ebd9 !important;
 }
 
