@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { DiagnosticStudio } from "@/components/DiagnosticStudio";
 import { BenchmarksView } from "@/components/BenchmarksView";
 import { ReportModal } from "@/components/ReportModal";
+import DarkVeil from "@/components/DarkVeil/DarkVeil";
 import { PredictionResult, ActiveScan } from "@/types/medical";
 
 export default function Home() {
@@ -33,10 +34,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Benchmark Section: Redesigned Pure Light-Theme Model Validation */}
-      <section id="benchmarks" className="section-anchor section-light section-benchmark">
+      {/* 3. Benchmark Section: Matches Hero Section Background */}
+      <section id="benchmarks" className="section-anchor section-benchmark">
         <span id="benchmark" />
-        <div className="section-container">
+        {/* DarkVeil WebGL background matching Hero Section */}
+        <div className="benchmark-darkveil-bg" aria-hidden="true">
+          <DarkVeil
+            color="#02ffe0"
+            speed={1}
+            scale={1.25}
+            flow={1.5}
+            warp={1}
+            variation={10}
+            sheen={1}
+            glow={0.75}
+            brightness={1.25}
+            grain={0.07}
+            fade={0.5}
+            opacity={0.5}
+            mouseInteraction={false}
+          />
+        </div>
+
+        <div className="section-container" style={{ position: "relative", zIndex: 1 }}>
           <div className="section-header-row">
             <div className="section-title-wrap">
               <span className="section-eyebrow">CLINICAL PERFORMANCE</span>
