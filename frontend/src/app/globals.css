@@ -2655,6 +2655,11 @@ a {
   overflow: hidden;
 }
 
+.table-card-frosted tfoot tr,
+.table-card-frosted tfoot td {
+  background: #a7ebd9 !important;
+}
+
 .benchmark-kpi-card {
   position: relative;
   border-radius: 14px;

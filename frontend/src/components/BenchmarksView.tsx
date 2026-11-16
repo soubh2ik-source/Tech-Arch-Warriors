@@ -315,15 +315,15 @@ export const BenchmarksView: React.FC = () => {
 
             {/* Footer Summary Row: Precision */}
             <tfoot>
-              <tr style={{ background: "#e6f7f2", fontWeight: 850 }}>
-                <td style={{ textAlign: "left", padding: "14px 16px", color: "#051a15", fontWeight: 900 }}>
+              <tr style={{ background: "#a7ebd9", fontWeight: 850 }}>
+                <td style={{ textAlign: "left", padding: "14px 16px", color: "#051a15", fontWeight: 900, background: "#a7ebd9", borderTop: "2px solid rgba(0, 95, 80, 0.35)" }}>
                   Precision
                 </td>
-                <td style={{ padding: "12px", color: "#051a15", fontWeight: 850 }}>90.43%</td>
-                <td style={{ padding: "12px", color: "#051a15", fontWeight: 850 }}>88.00%</td>
-                <td style={{ padding: "12px", color: "#15803d", fontWeight: 900 }}>100.00%</td>
-                <td style={{ padding: "12px", color: "#051a15", fontWeight: 850 }}>85.57%</td>
-                <td style={{ padding: "14px 16px", color: "#0369a1", fontWeight: 900, fontSize: "14px" }}>
+                <td style={{ padding: "12px", color: "#051a15", fontWeight: 850, background: "#a7ebd9", borderTop: "2px solid rgba(0, 95, 80, 0.35)" }}>90.43%</td>
+                <td style={{ padding: "12px", color: "#051a15", fontWeight: 850, background: "#a7ebd9", borderTop: "2px solid rgba(0, 95, 80, 0.35)" }}>88.00%</td>
+                <td style={{ padding: "12px", color: "#15803d", fontWeight: 900, background: "#a7ebd9", borderTop: "2px solid rgba(0, 95, 80, 0.35)" }}>100.00%</td>
+                <td style={{ padding: "12px", color: "#051a15", fontWeight: 850, background: "#a7ebd9", borderTop: "2px solid rgba(0, 95, 80, 0.35)" }}>85.57%</td>
+                <td style={{ padding: "14px 16px", color: "#0369a1", fontWeight: 900, fontSize: "14px", background: "#a7ebd9", borderTop: "2px solid rgba(0, 95, 80, 0.35)" }}>
                   Overall: 98.16%
                 </td>
               </tr>
