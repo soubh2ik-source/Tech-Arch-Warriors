@@ -667,54 +667,62 @@ a {
 
 /* Metrics Divider Rule */
 .hero-metrics-rule {
-  height: 2px;
-  background: linear-gradient(90deg, #02ffe0 0%, rgba(2, 255, 224, 0.5) 60%, transparent 100%);
-  width: 100%;
-  max-width: 500px;
-  margin-bottom: 24px;
-  box-shadow: 0 0 10px rgba(2, 255, 224, 0.4);
+  display: none;
 }
 
-/* 3-Column Metrics Grid */
+/* 3-Column Metrics Grid — Prominent Clinical Stat Cards */
 .hero-metrics-grid {
-  display: flex;
-  align-items: flex-start;
-  max-width: 500px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 530px;
   width: 100%;
   margin-bottom: 20px;
 }
 
 .hero-metric-cell {
-  flex: 1;
+  background: rgba(5, 13, 22, 0.78);
+  border: 2px solid rgba(2, 255, 224, 0.5);
+  border-radius: 14px;
+  padding: 14px 14px 12px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding-right: 16px;
+  justify-content: center;
+  gap: 4px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 14px rgba(2, 255, 224, 0.14);
+  transition: all var(--transition-fast);
+}
+
+.hero-metric-cell:hover {
+  border-color: #02ffe0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 24px rgba(2, 255, 224, 0.35);
 }
 
 .hero-metric-cell.divider-left {
-  border-left: 2px solid rgba(2, 255, 224, 0.65);
-  padding-left: 20px;
-  box-shadow: -1px 0 10px rgba(2, 255, 224, 0.35);
+  border: 2px solid rgba(2, 255, 224, 0.5);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 14px rgba(2, 255, 224, 0.14);
+  padding-left: 14px;
 }
 
 .hero-metric-number {
   font-family: var(--font-serif, "Playfair Display", Georgia, serif);
-  font-size: 34px;
+  font-size: 28px;
   font-weight: 850;
   color: #ffffff;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 24px rgba(2, 255, 224, 0.35);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 20px rgba(2, 255, 224, 0.35);
 }
 
 .hero-metric-caption {
   font-family: var(--font-sans);
-  font-size: 13px;
-  color: #e2e8f0;
+  font-size: 11.5px;
+  color: #cbd5e1;
   font-weight: 600;
-  line-height: 1.3;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.95);
+  line-height: 1.25;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
 }
 
 /* Footnote */
@@ -835,16 +843,20 @@ a {
     font-size: 13.5px;
   }
   .hero-metrics-rule {
-    margin-bottom: 18px;
+    display: none;
   }
   .hero-metrics-grid {
+    gap: 10px;
     margin-bottom: 16px;
   }
+  .hero-metric-cell {
+    padding: 12px 10px;
+  }
   .hero-metric-number {
-    font-size: 26px;
+    font-size: 24px;
   }
   .hero-metric-caption {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 }
 
@@ -877,14 +889,15 @@ a {
   .hero-metrics-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 10px;
+  }
+  .hero-metric-cell {
+    padding: 11px 10px;
   }
   .hero-metric-cell.divider-left {
-    border-left: 2px solid rgba(2, 255, 224, 0.65);
-    box-shadow: -1px 0 8px rgba(2, 255, 224, 0.35);
-    padding-left: 14px;
-    border-top: none;
-    padding-top: 0;
+    border: 2px solid rgba(2, 255, 224, 0.5);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 14px rgba(2, 255, 224, 0.14);
+    padding-left: 10px;
   }
 }
 
@@ -924,20 +937,19 @@ a {
     margin-bottom: 14px;
   }
   .hero-metric-cell {
-    padding-right: 6px;
+    padding: 9px 8px;
+    border-radius: 10px;
   }
   .hero-metric-cell.divider-left {
-    border-left: 2px solid rgba(2, 255, 224, 0.65);
-    box-shadow: -1px 0 8px rgba(2, 255, 224, 0.35);
-    padding-left: 10px;
-    border-top: none;
-    padding-top: 0;
+    border: 2px solid rgba(2, 255, 224, 0.5);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 14px rgba(2, 255, 224, 0.14);
+    padding-left: 8px;
   }
   .hero-metric-number {
-    font-size: 22px;
+    font-size: 20px;
   }
   .hero-metric-caption {
-    font-size: 10.5px;
+    font-size: 10px;
   }
   .hero-orbital-wrapper-outer {
     max-width: 310px;

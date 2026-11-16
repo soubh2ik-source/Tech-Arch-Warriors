@@ -83,22 +83,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </a>
           </div>
 
-          {/* Horizontal Metric Rule */}
-          <div className="hero-metrics-rule" />
-
-          {/* 3 Metrics Columns */}
+          {/* 3 Metrics Cards */}
           <div className="hero-metrics-grid">
             <div className="hero-metric-cell">
               <div className="hero-metric-number">96.4%</div>
               <div className="hero-metric-caption">Test accuracy</div>
             </div>
 
-            <div className="hero-metric-cell divider-left">
+            <div className="hero-metric-cell">
               <div className="hero-metric-number">99.62%</div>
               <div className="hero-metric-caption">Cancer sensitivity</div>
             </div>
 
-            <div className="hero-metric-cell divider-left">
+            <div className="hero-metric-cell">
               <div className="hero-metric-number">315</div>
               <div className="hero-metric-caption">Unseen patient scans</div>
             </div>
