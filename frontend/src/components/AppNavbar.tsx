@@ -118,25 +118,8 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
           />
         </div>
         <div className="navbar-container">
-          {/* Left: Clean Brand Logo + Text (PalmoAI) */}
-          <div className="navbar-left-group">
-            <Link 
-              href="/#overview" 
-              onClick={(e) => handleNavClick(e, "overview")}
-              className="navbar-brand-clean"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="/logo.png" 
-                alt="PalmoAI Logo" 
-                className="navbar-brand-img-clean"
-              />
-              <span className="navbar-brand-name">
-                <span className="brand-navy">Palmo</span>
-                <span className="brand-cyan">AI</span>
-              </span>
-            </Link>
-          </div>
+          {/* Left: Clear spacer keeping space clear and centered layout balanced */}
+          <div className="navbar-left-group" aria-hidden="true" />
 
           {/* Center Navigation Links: Overview, Technology, Benchmarks */}
           <nav className="navbar-links">
