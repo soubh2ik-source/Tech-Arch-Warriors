@@ -210,16 +210,16 @@ export const HeroOrbitalVisualizer: React.FC<HeroOrbitalVisualizerProps> = ({
           Brighter<br />
           Tomorrows
         </span>
-        <svg width="32" height="38" viewBox="0 0 32 38" fill="none" className="callout-arrow">
-          <path d="M4 4 C18 4, 28 16, 24 32" stroke="#475569" strokeWidth="1.6" strokeLinecap="round" />
-          <path d="M19 26 L24 32 L30 28" stroke="#475569" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="34" height="40" viewBox="0 0 32 38" fill="none" className="callout-arrow">
+          <path d="M4 4 C18 4, 28 16, 24 32" stroke="#02ffe0" strokeWidth="2" strokeLinecap="round" />
+          <path d="M19 26 L24 32 L30 28" stroke="#02ffe0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
 
       <div className="orbit-callout callout-bottom-left">
-        <svg width="32" height="38" viewBox="0 0 32 38" fill="none" className="callout-arrow">
-          <path d="M26 34 C12 34, 4 22, 8 6" stroke="#475569" strokeWidth="1.6" strokeLinecap="round" />
-          <path d="M3 12 L8 6 L14 10" stroke="#475569" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="34" height="40" viewBox="0 0 32 38" fill="none" className="callout-arrow">
+          <path d="M26 34 C12 34, 4 22, 8 6" stroke="#02ffe0" strokeWidth="2" strokeLinecap="round" />
+          <path d="M3 12 L8 6 L14 10" stroke="#02ffe0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         <span className="callout-text">
           AI<br />
