@@ -147,7 +147,7 @@ a {
   z-index: 1;
   max-width: 1360px;
   margin: 0 auto;
-  padding: 12px 32px;
+  padding: 10px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -189,9 +189,9 @@ a {
 }
 
 .navbar-brand-full-img {
-  height: 44px;
+  height: 62px;
   width: auto;
-  max-width: 175px;
+  max-width: 250px;
   object-fit: contain;
   display: block;
   transition: transform 0.2s ease, filter 0.2s ease;
@@ -343,8 +343,8 @@ a {
     height: 38px;
   }
   .navbar-brand-full-img {
-    height: 36px;
-    max-width: 140px;
+    height: 48px;
+    max-width: 190px;
   }
   .navbar-cta-pill {
     padding: 7px 14px;
@@ -357,8 +357,8 @@ a {
     display: none;
   }
   .navbar-brand-full-img {
-    height: 32px;
-    max-width: 120px;
+    height: 40px;
+    max-width: 155px;
   }
 }
 
