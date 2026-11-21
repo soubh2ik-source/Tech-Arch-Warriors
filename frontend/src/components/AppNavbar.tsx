@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SideRays from "./SideRays/SideRays";
+import CardNav, { CardNavItem } from "./CardNav/CardNav";
+
 interface AppNavbarProps {
   activeSection?: string;
   onSelectSection?: (sectionId: string) => void;
@@ -96,6 +98,77 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
     }
   };
 
+  // Curated clinical navigation cards for CardNav
+  const navItems: CardNavItem[] = [
+    {
+      label: "Overview & Platform",
+      description: "AI-assisted clinical diagnostic workstation for thoracic oncology.",
+      links: [
+        { label: "Clinical Overview", href: "/#overview" },
+        { label: "Tri-Ensemble Pipeline", href: "/#overview" },
+        { label: "Clinical Architecture", href: "/#benchmarks" }
+      ]
+    },
+    {
+      label: "Diagnostic Studio",
+      description: "Real-time chest CT inference across 4 histopathological categories.",
+      links: [
+        { label: "Upload & Classify Scan", href: "/#analysis" },
+        { label: "Pathology Subtypes (Adeno/Squamous/Large Cell)", href: "/#analysis" },
+        { label: "Generate Clinical Report", href: "/#analysis" }
+      ]
+    },
+    {
+      label: "Holdout Benchmarks",
+      description: "Validation on 315 unseen holdout patients with 99.62% cancer sensitivity.",
+      links: [
+        { label: "Holdout Performance Metrics", href: "/#benchmarks" },
+        { label: "Confusion Matrix & ROC", href: "/#benchmarks" },
+        { label: "315 Patient Summary", href: "/#benchmarks" }
+      ]
+    }
+  ];
+
+  // Quick 1-click links on the main bar
+  const quickLinks = [
+    {
+      label: "Overview",
+      href: "/#overview",
+      active: pathname === "/" && currentSection === "overview",
+      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => handleNavClick(e, "overview")
+    },
+    {
+      label: "Technology",
+      href: "/#analysis",
+      active: pathname === "/" && currentSection === "analysis",
+      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => handleNavClick(e, "analysis")
+    },
+    {
+      label: "Benchmarks",
+      href: "/#benchmarks",
+      active: pathname === "/" && (currentSection === "benchmarks" || currentSection === "benchmark"),
+      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => handleNavClick(e, "benchmarks")
+    }
+  ];
+
+  // Brand Logo Lockup positioned on the left side
+  const brandLogo = (
+    <div className="navbar-brand-clean">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img 
+        src="/logo_full.png" 
+        alt="PulmoAI" 
+        className="navbar-brand-full-img"
+        onError={(e) => {
+          const target = e.currentTarget;
+          if (!target.src.endsWith('/logo_full.jpg')) {
+            target.src = '/logo_full.jpg';
+          }
+        }}
+      />
+    </div>
+  );
+
   return (
     <>
       <header className="site-navbar">
@@ -117,76 +190,41 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
             opacity={0.9}
           />
         </div>
+
         <div className="navbar-container">
-          {/* Left: Brand Logo Full Lockup (logo_full.jpg) */}
-          <div className="navbar-left-group">
-            <Link 
-              href="/#overview" 
-              onClick={(e) => handleNavClick(e, "overview")}
-              className="navbar-brand-clean"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="/logo_full.png" 
-                alt="PulmoAI" 
-                className="navbar-brand-full-img"
-                onError={(e) => {
-                  const target = e.currentTarget;
-                  if (!target.src.endsWith('/logo_full.jpg')) {
-                    target.src = '/logo_full.jpg';
-                  }
-                }}
-              />
-            </Link>
-          </div>
-
-          {/* Center Navigation Links: Overview, Technology, Benchmarks */}
-          <nav className="navbar-links">
-            <Link
-              href="/#overview"
-              onClick={(e) => handleNavClick(e, "overview")}
-              className={`navbar-link ${pathname === "/" && currentSection === "overview" ? "active" : ""}`}
-            >
-              <span>Overview</span>
-              {pathname === "/" && currentSection === "overview" && (
-                <span className="navbar-active-cyan-bar" />
-              )}
-            </Link>
-            <Link
-              href="/#analysis"
-              onClick={(e) => handleNavClick(e, "analysis")}
-              className={`navbar-link ${pathname === "/" && currentSection === "analysis" ? "active" : ""}`}
-            >
-              <span>Technology</span>
-              {pathname === "/" && currentSection === "analysis" && (
-                <span className="navbar-active-cyan-bar" />
-              )}
-            </Link>
-            <Link
-              href="/#benchmarks"
-              onClick={(e) => handleNavClick(e, "benchmarks")}
-              className={`navbar-link ${pathname === "/" && (currentSection === "benchmarks" || currentSection === "benchmark") ? "active" : ""}`}
-            >
-              <span>Benchmarks</span>
-              {pathname === "/" && (currentSection === "benchmarks" || currentSection === "benchmark") && (
-                <span className="navbar-active-cyan-bar" />
-              )}
-            </Link>
-          </nav>
-
-          {/* Right Action: Open Diagnostic Studio Pill Button */}
-          <div className="navbar-actions">
-            <a 
-              href="/#analysis"
-              onClick={(e) => handleNavClick(e, "analysis")}
-              className="navbar-cta-pill"
-            >
-              <span>Open Diagnostic Studio</span>
-              <span className="navbar-cta-arrow">&rarr;</span>
-            </a>
-          </div>
+          {/* CardNav with branding docked on the left, quick links + menu toggle, and CTA button */}
+          <CardNav
+            logo={brandLogo}
+            logoAlt="PulmoAI"
+            logoHref="/#overview"
+            logoPosition="left"
+            quickLinks={quickLinks}
+            items={navItems}
+            cta={{
+              label: "Open Diagnostic Studio →",
+              href: "/#analysis",
+              onClick: (e) => handleNavClick(e as any, "analysis")
+            }}
+            cardEffect="rise"
+            openOn="click"
+            surface="glass"
+            stagger={0.12}
+            bounce={0.25}
+            cardHeight={185}
+            maxWidth={1360}
+            theme="pulmo"
+            linkComponent={Link}
+            onLinkClick={(link, _item, event) => {
+              if (link.href && link.href.startsWith("/#")) {
+                const sec = link.href.replace("/#", "");
+                handleNavClick(event as any, sec);
+              }
+            }}
+          />
         </div>
       </header>
     </>
   );
 };
+
+export default AppNavbar;

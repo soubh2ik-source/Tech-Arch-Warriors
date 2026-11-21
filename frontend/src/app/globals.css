@@ -138,7 +138,7 @@ a {
   border-bottom: 2.5px solid rgba(0, 100, 85, 0.85);
   box-shadow: 0 4px 22px rgba(0, 30, 25, 0.35), 0 0 16px rgba(2, 255, 224, 0.4);
   transition: all var(--transition-fast);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .navbar-siderays-bg {
@@ -150,10 +150,7 @@ a {
   z-index: 1;
   max-width: 1360px;
   margin: 0 auto;
-  padding: 10px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  padding: 8px 16px;
 }
 
 .navbar-left-group {
