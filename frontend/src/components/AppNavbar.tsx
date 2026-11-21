@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import SideRays from "./SideRays/SideRays";
 import CardNav, { CardNavItem } from "./CardNav/CardNav";
 
 interface AppNavbarProps {
@@ -98,7 +97,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
     }
   };
 
-  // Curated clinical navigation cards for CardNav
+  // Curated clinical navigation cards for CardNav dropdown
   const navItems: CardNavItem[] = [
     {
       label: "Overview & Platform",
@@ -114,7 +113,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
       description: "Real-time chest CT inference across 4 histopathological categories.",
       links: [
         { label: "Upload & Classify Scan", href: "/#analysis" },
-        { label: "Pathology Subtypes (Adeno/Squamous/Large Cell)", href: "/#analysis" },
+        { label: "Histopathology Subtyping", href: "/#analysis" },
         { label: "Generate Clinical Report", href: "/#analysis" }
       ]
     },
@@ -126,28 +125,6 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
         { label: "Confusion Matrix & ROC", href: "/#benchmarks" },
         { label: "315 Patient Summary", href: "/#benchmarks" }
       ]
-    }
-  ];
-
-  // Quick 1-click links on the main bar
-  const quickLinks = [
-    {
-      label: "Overview",
-      href: "/#overview",
-      active: pathname === "/" && currentSection === "overview",
-      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => handleNavClick(e, "overview")
-    },
-    {
-      label: "Technology",
-      href: "/#analysis",
-      active: pathname === "/" && currentSection === "analysis",
-      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => handleNavClick(e, "analysis")
-    },
-    {
-      label: "Benchmarks",
-      href: "/#benchmarks",
-      active: pathname === "/" && (currentSection === "benchmarks" || currentSection === "benchmark"),
-      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => handleNavClick(e, "benchmarks")
     }
   ];
 
@@ -170,60 +147,35 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
   );
 
   return (
-    <>
-      <header className="site-navbar">
-        {/* SideRays WebGL background — absolute fill behind navbar content */}
-        <div className="navbar-siderays-bg" aria-hidden="true">
-          <SideRays
-            rayColor1="#02ffe0"
-            rayColor2="#ffffff"
-            origin="right"
-            speed={1.2}
-            intensity={2.5}
-            spread={4}
-            density={10}
-            followMouse={false}
-            blend={0.5}
-            tilt={-20}
-            falloff={0.3}
-            glow={0.75}
-            opacity={0.9}
-          />
-        </div>
-
-        <div className="navbar-container">
-          {/* CardNav with branding docked on the left, quick links + menu toggle, and CTA button */}
-          <CardNav
-            logo={brandLogo}
-            logoAlt="PulmoAI"
-            logoHref="/#overview"
-            logoPosition="left"
-            quickLinks={quickLinks}
-            items={navItems}
-            cta={{
-              label: "Open Diagnostic Studio →",
-              href: "/#analysis",
-              onClick: (e) => handleNavClick(e as any, "analysis")
-            }}
-            cardEffect="rise"
-            openOn="click"
-            surface="glass"
-            stagger={0.12}
-            bounce={0.25}
-            cardHeight={185}
-            maxWidth={1360}
-            theme="pulmo"
-            linkComponent={Link}
-            onLinkClick={(link, _item, event) => {
-              if (link.href && link.href.startsWith("/#")) {
-                const sec = link.href.replace("/#", "");
-                handleNavClick(event as any, sec);
-              }
-            }}
-          />
-        </div>
-      </header>
-    </>
+    <header className="site-navbar">
+      <div className="navbar-container">
+        {/* CardNav with textured cyan background, left branding, Menu toggle, and CTA button */}
+        <CardNav
+          logo={brandLogo}
+          logoAlt="PulmoAI"
+          logoHref="/#overview"
+          items={navItems}
+          cta={{
+            label: "Open Diagnostic Studio →",
+            href: "/#analysis",
+            onClick: (e) => handleNavClick(e as any, "analysis")
+          }}
+          cardEffect="rise"
+          openOn="click"
+          stagger={0.12}
+          bounce={0.25}
+          cardHeight={185}
+          maxWidth={1360}
+          linkComponent={Link}
+          onLinkClick={(link, _item, event) => {
+            if (link.href && link.href.startsWith("/#")) {
+              const sec = link.href.replace("/#", "");
+              handleNavClick(event as any, sec);
+            }
+          }}
+        />
+      </div>
+    </header>
   );
 };
 

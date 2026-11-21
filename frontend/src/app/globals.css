@@ -119,26 +119,16 @@ a {
    ========================================================================== */
 
 .site-navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #02ffe0;
-  background-image:
-    repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.38) 0px,
-      transparent 2.5px,
-      rgba(0, 45, 38, 0.28) 5px,
-      transparent 7.5px,
-      rgba(255, 255, 255, 0.38) 10px),
-    url('/navbar-texture.png');
-  background-repeat: repeat, repeat;
-  background-size: auto, 100px 89px;
-  border-bottom: 2.5px solid rgba(0, 100, 85, 0.85);
-  box-shadow: 0 4px 22px rgba(0, 30, 25, 0.35), 0 0 16px rgba(2, 255, 224, 0.4);
-  transition: all var(--transition-fast);
+  background: transparent;
+  pointer-events: none;
+  padding: 16px 24px 0;
   overflow: visible;
+  transition: all var(--transition-fast);
 }
 
 .navbar-siderays-bg {
@@ -150,7 +140,9 @@ a {
   z-index: 1;
   max-width: 1360px;
   margin: 0 auto;
-  padding: 8px 16px;
+  padding: 0;
+  pointer-events: auto;
+  overflow: visible;
 }
 
 .navbar-left-group {
@@ -494,7 +486,7 @@ a {
 .hero-editorial-section {
   background: #050d16;
   color: #0c1a2d;
-  padding: 48px 32px 72px;
+  padding: 104px 32px 72px;
   position: relative;
   overflow: hidden;
   border-bottom: 2px solid rgba(2, 255, 224, 0.35);
@@ -825,7 +817,7 @@ a {
   }
 
   .hero-editorial-section {
-    padding: 36px 24px 52px;
+    padding: 96px 24px 52px;
   }
 
   .hero-editorial-container {
@@ -901,7 +893,7 @@ a {
   }
 
   .hero-editorial-section {
-    padding: 32px 20px 48px;
+    padding: 90px 20px 48px;
   }
 
   .hero-editorial-container {
@@ -943,7 +935,7 @@ a {
 /* Mobile Phones (< 640px) */
 @media (max-width: 640px) {
   .hero-editorial-section {
-    padding: 24px 16px 40px;
+    padding: 84px 16px 40px;
   }
 
   .hero-editorial-title {

@@ -38,19 +38,10 @@ export interface CardNavCta {
   onClick?: (event: MouseEvent) => void;
 }
 
-export interface CardNavQuickLink {
-  label: string;
-  href: string;
-  active?: boolean;
-  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
-}
-
 export interface CardNavProps {
   logo?: ReactNode;
   logoAlt?: string;
   logoHref?: string;
-  logoPosition?: 'left' | 'center';
-  quickLinks?: CardNavQuickLink[];
   items?: CardNavItem[];
   cta?: CardNavCta;
   theme?: 'dark' | 'light' | 'pulmo';
@@ -74,63 +65,6 @@ export interface CardNavProps {
   className?: string;
   style?: CSSProperties;
 }
-
-const THEMES: Record<string, Record<string, string>> = {
-  pulmo: {
-    '--cn-panel': 'rgba(8, 22, 30, 0.88)',
-    '--cn-solid': '#08161e',
-    '--cn-edge': 'rgba(2, 255, 224, 0.35)',
-    '--cn-highlight': 'rgba(255, 255, 255, 0.18)',
-    '--cn-shadow': '0 20px 48px -12px rgba(0, 30, 25, 0.65), 0 0 24px rgba(2, 255, 224, 0.25)',
-    '--cn-text': '#ffffff',
-    '--cn-muted': 'rgba(224, 254, 248, 0.75)',
-    '--cn-hover': 'rgba(2, 255, 224, 0.12)',
-    '--cn-ring': 'rgba(2, 255, 224, 0.75)',
-    '--cn-tile': 'linear-gradient(180deg, #0e222a 0%, #07151c 100%)',
-    '--cn-tile-rim':
-      'inset 0 0 0 1px rgba(2, 255, 224, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 6px 18px -4px rgba(0, 0, 0, 0.6)',
-    '--cn-cta': 'linear-gradient(180deg, #02ffe0 0%, #00d6bd 100%)',
-    '--cn-cta-ink': '#041d1a',
-    '--cn-cta-shadow': 'inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 6px 16px -4px rgba(0, 50, 40, 0.4)',
-    '--cn-cta-hover': 'brightness(1.08)'
-  },
-  dark: {
-    '--cn-panel': 'rgba(38, 35, 46, 0.72)',
-    '--cn-solid': '#26232e',
-    '--cn-edge': 'rgba(255, 255, 255, 0.08)',
-    '--cn-highlight': 'rgba(255, 255, 255, 0.07)',
-    '--cn-shadow': '0 24px 48px -20px rgba(0, 0, 0, 0.8), 0 6px 16px -8px rgba(0, 0, 0, 0.5)',
-    '--cn-text': '#f4f4f5',
-    '--cn-muted': 'rgba(244, 244, 245, 0.56)',
-    '--cn-hover': 'rgba(255, 255, 255, 0.06)',
-    '--cn-ring': 'rgba(244, 244, 245, 0.55)',
-    '--cn-tile': 'linear-gradient(180deg, #34303d 0%, #27242f 100%)',
-    '--cn-tile-rim':
-      'inset 0 0 0 1px rgba(255, 255, 255, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 10px -4px rgba(0, 0, 0, 0.6)',
-    '--cn-cta': 'linear-gradient(180deg, #ffffff 0%, #ebebf0 100%)',
-    '--cn-cta-ink': '#121016',
-    '--cn-cta-shadow': 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 6px 16px -6px rgba(0, 0, 0, 0.6)',
-    '--cn-cta-hover': 'brightness(0.94)'
-  },
-  light: {
-    '--cn-panel': 'rgba(244, 244, 246, 0.84)',
-    '--cn-solid': '#f4f4f6',
-    '--cn-edge': 'rgba(24, 24, 27, 0.07)',
-    '--cn-highlight': 'rgba(255, 255, 255, 0.95)',
-    '--cn-shadow': '0 24px 48px -24px rgba(24, 24, 27, 0.3), 0 6px 16px -10px rgba(24, 24, 27, 0.16)',
-    '--cn-text': '#18181b',
-    '--cn-muted': 'rgba(24, 24, 27, 0.56)',
-    '--cn-hover': 'rgba(24, 24, 27, 0.05)',
-    '--cn-ring': 'rgba(24, 24, 27, 0.45)',
-    '--cn-tile': 'linear-gradient(180deg, #ffffff 0%, #f8f8fa 100%)',
-    '--cn-tile-rim':
-      'inset 0 0 0 1px rgba(24, 24, 27, 0.07), inset 0 1px 0 rgba(255, 255, 255, 1), 0 4px 10px -5px rgba(24, 24, 27, 0.22)',
-    '--cn-cta': 'linear-gradient(180deg, #2c2c31 0%, #18181b 100%)',
-    '--cn-cta-ink': '#ffffff',
-    '--cn-cta-shadow': 'inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 6px 14px -6px rgba(24, 24, 27, 0.45)',
-    '--cn-cta-hover': 'brightness(1.25)'
-  }
-};
 
 const ROOT = 'card-nav';
 const PANEL = 'card-nav__panel';
@@ -163,25 +97,25 @@ const DEFAULT_ITEMS: CardNavItem[] = [
     label: 'Overview & Platform',
     description: 'AI-assisted clinical diagnostic workstation for thoracic oncology.',
     links: [
-      { label: 'Platform Overview', href: '/#overview' },
+      { label: 'Clinical Overview', href: '/#overview' },
       { label: 'Tri-Ensemble Pipeline', href: '/#overview' },
-      { label: 'System Architecture', href: '/#benchmarks' }
+      { label: 'Clinical Architecture', href: '/#benchmarks' }
     ]
   },
   {
     label: 'Diagnostic Studio',
-    description: 'Instant CT slice inference across 4 histopathological categories.',
+    description: 'Real-time chest CT inference across 4 histopathological categories.',
     links: [
       { label: 'Upload & Classify Scan', href: '/#analysis' },
-      { label: 'Nodule & Malignancy Subtypes', href: '/#analysis' },
+      { label: 'Histopathology Subtyping', href: '/#analysis' },
       { label: 'Generate Clinical Report', href: '/#analysis' }
     ]
   },
   {
     label: 'Holdout Benchmarks',
-    description: 'Validated on 315 unseen holdout patients with 99.62% sensitivity.',
+    description: 'Validation on 315 unseen holdout patients with 99.62% cancer sensitivity.',
     links: [
-      { label: 'Evaluation Metrics', href: '/#benchmarks' },
+      { label: 'Holdout Performance Metrics', href: '/#benchmarks' },
       { label: 'Confusion Matrix & ROC', href: '/#benchmarks' },
       { label: '315 Patient Summary', href: '/#benchmarks' }
     ]
@@ -192,47 +126,20 @@ const NARROW = 680;
 const EASE_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-
 const easeOut = (t: number) => 1 - (1 - t) ** 3;
-
-const contrastInk = (color?: string) => {
-  const hex = String(color || '')
-    .trim()
-    .replace('#', '');
-  if (!/^([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) return null;
-  const full =
-    hex.length === 3
-      ? hex
-          .split('')
-          .map(c => c + c)
-          .join('')
-      : hex;
-  const channel = (index: number) => {
-    const value = parseInt(full.slice(index, index + 2), 16) / 255;
-    return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
-  };
-  const luminance = 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
-  return luminance > 0.36 ? '#121016' : '#ffffff';
-};
 
 export const CardNav: React.FC<CardNavProps> = ({
   logo,
   logoAlt = 'PulmoAI',
   logoHref = '/#overview',
-  logoPosition = 'left',
-  quickLinks = [],
   items = DEFAULT_ITEMS,
   cta,
-  theme = 'pulmo',
-  surface = 'glass',
-  openOn = 'click',
   cardEffect = 'rise',
   stagger = 0.12,
   bounce = 0.25,
   speed = 1,
-  cardHeight = 180,
+  cardHeight = 185,
   maxWidth = 1360,
-  accentColor,
   menuLabel = true,
   intro = true,
   defaultOpen = false,
@@ -272,28 +179,15 @@ export const CardNav: React.FC<CardNavProps> = ({
   const settingsRef = useRef(settings);
   settingsRef.current = settings;
 
-  const palette = THEMES[theme] ?? THEMES.pulmo ?? THEMES.dark;
   const vars: Record<string, string> = {
-    ...palette,
     '--cn-max': `${maxWidth}px`,
     '--cn-bar': '64px',
     '--cn-inset': '8px',
-    '--cn-gap': '10px',
+    '--cn-gap': '12px',
     '--cn-radius': '20px',
     '--cn-logo': '48px',
     '--cn-card': `${cardHeight}px`
   };
-  if (surface === 'glass') vars['--cn-blur'] = 'blur(16px) saturate(1.5)';
-  if (surface === 'solid') {
-    vars['--cn-panel'] = palette['--cn-solid'];
-    vars['--cn-blur'] = 'none';
-  }
-  if (accentColor) {
-    vars['--cn-cta'] = accentColor;
-    vars['--cn-cta-ink'] = contrastInk(accentColor) || '#041d1a';
-    vars['--cn-cta-shadow'] = 'inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 6px 16px -6px rgba(0, 0, 0, 0.45)';
-    vars['--cn-cta-hover'] = 'brightness(1.08)';
-  }
 
   const setOpen = (next: boolean) => {
     if (next === open) return;
@@ -466,20 +360,6 @@ export const CardNav: React.FC<CardNavProps> = ({
     });
   }, []);
 
-  const hover = openOn === 'hover';
-
-  const onPointerEnter = (event: React.PointerEvent) => {
-    if (!hover || event.pointerType === 'touch') return;
-    window.clearTimeout(leaveRef.current);
-    setOpen(true);
-  };
-
-  const onPointerLeave = (event: React.PointerEvent) => {
-    if (!hover || event.pointerType === 'touch') return;
-    window.clearTimeout(leaveRef.current);
-    leaveRef.current = window.setTimeout(() => setOpenRef.current(false), 160);
-  };
-
   const anchor = (target: { href?: string }, props: Record<string, any>, children: ReactNode) => {
     if (!target.href) {
       return (
@@ -509,21 +389,17 @@ export const CardNav: React.FC<CardNavProps> = ({
       target.label
     );
 
-  const isLeftLogo = logoPosition === 'left';
-
   return (
     <div
       ref={rootRef}
-      className={[ROOT, isLeftLogo ? 'card-nav--left-logo' : '', className].filter(Boolean).join(' ')}
+      className={[ROOT, className].filter(Boolean).join(' ')}
       data-open={open ? '' : undefined}
       data-shown={shown || open ? '' : undefined}
       data-narrow={narrow ? '' : undefined}
       style={{ ...(vars as CSSProperties), ...style }}
-      onPointerEnter={onPointerEnter}
-      onPointerLeave={onPointerLeave}
     >
       <nav ref={panelRef} className={PANEL} aria-label={ariaLabel}>
-        <div ref={barRef} className={[BAR, isLeftLogo ? 'card-nav__bar--left-logo' : ''].join(' ')}>
+        <div ref={barRef} className={BAR}>
           {/* 1. Left: Brand Logo Lockup */}
           {logo && (
             <LinkComponent href={logoHref} className={LOGO} aria-label={logoAlt}>
@@ -531,24 +407,8 @@ export const CardNav: React.FC<CardNavProps> = ({
             </LinkComponent>
           )}
 
-          {/* 2. Center: Quick direct links (if provided) + Menu Toggle Button */}
-          <div className="card-nav__center-group">
-            {quickLinks.length > 0 && !narrow && (
-              <div className="card-nav__quick-links">
-                {quickLinks.map(ql => (
-                  <LinkComponent
-                    key={ql.label}
-                    href={ql.href}
-                    onClick={ql.onClick}
-                    className={`card-nav__quick-link ${ql.active ? 'active' : ''}`}
-                  >
-                    <span>{ql.label}</span>
-                    {ql.active && <span className="card-nav__quick-link-indicator" />}
-                  </LinkComponent>
-                ))}
-              </div>
-            )}
-
+          {/* 2. Right Group: Menu Button + CTA Button */}
+          <div className="card-nav__right-group">
             <button
               ref={menuRef}
               type="button"
@@ -574,10 +434,9 @@ export const CardNav: React.FC<CardNavProps> = ({
                 </span>
               )}
             </button>
-          </div>
 
-          {/* 3. Right: CTA Button */}
-          {cta && !narrow && ctaButton(cta, false)}
+            {cta && !narrow && ctaButton(cta, false)}
+          </div>
         </div>
 
         {/* Expandable Dropdown Cards */}
