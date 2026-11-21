@@ -29,11 +29,13 @@ export const metadata: Metadata = {
   description: "AI-assisted analysis of chest CT images, classifying pulmonary scans across four diagnostic categories with 90.16% accuracy.",
   icons: {
     icon: [
-      { url: "/favicon.png?v=2", type: "image/png" },
-      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/favicon-32x32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png?v=3", sizes: "16x16", type: "image/png" },
+      { url: "/favicon.png?v=3", type: "image/png" },
+      { url: "/favicon.ico?v=3", sizes: "any" },
     ],
-    shortcut: "/favicon.png?v=2",
-    apple: "/favicon.png?v=2",
+    shortcut: "/favicon-32x32.png?v=3",
+    apple: "/apple-touch-icon.png?v=3",
   },
 };
 
