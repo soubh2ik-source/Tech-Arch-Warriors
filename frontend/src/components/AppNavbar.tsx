@@ -128,7 +128,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src="/logo_full.png" 
-                alt="PalmoAI" 
+                alt="PulmoAI" 
                 className="navbar-brand-full-img"
                 onError={(e) => {
                   const target = e.currentTarget;

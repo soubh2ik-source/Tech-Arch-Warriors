@@ -25,7 +25,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "PalmoAI — Precision Clinical Thoracic Oncology",
+  title: "PulmoAI — AI-Powered Early Lung Cancer Detection",
   description: "AI-assisted analysis of chest CT images, classifying pulmonary scans across four diagnostic categories with 90.16% accuracy.",
   icons: {
     icon: [
