@@ -32,8 +32,8 @@
 .orbit-ring.ring-outer {
   width: 350px;
   height: 350px;
-  border: 2px dashed rgba(2, 255, 224, 0.6);
-  filter: drop-shadow(0 0 8px rgba(2, 255, 224, 0.4));
+  border: 2px dashed rgba(2, 200, 175, 0.42);
+  filter: drop-shadow(0 0 6px rgba(2, 200, 175, 0.28));
 }
 
 .orbit-ring.ring-mid {
@@ -48,8 +48,8 @@
   height: 180px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(56, 189, 248, 0.5) 0%, rgba(2, 132, 199, 0.25) 55%, transparent 75%);
-  border: 2.5px solid #02ffe0;
-  box-shadow: 0 0 45px rgba(2, 255, 224, 0.45), inset 0 0 25px rgba(2, 255, 224, 0.25);
+  border: 2.5px solid #1dd9c4;
+  box-shadow: 0 0 32px rgba(2, 200, 175, 0.32), inset 0 0 18px rgba(2, 200, 175, 0.16);
 }
 
 /* Ambient Sparkles */
@@ -61,11 +61,11 @@
   animation: sparkle-twinkle 4s ease-in-out infinite;
 }
 
-.orbit-sparkle.sp-1 { top: 40px; right: 110px; font-size: 14px; color: #02ffe0; opacity: 0.9; text-shadow: 0 0 10px #02ffe0; animation-delay: 0.5s; }
-.orbit-sparkle.sp-2 { top: 90px; left: 55px; font-size: 16px; color: #fbbf24; opacity: 0.95; text-shadow: 0 0 12px #fbbf24; animation-delay: 1.2s; }
-.orbit-sparkle.sp-3 { bottom: 90px; right: 65px; font-size: 15px; color: #02ffe0; opacity: 0.9; text-shadow: 0 0 10px #02ffe0; animation-delay: 2s; }
-.orbit-sparkle.sp-4 { bottom: 20px; left: 105px; font-size: 15px; color: #02ffe0; opacity: 0.85; text-shadow: 0 0 10px #02ffe0; animation-delay: 0.8s; }
-.orbit-sparkle.sp-5 { top: 105px; right: 75px; font-size: 13px; color: #38bdf8; opacity: 0.9; text-shadow: 0 0 10px #38bdf8; animation-delay: 1.8s; }
+.orbit-sparkle.sp-1 { top: 40px; right: 110px; font-size: 14px; color: #1de9d4; opacity: 0.7; text-shadow: 0 0 8px #1de9d4; animation-delay: 0.5s; }
+.orbit-sparkle.sp-2 { top: 90px; left: 55px; font-size: 16px; color: #fbbf24; opacity: 0.8; text-shadow: 0 0 10px #fbbf24; animation-delay: 1.2s; }
+.orbit-sparkle.sp-3 { bottom: 90px; right: 65px; font-size: 15px; color: #1de9d4; opacity: 0.7; text-shadow: 0 0 8px #1de9d4; animation-delay: 2s; }
+.orbit-sparkle.sp-4 { bottom: 20px; left: 105px; font-size: 15px; color: #1de9d4; opacity: 0.65; text-shadow: 0 0 8px #1de9d4; animation-delay: 0.8s; }
+.orbit-sparkle.sp-5 { top: 105px; right: 75px; font-size: 13px; color: #38bdf8; opacity: 0.75; text-shadow: 0 0 8px #38bdf8; animation-delay: 1.8s; }
 
 @keyframes sparkle-twinkle {
   0%, 100% { opacity: 0.5; transform: scale(0.9); }
@@ -78,8 +78,8 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #02ffe0;
-  box-shadow: 0 0 12px #02ffe0;
+  background: #1de9d4;
+  box-shadow: 0 0 8px #1de9d4;
   pointer-events: none;
 }
 
@@ -203,9 +203,9 @@
 
 /* CARD CONTENT (Counter-rotates so it stays completely upright and level) */
 .orbit-card-content {
-  background: #d0fcf4;
-  border: 2px solid #02ffe0;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(2, 255, 224, 0.45);
+  background: #c8ede6;
+  border: 2px solid #1dd9c4;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5), 0 0 14px rgba(2, 200, 175, 0.3);
   border-radius: 12px;
   padding: 6px 13px;
   display: flex;
@@ -220,7 +220,7 @@
 
 .orbit-card-content:hover {
   border-color: #ffffff;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 28px rgba(2, 255, 224, 0.75);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(2, 200, 175, 0.5);
   transform: scale(1.06);
 }
 
@@ -238,13 +238,13 @@
   height: 28px;
   border-radius: 8px;
   background: #051a15;
-  border: 1.5px solid rgba(2, 255, 224, 0.5);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  border: 1.5px solid rgba(2, 200, 175, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #02ffe0;
+  color: #1dd9c4;
 }
 
 .orbit-card-text {
