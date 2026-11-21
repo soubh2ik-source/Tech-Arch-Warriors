@@ -151,7 +151,7 @@ export const BenchmarksView: React.FC = () => {
       {/* ========================================================================= */}
       {/* MIDDLE SECTION: MULTI-CLASS HOLDOUT CONFUSION MATRIX                      */}
       {/* ========================================================================= */}
-      <div className="benchmark-card-box">
+      <div id="confusion-matrix" className="benchmark-card-box">
         <div style={{
           display: "flex",
           justifyContent: "space-between",
@@ -340,7 +340,7 @@ export const BenchmarksView: React.FC = () => {
       {/* ========================================================================= */}
       {/* BOTTOM SECTION: ARCHITECTURAL EVOLUTION: STEP-BY-STEP MILESTONES          */}
       {/* ========================================================================= */}
-      <div className="benchmark-card-box">
+      <div id="patient-summary" className="benchmark-card-box">
         <div style={{
           display: "flex",
           alignItems: "center",

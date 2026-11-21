@@ -301,6 +301,30 @@
   gap: 6px;
 }
 
+.card-nav__card-title-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  width: fit-content;
+}
+
+.card-nav__card-title-link:hover {
+  color: #02ffe0;
+}
+
+.card-nav__head-arrow {
+  color: #02ffe0;
+  transition: transform 0.2s ease;
+}
+
+.card-nav__card-title-link:hover .card-nav__head-arrow {
+  transform: translate(2px, -2px);
+}
+
 .card-nav__label {
   font-size: 16.5px;
   font-weight: 700;

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CardNav, { CardNavItem } from "./CardNav/CardNav";
 
 interface AppNavbarProps {
@@ -14,6 +14,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
   activeSection = "overview",
   onSelectSection
 }) => {
+  const router = useRouter();
   const pathname = usePathname();
   const [currentSection, setCurrentSection] = useState(activeSection);
   const [backendStatus, setBackendStatus] = useState<{
@@ -57,6 +58,25 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
     setCurrentSection(activeSection);
   }, [activeSection]);
 
+  // Handle initial hash navigation when entering or route switching
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hashId = window.location.hash.replace("#", "");
+      const timer = setTimeout(() => {
+        const el = document.getElementById(hashId) || (hashId === "benchmarks" ? document.getElementById("benchmark") : null);
+        if (el) {
+          const navbarOffset = 80;
+          const targetPos = el.getBoundingClientRect().top + window.pageYOffset - navbarOffset;
+          window.scrollTo({
+            top: Math.max(0, targetPos),
+            behavior: "smooth"
+          });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname]);
+
   // Track active section on scroll if on home page
   useEffect(() => {
     if (pathname !== "/") return;
@@ -82,18 +102,36 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    if (pathname === "/") {
+  const handleNavClick = (e: React.MouseEvent<any> | null, targetUrl: string) => {
+    if (e && typeof e.preventDefault === "function") {
       e.preventDefault();
-      setCurrentSection(sectionId);
+    }
+
+    // Direct standalone route transition (/architecture, /pathology, /benchmarks, /analysis)
+    if (!targetUrl.startsWith("#") && !targetUrl.startsWith("/#") && targetUrl.startsWith("/")) {
+      router.push(targetUrl);
+      return;
+    }
+
+    const sectionId = targetUrl.replace(/^(\/)?#/, "");
+    setCurrentSection(sectionId);
+
+    if (pathname === "/") {
       if (onSelectSection) {
         onSelectSection(sectionId);
       } else {
         const el = document.getElementById(sectionId) || (sectionId === "benchmarks" ? document.getElementById("benchmark") : null);
         if (el) {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          const navbarOffset = 80;
+          const targetPos = el.getBoundingClientRect().top + window.pageYOffset - navbarOffset;
+          window.scrollTo({
+            top: Math.max(0, targetPos),
+            behavior: "smooth"
+          });
         }
       }
+    } else {
+      router.push(`/#${sectionId}`);
     }
   };
 
@@ -101,29 +139,32 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
   const navItems: CardNavItem[] = [
     {
       label: "Overview & Platform",
+      href: "/#overview",
       description: "AI-assisted clinical diagnostic workstation for thoracic oncology.",
       links: [
         { label: "Clinical Overview", href: "/#overview" },
-        { label: "Tri-Ensemble Pipeline", href: "/#overview" },
-        { label: "Clinical Architecture", href: "/#benchmarks" }
+        { label: "Tri-Ensemble Pipeline", href: "/architecture" },
+        { label: "Clinical Architecture", href: "/architecture" }
       ]
     },
     {
       label: "Diagnostic Studio",
+      href: "/#analysis",
       description: "Real-time chest CT inference across 4 histopathological categories.",
       links: [
         { label: "Upload & Classify Scan", href: "/#analysis" },
-        { label: "Histopathology Subtyping", href: "/#analysis" },
+        { label: "Histopathology Subtyping", href: "/pathology" },
         { label: "Generate Clinical Report", href: "/#analysis" }
       ]
     },
     {
       label: "Holdout Benchmarks",
+      href: "/#benchmarks",
       description: "Validation on 315 unseen holdout patients with 99.62% cancer sensitivity.",
       links: [
         { label: "Holdout Performance Metrics", href: "/#benchmarks" },
-        { label: "Confusion Matrix & ROC", href: "/#benchmarks" },
-        { label: "315 Patient Summary", href: "/#benchmarks" }
+        { label: "Confusion Matrix & ROC", href: "/#confusion-matrix" },
+        { label: "315 Patient Summary", href: "/benchmarks" }
       ]
     }
   ];
@@ -158,7 +199,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
           cta={{
             label: "Open Diagnostic Studio →",
             href: "/#analysis",
-            onClick: (e) => handleNavClick(e as any, "analysis")
+            onClick: (e) => handleNavClick(e as any, "/#analysis")
           }}
           cardEffect="rise"
           openOn="click"
@@ -168,9 +209,8 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
           maxWidth={1360}
           linkComponent={Link}
           onLinkClick={(link, _item, event) => {
-            if (link.href && link.href.startsWith("/#")) {
-              const sec = link.href.replace("/#", "");
-              handleNavClick(event as any, sec);
+            if (link.href) {
+              handleNavClick(event as any, link.href);
             }
           }}
         />

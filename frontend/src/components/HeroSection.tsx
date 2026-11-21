@@ -22,7 +22,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section className="hero-editorial-section" id="overview">
+    <section className="hero-editorial-section">
       {/* DarkVeil WebGL background — absolute fill behind all content */}
       <div className="hero-darkveil-bg" aria-hidden="true">
         <DarkVeil

@@ -30,6 +30,8 @@ export interface CardNavItem {
   bgColor?: string;
   textColor?: string;
   links?: CardNavLink[];
+  href?: string;
+  onClick?: (event: MouseEvent) => void;
 }
 
 export interface CardNavCta {
@@ -453,7 +455,22 @@ export const CardNav: React.FC<CardNavProps> = ({
                 style={item.bgColor ? { background: item.bgColor, color: item.textColor } : undefined}
               >
                 <div className={CARD_HEAD}>
-                  <span className={LABEL}>{item.label}</span>
+                  {item.href ? (
+                    <LinkComponent
+                      href={item.href}
+                      className="card-nav__card-title-link"
+                      onClick={(event: any) => {
+                        item.onClick?.(event);
+                        onLinkClick?.({ label: item.label, href: item.href }, item, event);
+                        setOpen(false);
+                      }}
+                    >
+                      <span className={LABEL}>{item.label}</span>
+                      <HugeiconsIcon className="card-nav__head-arrow" icon={ArrowUpRight01Icon} size={15} strokeWidth={2.2} />
+                    </LinkComponent>
+                  ) : (
+                    <span className={LABEL}>{item.label}</span>
+                  )}
                   {item.description && <p className={DESCRIPTION}>{item.description}</p>}
                 </div>
                 <ul className={LINKS}>
