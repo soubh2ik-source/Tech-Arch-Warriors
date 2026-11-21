@@ -127,14 +127,11 @@ a {
   background-color: #02ffe0;
   background-image:
     repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.48) 0px,
-      rgba(255, 255, 255, 0.48) 2px,
-      transparent 2px,
-      transparent 4px,
-      rgba(0, 45, 38, 0.38) 4px,
-      rgba(0, 45, 38, 0.38) 6.5px,
-      transparent 6.5px,
-      transparent 9px),
+      rgba(255, 255, 255, 0.38) 0px,
+      transparent 2.5px,
+      rgba(0, 45, 38, 0.28) 5px,
+      transparent 7.5px,
+      rgba(255, 255, 255, 0.38) 10px),
     url('/navbar-texture.png');
   background-repeat: repeat, repeat;
   background-size: auto, 100px 89px;
@@ -1676,14 +1673,11 @@ a {
   background-color: #02ffe0;
   background-image:
     repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.48) 0px,
-      rgba(255, 255, 255, 0.48) 2px,
-      transparent 2px,
-      transparent 4px,
-      rgba(0, 45, 38, 0.38) 4px,
-      rgba(0, 45, 38, 0.38) 6.5px,
-      transparent 6.5px,
-      transparent 9px),
+      rgba(255, 255, 255, 0.38) 0px,
+      transparent 2.5px,
+      rgba(0, 45, 38, 0.28) 5px,
+      transparent 7.5px,
+      rgba(255, 255, 255, 0.38) 10px),
     url('/navbar-texture.png');
   background-repeat: repeat, repeat;
   background-size: auto, 100px 89px;
