@@ -181,9 +181,9 @@ a {
 }
 
 .navbar-brand-full-img {
-  height: 48px;
+  height: 38px;
   width: auto;
-  max-width: 195px;
+  max-width: 155px;
   object-fit: contain;
   display: block;
 }
@@ -302,8 +302,8 @@ a {
   }
 
   .navbar-brand-full-img {
-    height: 42px;
-    max-width: 170px;
+    height: 34px;
+    max-width: 140px;
   }
 
   .navbar-cta-pill {
@@ -318,8 +318,8 @@ a {
   }
 
   .navbar-brand-full-img {
-    height: 38px;
-    max-width: 155px;
+    height: 30px;
+    max-width: 125px;
   }
 
   .navbar-cta-pill {
@@ -334,8 +334,8 @@ a {
   }
 
   .navbar-brand-full-img {
-    height: 34px;
-    max-width: 135px;
+    height: 27px;
+    max-width: 112px;
   }
 
   .navbar-cta-pill {
@@ -350,8 +350,8 @@ a {
   }
 
   .navbar-brand-full-img {
-    height: 30px;
-    max-width: 120px;
+    height: 24px;
+    max-width: 100px;
   }
 
   .navbar-cta-pill {

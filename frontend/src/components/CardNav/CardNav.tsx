@@ -185,7 +185,7 @@ export const CardNav: React.FC<CardNavProps> = ({
     '--cn-inset': '8px',
     '--cn-gap': '12px',
     '--cn-radius': '20px',
-    '--cn-logo': '48px',
+    '--cn-logo': '38px',
     '--cn-card': `${cardHeight}px`
   };
 

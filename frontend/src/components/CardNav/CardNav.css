@@ -64,7 +64,7 @@
   display: inline-flex;
   align-items: center;
   flex: 0 0 auto;
-  height: var(--cn-logo, 48px);
+  height: var(--cn-logo, 38px);
   color: #091a24;
   text-decoration: none;
   outline: none;
