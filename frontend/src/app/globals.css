@@ -127,19 +127,19 @@ a {
   background-color: #02ffe0;
   background-image:
     repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.25) 0px,
-      rgba(255, 255, 255, 0.25) 2px,
+      rgba(255, 255, 255, 0.38) 0px,
+      rgba(255, 255, 255, 0.38) 2px,
       transparent 2px,
       transparent 4.5px,
-      rgba(0, 95, 80, 0.22) 4.5px,
-      rgba(0, 95, 80, 0.22) 6.5px,
+      rgba(0, 255, 224, 0.28) 4.5px,
+      rgba(0, 255, 224, 0.28) 6.5px,
       transparent 6.5px,
       transparent 9px),
     url('/navbar-texture.png');
   background-repeat: repeat, repeat;
   background-size: auto, 100px 89px;
-  border-bottom: 2px solid rgba(0, 140, 120, 0.65);
-  box-shadow: 0 4px 18px rgba(0, 180, 160, 0.35);
+  border-bottom: 2px solid rgba(0, 180, 160, 0.75);
+  box-shadow: 0 4px 20px rgba(2, 255, 224, 0.45);
   transition: all var(--transition-fast);
   overflow: hidden;
 }
@@ -1676,20 +1676,20 @@ a {
   background-color: #02ffe0;
   background-image:
     repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.25) 0px,
-      rgba(255, 255, 255, 0.25) 2px,
+      rgba(255, 255, 255, 0.38) 0px,
+      rgba(255, 255, 255, 0.38) 2px,
       transparent 2px,
       transparent 4.5px,
-      rgba(0, 95, 80, 0.22) 4.5px,
-      rgba(0, 95, 80, 0.22) 6.5px,
+      rgba(0, 255, 224, 0.28) 4.5px,
+      rgba(0, 255, 224, 0.28) 6.5px,
       transparent 6.5px,
       transparent 9px),
     url('/navbar-texture.png');
   background-repeat: repeat, repeat;
   background-size: auto, 100px 89px;
   padding: 48px 24px 72px;
-  border-top: 2px solid rgba(0, 140, 120, 0.65);
-  border-bottom: 2px solid rgba(0, 140, 120, 0.65);
+  border-top: 2px solid rgba(0, 180, 160, 0.75);
+  border-bottom: 2px solid rgba(0, 180, 160, 0.75);
   position: relative;
   overflow: hidden;
 }
