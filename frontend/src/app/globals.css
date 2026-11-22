@@ -606,13 +606,13 @@ a {
   max-width: 680px;
   margin: 0 0 24px 0;
   padding: 0;
-  gap: 2px;
+  gap: 4px;
 }
 
 .hero-techtext-line {
   position: relative;
   width: 100%;
-  height: clamp(54px, 5.8vw, 78px);
+  height: clamp(62px, 6.2vw, 84px);
   user-select: none;
 }
 

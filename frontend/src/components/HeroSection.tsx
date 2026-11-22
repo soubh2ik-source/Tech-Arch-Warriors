@@ -68,9 +68,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <TechText
                 text="Beyond detection."
                 accentWords={["detection"]}
-                fontFamily="var(--font-serif, 'Playfair Display', Georgia, serif)"
+                fontFamily="'Playfair Display', Georgia, serif"
                 fontWeight={850}
-                fontSize={64}
+                fontSize={62}
                 align="left"
                 color="#ffffff"
                 accentColor="#02ffe0"
@@ -82,6 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 introDuration={2}
                 clickKick
                 guides={false}
+                labels={false}
                 strokeWidth={1.25}
                 speed={1.5}
                 bounce={0.45}
@@ -91,9 +92,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <TechText
                 text="Built for precision."
                 accentWords={["precision", "precision."]}
-                fontFamily="var(--font-serif, 'Playfair Display', Georgia, serif)"
+                fontFamily="'Playfair Display', Georgia, serif"
                 fontWeight={850}
-                fontSize={64}
+                fontSize={62}
                 align="left"
                 color="#ffffff"
                 accentColor="#02ffe0"
@@ -105,6 +106,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 introDuration={2}
                 clickKick
                 guides={false}
+                labels={false}
                 strokeWidth={1.25}
                 speed={1.5}
                 bounce={0.45}

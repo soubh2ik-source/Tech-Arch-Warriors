@@ -232,16 +232,22 @@ const TechText: React.FC<TechTextProps> = ({
       invalidateLayout();
     };
 
-    const family = s => s.fontFamily || getComputedStyle(container).fontFamily || 'sans-serif';
-    const fontFor = (s, size) => `${s.fontWeight} ${size}px ${family(s)}`;
+    const resolveFamily = (s: any) => {
+      let fam = s.fontFamily;
+      if (!fam || fam.includes('var(')) {
+        fam = getComputedStyle(container).fontFamily || '"Playfair Display", Georgia, serif';
+      }
+      return fam.replace(/['"]/g, '').split(',').map((f: string) => `"${f.trim()}"`).join(', ');
+    };
+    const fontFor = (s: any, size: number) => `${s.fontWeight || 850} ${size}px ${resolveFamily(s)}`;
 
-    const palette = s => {
+    const palette = (s: any) => {
       const current = getComputedStyle(container).color || '#000000';
-      const pick = value => (!value || INHERIT.test(String(value).trim()) ? current : value);
+      const pick = (value: any) => (!value || INHERIT.test(String(value).trim()) ? current : value);
       return { ink: pick(s.color), accent: pick(s.accentColor) };
     };
 
-    const setFont = (target, s, size) => {
+    const setFont = (target: any, s: any, size: number) => {
       target.font = fontFor(s, size);
       if ('letterSpacing' in target) target.letterSpacing = `${s.letterSpacing * size}px`;
       target.textAlign = 'left';
@@ -284,7 +290,7 @@ const TechText: React.FC<TechTextProps> = ({
     const ensureLayout = (s: any, ink: string, accent: string = palette(s).accent) => {
       const key = [
         s.text,
-        family(s),
+        resolveFamily(s),
         s.fontWeight,
         s.fontSize,
         s.letterSpacing,
@@ -314,34 +320,32 @@ const TechText: React.FC<TechTextProps> = ({
       const probe = scratchCtx;
       setFont(probe, s, s.fontSize);
       let m = probe.measureText(s.text);
-      const availWidth = s.align === 'left' ? (width - margin) * 0.98 : width * 0.92;
-      const fit = Math.min(
-        1,
-        availWidth / Math.max(m.actualBoundingBoxLeft + m.actualBoundingBoxRight, 1),
-        (height * 0.82) / Math.max(m.actualBoundingBoxAscent + m.actualBoundingBoxDescent, 1)
-      );
-      const size = s.fontSize * fit;
+      const textWidth = Math.max(m.width, (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || 0));
+      const availWidth = s.align === 'left' ? Math.max(120, width - margin) * 0.98 : width * 0.92;
+      const fit = textWidth > 0 ? Math.min(1, availWidth / textWidth) : 1;
+      const size = Math.max(28, Math.round(s.fontSize * fit));
       setFont(probe, s, size);
       m = probe.measureText(s.text);
-      const inkWidth = m.actualBoundingBoxLeft + m.actualBoundingBoxRight;
-      const inkHeight = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
+      const inkWidth = Math.max(m.width, (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || 0));
+      const inkHeight = Math.max((m.actualBoundingBoxAscent || 0) + (m.actualBoundingBoxDescent || 0), size * 0.85);
       const start =
         s.align === 'left' ? margin : s.align === 'right' ? width - margin - inkWidth : (width - inkWidth) / 2;
-      const x = start + m.actualBoundingBoxLeft;
-      const baseline = (height - inkHeight) / 2 + m.actualBoundingBoxAscent;
-      const xHeight = baseline - probe.measureText('x').actualBoundingBoxAscent;
-      const capHeight = baseline - probe.measureText('H').actualBoundingBoxAscent;
-      const ascender = baseline - probe.measureText('d').actualBoundingBoxAscent;
-      const descender = baseline + probe.measureText('p').actualBoundingBoxDescent;
-      const top = baseline - m.actualBoundingBoxAscent;
-      const bottom = baseline + m.actualBoundingBoxDescent;
+      const x = start;
+      const ascent = Math.max(m.actualBoundingBoxAscent || 0, size * 0.75);
+      const baseline = Math.max(ascent + 2, (height - inkHeight) / 2 + ascent);
+      const xHeight = baseline - Math.max(probe.measureText('x').actualBoundingBoxAscent || 0, size * 0.45);
+      const capHeight = baseline - Math.max(probe.measureText('H').actualBoundingBoxAscent || 0, size * 0.68);
+      const ascender = baseline - Math.max(probe.measureText('d').actualBoundingBoxAscent || 0, size * 0.72);
+      const descender = baseline + Math.max(probe.measureText('p').actualBoundingBoxDescent || 0, size * 0.2);
+      const top = baseline - ascent;
+      const bottom = baseline + Math.max(m.actualBoundingBoxDescent || 0, size * 0.2);
       const inkTop = Math.min(top, capHeight) - 2;
       const inkBottom = Math.max(bottom, baseline) + 2;
       const next = {
         size,
         baseline,
-        left: x - m.actualBoundingBoxLeft,
-        right: x + m.actualBoundingBoxRight,
+        left: x,
+        right: x + inkWidth,
         top,
         bottom,
         lines: [
@@ -356,7 +360,7 @@ const TechText: React.FC<TechTextProps> = ({
           { y0: capHeight, y1: xHeight, up: true, order: 1 },
           { y0: inkTop, y1: capHeight, up: true, order: 2 },
           { y0: baseline, y1: inkBottom, up: false, order: 1 }
-        ].filter(band => band.y1 - band.y0 > 0.5)
+        ].filter((band: any) => band.y1 - band.y0 > 0.5)
       };
       word = next;
 
@@ -364,19 +368,23 @@ const TechText: React.FC<TechTextProps> = ({
       const previous = glyphs;
       glyphs = [];
       let prefix = '';
-      chars.forEach((char, i) => {
+      chars.forEach((char: any, i: number) => {
         prefix += char;
         const own = probe.measureText(char);
         const gx = x + probe.measureText(prefix).width - own.width;
         if (!char.trim()) return;
+        const charAscent = Math.max(own.actualBoundingBoxAscent || 0, size * 0.72);
+        const charDescent = Math.max(own.actualBoundingBoxDescent || 0, size * 0.2);
+        const charLeft = Math.max(0, own.actualBoundingBoxLeft || 0);
+        const charRight = Math.max(own.width, own.actualBoundingBoxRight || own.width);
         const base = {
           char,
           x: gx,
           box: {
-            x1: gx - own.actualBoundingBoxLeft,
-            y1: baseline - own.actualBoundingBoxAscent,
-            x2: gx + own.actualBoundingBoxRight,
-            y2: baseline + own.actualBoundingBoxDescent
+            x1: gx - charLeft,
+            y1: baseline - charAscent,
+            x2: gx + charRight,
+            y2: baseline + charDescent
           }
         };
         const kept = previous[glyphs.length];
