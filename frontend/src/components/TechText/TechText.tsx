@@ -281,7 +281,7 @@ const TechText: React.FC<TechTextProps> = ({
       return { image, left, top };
     };
 
-    const ensureLayout = (s, ink) => {
+    const ensureLayout = (s: any, ink: string, accent: string = palette(s).accent) => {
       const key = [
         s.text,
         family(s),
@@ -310,6 +310,7 @@ const TechText: React.FC<TechTextProps> = ({
         document.fonts.load(wanted, s.text).then(invalidateLayout, invalidateLayout);
       }
 
+      const margin = s.margin !== undefined ? s.margin : (s.align === 'left' ? 0 : width * 0.05);
       const probe = scratchCtx;
       setFont(probe, s, s.fontSize);
       let m = probe.measureText(s.text);
@@ -324,7 +325,6 @@ const TechText: React.FC<TechTextProps> = ({
       m = probe.measureText(s.text);
       const inkWidth = m.actualBoundingBoxLeft + m.actualBoundingBoxRight;
       const inkHeight = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
-      const margin = s.margin !== undefined ? s.margin : (s.align === 'left' ? 0 : width * 0.05);
       const start =
         s.align === 'left' ? margin : s.align === 'right' ? width - margin - inkWidth : (width - inkWidth) / 2;
       const x = start + m.actualBoundingBoxLeft;
@@ -787,7 +787,7 @@ const TechText: React.FC<TechTextProps> = ({
       const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
       last = now;
       const { ink, accent } = palette(s);
-      const view = ensureLayout(s, ink);
+      const view = ensureLayout(s, ink, accent);
       const damping = 2 * Math.sqrt(SPRING) * (1 - clamp01(s.bounce) * 0.96);
 
       if (s.intro !== introKind) {
