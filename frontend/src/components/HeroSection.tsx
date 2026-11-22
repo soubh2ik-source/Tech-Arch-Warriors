@@ -62,8 +62,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Main Serif Headline */}
           <h1 className="hero-editorial-title">
-            Beyond detection.<br />
-            Built for precision<span className="hero-title-dot">.</span>
+            Beyond <span className="hero-title-accent">detection</span>.<br />
+            Built for <span className="hero-title-accent">precision</span><span className="hero-title-dot">.</span>
           </h1>
 
           {/* Editorial Subtitle */}
