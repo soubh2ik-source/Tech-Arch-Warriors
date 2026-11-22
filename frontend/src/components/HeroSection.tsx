@@ -3,6 +3,7 @@
 import React from "react";
 import { HeroOrbitalVisualizer } from "./HeroOrbitalVisualizer";
 import DarkVeil from "./DarkVeil/DarkVeil";
+import GlassSurface from "./GlassSurface/GlassSurface";
 
 interface HeroSectionProps {
   onGetStarted?: () => void;
@@ -45,11 +46,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="hero-editorial-container">
         {/* Left Column: Headline, Pill, Subtitle, Actions, Metrics */}
         <div className="hero-editorial-left">
-          {/* Eyebrow Pill Badge */}
-          <div className="hero-category-badge">
+          {/* Eyebrow Pill Badge with GlassSurface */}
+          <GlassSurface
+            className="hero-category-badge"
+            width="fit-content"
+            height={38}
+            borderRadius={9999}
+            distortionScale={0}
+            displace={2.5}
+            backgroundOpacity={0}
+          >
             <span className="hero-category-dot" />
             <span className="hero-category-text">PULMONARY AI / CT CLASSIFICATION</span>
-          </div>
+          </GlassSurface>
 
           {/* Main Serif Headline */}
           <h1 className="hero-editorial-title">
