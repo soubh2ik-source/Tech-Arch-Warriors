@@ -62,8 +62,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Main Serif Headline */}
           <h1 className="hero-editorial-title">
-            A clearer view<br />
-            of every scan<span className="hero-title-dot">.</span>
+            Beyond detection.<br />
+            Built for precision<span className="hero-title-dot">.</span>
           </h1>
 
           {/* Editorial Subtitle */}
