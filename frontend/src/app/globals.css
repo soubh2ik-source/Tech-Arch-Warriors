@@ -598,6 +598,36 @@ a {
   color: #02ffe0;
 }
 
+/* TechText Hero Integration */
+.hero-techtext-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 0 24px 0;
+  padding: 0;
+  gap: 2px;
+}
+
+.hero-techtext-line {
+  position: relative;
+  width: 100%;
+  height: clamp(54px, 5.8vw, 78px);
+  user-select: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 /* Editorial Subtitle */
 .hero-editorial-desc {
   font-family: var(--font-sans);

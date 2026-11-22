@@ -4,6 +4,7 @@ import React from "react";
 import { HeroOrbitalVisualizer } from "./HeroOrbitalVisualizer";
 import DarkVeil from "./DarkVeil/DarkVeil";
 import GlassSurface from "./GlassSurface/GlassSurface";
+import TechText from "./TechText/TechText";
 
 interface HeroSectionProps {
   onGetStarted?: () => void;
@@ -60,11 +61,56 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <span className="hero-category-text">PULMONARY AI / CT CLASSIFICATION</span>
           </GlassSurface>
 
-          {/* Main Serif Headline */}
-          <h1 className="hero-editorial-title">
-            Beyond <span className="hero-title-accent">detection</span>.<br />
-            Built for <span className="hero-title-accent">precision</span><span className="hero-title-dot">.</span>
-          </h1>
+          {/* Main Editorial Headline with TechText from React Bits */}
+          <h1 className="sr-only">Beyond detection. Built for precision.</h1>
+          <div className="hero-editorial-title hero-techtext-wrapper" aria-hidden="true">
+            <div className="hero-techtext-line">
+              <TechText
+                text="Beyond detection."
+                accentWords={["detection"]}
+                fontFamily="var(--font-serif, 'Playfair Display', Georgia, serif)"
+                fontWeight={850}
+                fontSize={64}
+                align="left"
+                color="#ffffff"
+                accentColor="#02ffe0"
+                reveal="letter"
+                dashLength={9}
+                dashGap={2}
+                specks={24}
+                intro="metrics"
+                introDuration={2}
+                clickKick
+                guides={false}
+                strokeWidth={1.25}
+                speed={1.5}
+                bounce={0.45}
+              />
+            </div>
+            <div className="hero-techtext-line">
+              <TechText
+                text="Built for precision."
+                accentWords={["precision", "precision."]}
+                fontFamily="var(--font-serif, 'Playfair Display', Georgia, serif)"
+                fontWeight={850}
+                fontSize={64}
+                align="left"
+                color="#ffffff"
+                accentColor="#02ffe0"
+                reveal="letter"
+                dashLength={9}
+                dashGap={2}
+                specks={24}
+                intro="metrics"
+                introDuration={2}
+                clickKick
+                guides={false}
+                strokeWidth={1.25}
+                speed={1.5}
+                bounce={0.45}
+              />
+            </div>
+          </div>
 
           {/* Editorial Subtitle */}
           <p className="hero-editorial-desc">
