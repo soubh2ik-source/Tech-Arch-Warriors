@@ -416,6 +416,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .card-nav__line,
   .card-nav__word,
   .card-nav__arrow-icon {

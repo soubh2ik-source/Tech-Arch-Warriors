@@ -97,29 +97,28 @@ const ARROW_IN = 'card-nav__arrow-icon card-nav__arrow-icon--in';
 const DEFAULT_ITEMS: CardNavItem[] = [
   {
     label: 'Overview & Platform',
+    href: '/#overview',
     description: 'AI-assisted clinical diagnostic workstation for thoracic oncology.',
     links: [
-      { label: 'Clinical Overview', href: '/#overview' },
-      { label: 'Tri-Ensemble Pipeline', href: '/#overview' },
-      { label: 'Clinical Architecture', href: '/#benchmarks' }
+      { label: 'Clinical Overview', href: '/#overview' }
     ]
   },
   {
     label: 'Diagnostic Studio',
+    href: '/#analysis',
     description: 'Real-time chest CT inference across 4 histopathological categories.',
     links: [
       { label: 'Upload & Classify Scan', href: '/#analysis' },
-      { label: 'Histopathology Subtyping', href: '/#analysis' },
       { label: 'Generate Clinical Report', href: '/#analysis' }
     ]
   },
   {
     label: 'Holdout Benchmarks',
+    href: '/#benchmarks',
     description: 'Validation on 315 unseen holdout patients with 99.62% cancer sensitivity.',
     links: [
       { label: 'Holdout Performance Metrics', href: '/#benchmarks' },
-      { label: 'Confusion Matrix & ROC', href: '/#benchmarks' },
-      { label: '315 Patient Summary', href: '/#benchmarks' }
+      { label: 'Confusion Matrix & ROC', href: '/#confusion-matrix' }
     ]
   }
 ];

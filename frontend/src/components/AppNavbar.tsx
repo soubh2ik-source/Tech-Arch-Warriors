@@ -142,9 +142,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
       href: "/#overview",
       description: "AI-assisted clinical diagnostic workstation for thoracic oncology.",
       links: [
-        { label: "Clinical Overview", href: "/#overview" },
-        { label: "Tri-Ensemble Pipeline", href: "/architecture" },
-        { label: "Clinical Architecture", href: "/architecture" }
+        { label: "Clinical Overview", href: "/#overview" }
       ]
     },
     {
@@ -153,7 +151,6 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
       description: "Real-time chest CT inference across 4 histopathological categories.",
       links: [
         { label: "Upload & Classify Scan", href: "/#analysis" },
-        { label: "Histopathology Subtyping", href: "/pathology" },
         { label: "Generate Clinical Report", href: "/#analysis" }
       ]
     },
@@ -163,8 +160,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
       description: "Validation on 315 unseen holdout patients with 99.62% cancer sensitivity.",
       links: [
         { label: "Holdout Performance Metrics", href: "/#benchmarks" },
-        { label: "Confusion Matrix & ROC", href: "/#confusion-matrix" },
-        { label: "315 Patient Summary", href: "/benchmarks" }
+        { label: "Confusion Matrix & ROC", href: "/#confusion-matrix" }
       ]
     }
   ];
