@@ -95,7 +95,7 @@ export default function Home() {
                 intro
                 fontSize={109}
                 fontWeight={800}
-                style={{ height: "90px", width: "100%" }}
+                style={{ height: "54px", width: "100%" }}
                 color="#02ffe0"
                 fontFamily="'Playfair Display', Georgia, serif"
                 letterSpacing="-0.04em"
