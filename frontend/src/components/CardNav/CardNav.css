@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   max-width: var(--cn-max, 1360px);
-  height: var(--cn-bar, 64px);
+  height: var(--cn-bar, 72px);
   margin: 0 auto;
   font-size: 14px;
   line-height: 1.4;
@@ -16,7 +16,7 @@
   right: 0;
   left: 0;
   z-index: 10;
-  height: var(--cn-bar, 64px);
+  height: var(--cn-bar, 72px);
   border-radius: var(--cn-radius, 20px);
   overflow: hidden;
   background-color: #02ffe0;
@@ -51,7 +51,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--cn-bar, 64px);
+  height: calc(var(--cn-bar, 72px) - 8px);
   padding: 0 16px;
   box-sizing: border-box;
   gap: 16px;
@@ -218,7 +218,7 @@
 /* Expandable Drawer Content */
 .card-nav__content {
   position: absolute;
-  top: var(--cn-bar, 64px);
+  top: calc(var(--cn-bar, 72px) - 8px);
   right: 0;
   left: 0;
   display: flex;

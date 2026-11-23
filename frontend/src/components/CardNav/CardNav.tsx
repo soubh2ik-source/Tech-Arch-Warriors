@@ -182,7 +182,7 @@ export const CardNav: React.FC<CardNavProps> = ({
 
   const vars: Record<string, string> = {
     '--cn-max': `${maxWidth}px`,
-    '--cn-bar': '64px',
+    '--cn-bar': '72px',
     '--cn-inset': '8px',
     '--cn-gap': '12px',
     '--cn-radius': '20px',
@@ -203,13 +203,13 @@ export const CardNav: React.FC<CardNavProps> = ({
     const content = contentRef.current;
     if (!panel || !content) return undefined;
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-    const state = { p: settingsRef.current.open ? 1 : 0, v: 0, height: content.offsetHeight, bar: 64 };
+    const state = { p: settingsRef.current.open ? 1 : 0, v: 0, height: content.offsetHeight, bar: 72 };
     let raf = 0;
     let last = 0;
 
     const render = () => {
       const s = settingsRef.current;
-      state.bar = parseFloat(getComputedStyle(panel).getPropertyValue('--cn-bar')) || 64;
+      state.bar = parseFloat(getComputedStyle(panel).getPropertyValue('--cn-bar')) || 72;
       panel.style.height = `${state.bar + Math.max(0, state.p) * state.height}px`;
       const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
       const count = cards.length;
