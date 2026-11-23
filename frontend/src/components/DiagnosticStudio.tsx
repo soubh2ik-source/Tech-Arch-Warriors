@@ -336,10 +336,7 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
     setPendingFiles([]);
   };
 
-  const handleAttach = async () => {
-    if (pendingFiles.length === 0) return;
-    const fileEntry = pendingFiles[0];
-
+  const attachFile = (fileEntry: UploadItem) => {
     if (!fileEntry.file) {
       handleSelectSample(SAMPLE_SCANS[0]);
       return;
@@ -379,9 +376,16 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
         console.error("Analysis execution error on upload:", err);
       } finally {
         setIsAnalyzing(false);
+        // Automatically remove the attached and scanned file from the pending files list
+        setPendingFiles((prev) => prev.filter((item) => item.id !== fileEntry.id));
       }
     };
     reader.readAsDataURL(fileEntry.file);
+  };
+
+  const handleAttach = () => {
+    if (pendingFiles.length === 0 || isAnalyzing) return;
+    attachFile(pendingFiles[0]);
   };
 
   const handleAnalyze = async () => {
@@ -642,7 +646,13 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
       {pendingFiles.length > 0 && (
         <div className="upload-file-list">
           {pendingFiles.map((f, i) => (
-            <div key={f.id || i} className="upload-file-row">
+            <div
+              key={f.id || i}
+              className="upload-file-row"
+              onClick={() => !isAnalyzing && attachFile(f)}
+              style={{ cursor: isAnalyzing ? "default" : "pointer" }}
+              title={isAnalyzing ? "Analysis in progress..." : "Click to attach and scan this CT image"}
+            >
               <div className="upload-file-icon">
                 <ScanFileIcon size={18} />
               </div>
@@ -683,9 +693,9 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
           type="button"
           className="btn-upload-attach"
           onClick={handleAttach}
-          disabled={pendingFiles.length === 0}
+          disabled={pendingFiles.length === 0 || isAnalyzing}
         >
-          Attach files
+          {isAnalyzing ? "Scanning..." : "Attach files"}
         </button>
       </div>
     </div>

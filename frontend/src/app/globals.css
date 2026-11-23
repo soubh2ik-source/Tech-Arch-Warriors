@@ -1788,6 +1788,14 @@ a {
   border: 2px solid rgba(2, 255, 224, 0.4);
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), inset 0 0 10px rgba(2, 255, 224, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-file-row:hover {
+  border-color: #02ffe0;
+  background: #0d2238;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55), 0 0 14px rgba(2, 255, 224, 0.2);
 }
 
 .upload-card-hero .upload-footer-actions {
@@ -2158,6 +2166,14 @@ a {
   border: 2px solid rgba(2, 255, 224, 0.4);
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), inset 0 0 10px rgba(2, 255, 224, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-file-row:hover {
+  border-color: #02ffe0;
+  background: #0d2238;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55), 0 0 14px rgba(2, 255, 224, 0.2);
 }
 
 .upload-file-icon {
