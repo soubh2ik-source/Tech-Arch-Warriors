@@ -695,8 +695,8 @@ a {
   font-size: 15px;
   font-weight: 900;
   text-decoration: none;
-  border: 3px solid #c75339;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(244, 147, 130, 0.5);
+  border: 3px solid #04615c;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
   text-shadow:
     -1.25px -1.25px 0 #000000,
      1.25px -1.25px 0 #000000,
@@ -710,8 +710,8 @@ a {
   content: "";
   position: absolute;
   inset: -4px;
-  background-color: #fce8e6;
-  background-image: url('/hex-pattern.png');
+  background-color: #38cfb2;
+  background-image: url('/wave-pattern.png');
   background-repeat: repeat;
   background-size: 260px auto;
   background-position: center;
@@ -734,8 +734,8 @@ a {
 .btn-hero-explore:hover {
   transform: translateY(-2px);
   filter: brightness(1.05);
-  border-color: #e06d53;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(244, 147, 130, 0.6);
+  border-color: #067d77;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
   color: #ffffff !important;
   text-shadow:
     -1.25px -1.25px 0 #000000,
@@ -813,7 +813,7 @@ a {
   overflow: hidden;
   isolation: isolate;
   background: transparent;
-  border: 3px solid #c75339;
+  border: 3px solid #04615c;
   border-radius: 14px;
   padding: 14px 14px 12px;
   display: flex;
@@ -822,15 +822,15 @@ a {
   gap: 4px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(244, 147, 130, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.4);
 }
 
 .hero-metric-cell::before {
   content: "";
   position: absolute;
   inset: -4px;
-  background-color: #fce8e6;
-  background-image: url('/hex-pattern.png');
+  background-color: #38cfb2;
+  background-image: url('/wave-pattern.png');
   background-repeat: repeat;
   background-size: 240px auto;
   background-position: center;
@@ -847,13 +847,13 @@ a {
 /* Explicitly NO hover jump on cards */
 .hero-metric-cell:hover {
   transform: none;
-  border-color: #c75339;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(244, 147, 130, 0.45);
+  border-color: #04615c;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.4);
 }
 
 .hero-metric-cell.divider-left {
-  border: 3px solid #c75339;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(244, 147, 130, 0.45);
+  border: 3px solid #04615c;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.4);
   padding-left: 14px;
 }
 
@@ -1089,8 +1089,8 @@ a {
   }
 
   .hero-metric-cell.divider-left {
-    border: 3px solid #c75339;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(244, 147, 130, 0.45);
+    border: 3px solid #04615c;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.4);
     padding-left: 10px;
   }
 }
@@ -1143,8 +1143,8 @@ a {
   }
 
   .hero-metric-cell.divider-left {
-    border: 3px solid #c75339;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(244, 147, 130, 0.45);
+    border: 3px solid #04615c;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.4);
     padding-left: 8px;
   }
 
@@ -1826,14 +1826,14 @@ a {
    ========================================================================== */
 
 .section-analysis-clean {
-  background-color: #fce8e6;
-  background-image: url('/hex-pattern.png');
+  background-color: #38cfb2;
+  background-image: url('/wave-pattern.png');
   background-repeat: repeat;
-  background-size: 520px auto;
+  background-size: 700px auto;
   background-position: center;
   padding: 48px 24px 72px;
-  border-top: 2.5px solid rgba(199, 83, 57, 0.85);
-  border-bottom: 2.5px solid rgba(199, 83, 57, 0.85);
+  border-top: 2.5px solid rgba(0, 100, 85, 0.85);
+  border-bottom: 2.5px solid rgba(0, 100, 85, 0.85);
   position: relative;
   overflow: hidden;
 }
@@ -2398,7 +2398,7 @@ a {
   overflow: hidden;
   isolation: isolate;
   background: transparent;
-  border: 3px solid #c75339;
+  border: 3px solid #04615c;
   border-radius: 8px;
   padding: 9px 16px;
   font-size: 13.5px;
@@ -2407,7 +2407,7 @@ a {
   cursor: pointer;
   text-align: center;
   transition: all var(--transition-fast);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(244, 147, 130, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
   text-shadow:
     -1.25px -1.25px 0 #000000,
      1.25px -1.25px 0 #000000,
@@ -2420,8 +2420,8 @@ a {
   content: "";
   position: absolute;
   inset: -4px;
-  background-color: #fce8e6;
-  background-image: url('/hex-pattern.png');
+  background-color: #38cfb2;
+  background-image: url('/wave-pattern.png');
   background-repeat: repeat;
   background-size: 240px auto;
   background-position: center;
@@ -2444,8 +2444,8 @@ a {
 .btn-upload-attach:hover:not(:disabled) {
   transform: translateY(-2px);
   filter: brightness(1.05);
-  border-color: #e06d53;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(244, 147, 130, 0.6);
+  border-color: #067d77;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
   color: #ffffff !important;
   text-shadow:
     -1.25px -1.25px 0 #000000,
@@ -2665,7 +2665,7 @@ a {
   overflow: hidden;
   isolation: isolate;
   background: transparent;
-  border: 3px solid #c75339;
+  border: 3px solid #04615c;
   border-radius: 10px;
   padding: 10px 14px;
   font-size: 13.5px;
@@ -2673,7 +2673,7 @@ a {
   color: #ffffff !important;
   cursor: pointer;
   transition: all var(--transition-fast);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(244, 147, 130, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
   text-shadow:
     -1.25px -1.25px 0 #000000,
      1.25px -1.25px 0 #000000,
@@ -2686,8 +2686,8 @@ a {
   content: "";
   position: absolute;
   inset: -4px;
-  background-color: #fce8e6;
-  background-image: url('/hex-pattern.png');
+  background-color: #38cfb2;
+  background-image: url('/wave-pattern.png');
   background-repeat: repeat;
   background-size: 240px auto;
   background-position: center;
@@ -2716,8 +2716,8 @@ a {
 .btn-minimal-consensus:hover:not(:disabled) {
   transform: translateY(-2px);
   filter: brightness(1.05);
-  border-color: #e06d53;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(244, 147, 130, 0.6);
+  border-color: #067d77;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
   color: #ffffff !important;
   text-shadow:
     -1.25px -1.25px 0 #000000,
@@ -3951,7 +3951,7 @@ a {
   overflow: hidden;
   isolation: isolate;
   background: transparent;
-  border: 3px solid #c75339;
+  border: 3px solid #04615c;
   border-radius: 8px;
   padding: 9px 18px;
   font-size: 13.5px;
@@ -3960,7 +3960,7 @@ a {
   cursor: pointer;
   text-align: center;
   transition: all var(--transition-fast);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(244, 147, 130, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
   text-shadow:
     -1.25px -1.25px 0 #000000,
      1.25px -1.25px 0 #000000,
@@ -3973,8 +3973,8 @@ a {
   content: "";
   position: absolute;
   inset: -4px;
-  background-color: #fce8e6;
-  background-image: url('/hex-pattern.png');
+  background-color: #38cfb2;
+  background-image: url('/wave-pattern.png');
   background-repeat: repeat;
   background-size: 240px auto;
   background-position: center;
@@ -4003,8 +4003,8 @@ a {
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
   filter: brightness(1.05);
-  border-color: #e06d53;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(244, 147, 130, 0.6);
+  border-color: #067d77;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
   color: #ffffff !important;
   text-shadow:
     -1.25px -1.25px 0 #000000,
