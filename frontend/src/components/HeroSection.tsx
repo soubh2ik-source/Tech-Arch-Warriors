@@ -50,6 +50,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* Main Editorial Headline with TechText from React Bits */}
           <h1 className="sr-only">Beyond detection. Built for precision.</h1>
           <div className="hero-editorial-title hero-techtext-wrapper" aria-hidden="true">
+            {/* Badge rotated 90 degrees on the left, starting from beside the word "Beyond" */}
+            <div className="hero-vertical-badge-wrap">
+              <GlassSurface
+                className="hero-category-badge hero-category-badge-vertical"
+                width="fit-content"
+                height={32}
+                borderRadius={9999}
+                distortionScale={0}
+                displace={2.5}
+                backgroundOpacity={0}
+              >
+                <span className="hero-category-dot" />
+                <span className="hero-category-text">PULMONARY AI / CT CLASSIFICATION</span>
+              </GlassSurface>
+            </div>
+
             <div className="hero-techtext-line">
               <TechText
                 text="Beyond detection."
@@ -75,47 +91,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               />
             </div>
 
-            <div className="hero-techtext-second-line-wrap">
-              {/* Badge rotated 90 degrees on the left by the side of the second text */}
-              <div className="hero-vertical-badge-wrap">
-                <GlassSurface
-                  className="hero-category-badge hero-category-badge-vertical"
-                  width="fit-content"
-                  height={32}
-                  borderRadius={9999}
-                  distortionScale={0}
-                  displace={2.5}
-                  backgroundOpacity={0}
-                >
-                  <span className="hero-category-dot" />
-                  <span className="hero-category-text">PULMONARY AI / CT CLASSIFICATION</span>
-                </GlassSurface>
-              </div>
-
-              <div className="hero-techtext-line">
-                <TechText
-                  text="Built for precision."
-                  accentWords={["precision", "precision."]}
-                  fontFamily="'Playfair Display', Georgia, serif"
-                  fontWeight={850}
-                  fontSize={62}
-                  align="left"
-                  color="#ffffff"
-                  accentColor="#02ffe0"
-                  reveal="letter"
-                  dashLength={9}
-                  dashGap={2}
-                  specks={24}
-                  intro="metrics"
-                  introDuration={2}
-                  clickKick
-                  guides={false}
-                  labels={false}
-                  strokeWidth={1.25}
-                  speed={1.5}
-                  bounce={0.45}
-                />
-              </div>
+            <div className="hero-techtext-line">
+              <TechText
+                text="Built for precision."
+                accentWords={["precision", "precision."]}
+                fontFamily="'Playfair Display', Georgia, serif"
+                fontWeight={850}
+                fontSize={62}
+                align="left"
+                color="#ffffff"
+                accentColor="#02ffe0"
+                reveal="letter"
+                dashLength={9}
+                dashGap={2}
+                specks={24}
+                intro="metrics"
+                introDuration={2}
+                clickKick
+                guides={false}
+                labels={false}
+                strokeWidth={1.25}
+                speed={1.5}
+                bounce={0.45}
+              />
             </div>
           </div>
 

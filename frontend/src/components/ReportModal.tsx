@@ -45,9 +45,9 @@ export const ReportModal: React.FC<ReportModalProps> = ({
             <div className="report-header-row">
               <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
-                  src="/logo.png" 
-                  alt="PulmoAI Logo" 
+                <img
+                  src="/logo.png"
+                  alt="PulmoAI Logo"
                   className="report-logo-box"
                 />
                 <div>
@@ -108,7 +108,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                             <strong>{probPct}%</strong>
                           </div>
                           <div className="report-prob-bar-track">
-                            <div 
+                            <div
                               className={`report-prob-bar-fill ${isHighest ? "is-highest" : ""}`}
                               style={{ width: `${Math.max(2, Math.min(100, prob * 100))}%` }}
                             />
@@ -144,7 +144,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                     </div>
                   </div>
                   <p className="report-ensemble-footnote">
-                    &bull; 5-View Geometric &amp; Luminance Test-Time Augmentation (TTA) applied across all 3 backbones.<br/>
+                    &bull; 5-View Geometric &amp; Luminance Test-Time Augmentation (TTA) applied across all 3 backbones.<br />
                     &bull; Engine: {result.source === "python_backend" ? "PulmoAI Tri-Ensemble Python Deep Learning Engine (Online)" : "PulmoAI Clinical Analytical Engine"}
                     {result.metadata?.processing_latency_ms ? ` (${result.metadata.processing_latency_ms}ms latency)` : ""}
                   </p>
