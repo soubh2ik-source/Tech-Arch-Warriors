@@ -7,6 +7,7 @@ import { BenchmarksView } from "@/components/BenchmarksView";
 import { ReportModal } from "@/components/ReportModal";
 import DarkVeil from "@/components/DarkVeil/DarkVeil";
 import WarpText from "@/components/WarpText";
+import GlassSurface from "@/components/GlassSurface/GlassSurface";
 import { PredictionResult, ActiveScan } from "@/types/medical";
 
 export default function Home() {
@@ -84,8 +85,19 @@ export default function Home() {
                 lineHeight={1}
               />
             </div>
-            <div className="section-pill-badge">
-              <span>315 Independent Holdout Patients</span>
+            <div className="section-pill-badge-wrap">
+              <GlassSurface
+                className="hero-category-badge benchmark-category-badge"
+                width="fit-content"
+                height={32}
+                borderRadius={9999}
+                distortionScale={0}
+                displace={2.5}
+                backgroundOpacity={0}
+              >
+                <span className="hero-category-dot" />
+                <span className="hero-category-text">315 INDEPENDENT HOLDOUT PATIENTS</span>
+              </GlassSurface>
             </div>
           </div>
 

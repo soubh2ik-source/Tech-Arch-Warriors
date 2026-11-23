@@ -3136,18 +3136,14 @@ a {
   box-shadow: 0 0 10px #02ffe0;
 }
 
-.section-benchmark .section-pill-badge {
-  background: rgba(2, 255, 224, 0.12);
-  border: 2px solid #02ffe0;
-  color: #02ffe0;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  padding: 8px 18px;
-  border-radius: 9999px;
-  box-shadow: 0 0 24px rgba(2, 255, 224, 0.35);
-  backdrop-filter: blur(8px);
+.section-benchmark .section-pill-badge-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.benchmark-category-badge {
+  white-space: nowrap;
 }
 
 .section-benchmark .section-container {
