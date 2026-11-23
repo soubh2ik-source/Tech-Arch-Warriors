@@ -184,9 +184,9 @@ const measureLine = (ctx, line, letterSpacing) => {
   return textWidth + Math.max(0, chars.length - 1) * letterSpacing;
 };
 
-const drawLine = (ctx, line, x, y, letterSpacing) => {
+const drawLine = (ctx, line, x, y, letterSpacing, align = 'center') => {
   const chars = Array.from(line);
-  let cursor = x - measureLine(ctx, line, letterSpacing) / 2;
+  let cursor = align === 'left' ? x : x - measureLine(ctx, line, letterSpacing) / 2;
 
   chars.forEach((char, index) => {
     ctx.fillText(char, cursor, y);
@@ -257,8 +257,9 @@ const buildTextCanvas = ({ container, width, height, dpr, props }) => {
     applyFont();
   }
 
+  const startX = props.align === 'left' ? 8 : width / 2;
   const startY = height / 2 - (lineHeight * (lines.length - 1)) / 2;
-  lines.forEach((line, index) => drawLine(ctx, line, width / 2, startY + index * lineHeight, letterSpacing));
+  lines.forEach((line, index) => drawLine(ctx, line, startX, startY + index * lineHeight, letterSpacing, props.align));
 
   return { canvas, ink };
 };
@@ -278,6 +279,7 @@ const syncUniforms = (program, props) => {
 
 const WarpText = ({
   text = 'Bend the moment',
+  align = 'center',
   color = 'currentColor',
   warpStrength = 0.08,
   warpScale = 1.7,
@@ -302,6 +304,7 @@ const WarpText = ({
   const containerRef = useRef(null);
   const propsRef = useRef({
     text,
+    align,
     color,
     fontSize,
     fontWeight,
@@ -327,6 +330,7 @@ const WarpText = ({
   useEffect(() => {
     propsRef.current = {
       text,
+      align,
       color,
       fontSize,
       fontWeight,
@@ -350,6 +354,7 @@ const WarpText = ({
     if (contextRef.current) syncUniforms(contextRef.current.program, propsRef.current);
   }, [
     text,
+    align,
     color,
     fontSize,
     fontWeight,
@@ -372,7 +377,7 @@ const WarpText = ({
 
   useEffect(() => {
     contextRef.current?.rasterize();
-  }, [text, color, fontSize, fontWeight, fontFamily, letterSpacing, lineHeight]);
+  }, [text, align, color, fontSize, fontWeight, fontFamily, letterSpacing, lineHeight]);
 
   useEffect(() => {
     const container = containerRef.current;

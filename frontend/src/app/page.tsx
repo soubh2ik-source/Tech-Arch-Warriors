@@ -61,9 +61,26 @@ export default function Home() {
         <div className="section-container" style={{ position: "relative", zIndex: 1 }}>
           <div className="section-header-row benchmark-header-row">
             <div className="section-title-wrap benchmark-title-wrap">
+              {/* Badge rotated 90 degrees on the left beside the word "Validation" */}
+              <div className="benchmark-vertical-badge-wrap">
+                <GlassSurface
+                  className="hero-category-badge hero-category-badge-vertical"
+                  width="fit-content"
+                  height={32}
+                  borderRadius={9999}
+                  distortionScale={0}
+                  displace={2.5}
+                  backgroundOpacity={0}
+                >
+                  <span className="hero-category-dot" />
+                  <span className="hero-category-text">315 INDEPENDENT HOLDOUT PATIENTS</span>
+                </GlassSurface>
+              </div>
+
               <h2 className="sr-only">Validation Benchmarks & Holdout Results</h2>
               <WarpText
                 text="Validation Benchmarks & Holdout Results"
+                align="left"
                 warpStrength={0.1}
                 warpScale={2}
                 speed={0.8}
@@ -78,26 +95,12 @@ export default function Home() {
                 intro
                 fontSize={109}
                 fontWeight={800}
-                style={{ height: "140px", width: "100%" }}
+                style={{ height: "90px", width: "100%" }}
                 color="#02ffe0"
                 fontFamily="'Playfair Display', Georgia, serif"
                 letterSpacing="-0.04em"
                 lineHeight={1}
               />
-            </div>
-            <div className="section-pill-badge-wrap">
-              <GlassSurface
-                className="hero-category-badge benchmark-category-badge"
-                width="fit-content"
-                height={32}
-                borderRadius={9999}
-                distortionScale={0}
-                displace={2.5}
-                backgroundOpacity={0}
-              >
-                <span className="hero-category-dot" />
-                <span className="hero-category-text">315 INDEPENDENT HOLDOUT PATIENTS</span>
-              </GlassSurface>
             </div>
           </div>
 
