@@ -59,7 +59,6 @@ export default function Home() {
         <div className="section-container" style={{ position: "relative", zIndex: 1 }}>
           <div className="section-header-row">
             <div className="section-title-wrap">
-              <span className="section-eyebrow">CLINICAL PERFORMANCE</span>
               <h2 className="section-title">Validation Benchmarks & Holdout Results</h2>
             </div>
             <div className="section-pill-badge">
