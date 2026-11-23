@@ -1,3 +1,16 @@
+try:
+    from backend.validator import (
+        ScanValidationError,
+        validate_axial_ct_heuristics,
+        validate_ct_manifold_and_predict
+    )
+except ImportError:
+    from validator import (
+        ScanValidationError,
+        validate_axial_ct_heuristics,
+        validate_ct_manifold_and_predict
+    )
+
 import os
 import io
 import sys
@@ -140,6 +153,33 @@ def health():
 
 
 # Add Predict REST API endpoints for Vercel Next.js client
+@app.post("/api/validate")
+@app.post("/validate")
+async def validate_endpoint(req: Request):
+    try:
+        data = await req.json()
+        image_raw = data.get("image") or data.get("image_data")
+        if not image_raw:
+            return JSONResponse({"valid": False, "error": {"code": "BAD_REQUEST", "title": "Missing Image", "message": "No image payload provided", "telemetry": {}}}, status_code=400)
+
+        if "," in image_raw:
+            image_raw = image_raw.split(",", 1)[1]
+
+        img_bytes = base64.b64decode(image_raw.strip())
+        arr_norm, t1_telem = validate_axial_ct_heuristics(img_bytes)
+
+        t2_telem = {}
+        from backend.api_server import DUAL_XCEPTION_MODEL, CENTROID_VECTOR
+        if DUAL_XCEPTION_MODEL is not None and CENTROID_VECTOR is not None:
+            _, t2_telem = validate_ct_manifold_and_predict(DUAL_XCEPTION_MODEL, CENTROID_VECTOR, arr_norm)
+
+        return {"valid": True, "telemetry": {**t1_telem, **t2_telem}}
+    except ScanValidationError as e:
+        return JSONResponse(e.to_dict(), status_code=422)
+    except Exception as e:
+        return JSONResponse({"valid": False, "error": {"code": "BAD_REQUEST", "title": "Validation Error", "message": str(e), "telemetry": {}}}, status_code=400)
+
+
 @app.post("/predict")
 @app.post("/api-predict")
 @app.post("/api/predict")
@@ -156,6 +196,8 @@ async def predict_endpoint(req: Request):
         img_bytes = base64.b64decode(image_raw.strip())
         result = run_inference(img_bytes)
         return result
+    except ScanValidationError as e:
+        return JSONResponse(e.to_dict(), status_code=422)
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=500)
 

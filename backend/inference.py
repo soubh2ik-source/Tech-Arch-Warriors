@@ -1,3 +1,18 @@
+try:
+    from backend.validator import (
+        ScanValidationError,
+        validate_axial_ct_heuristics,
+        validate_ct_manifold_and_predict,
+        DEFAULT_OOD_THRESHOLD
+    )
+except ImportError:
+    from validator import (
+        ScanValidationError,
+        validate_axial_ct_heuristics,
+        validate_ct_manifold_and_predict,
+        DEFAULT_OOD_THRESHOLD
+    )
+
 """
 Single-Image Inference Script for Lung Cancer Detection.
 Classifies any input chest CT scan using trained model weights.
@@ -153,6 +168,28 @@ def predict(models, image_path: Path):
 
     print(f"\nAnalyzing image: {image_path.resolve()}")
 
+    # Tier 1: Fast Pixel & Gantry Geometry Heuristics (< 5ms)
+    arr_norm, t1_telem = validate_axial_ct_heuristics(image_path)
+    print(f" [Gatekeeper Tier 1] PASSED ({t1_telem.get('tier1_latency_ms', 0)}ms)")
+
+    # Tier 2: Feature-Space Manifold & Shannon Entropy Gate (< 40ms)
+    if "xception" in models:
+        m_xc = models["xception"]
+        gap_layer = None
+        for layer in m_xc.layers:
+            if isinstance(layer, GlobalAveragePooling2D):
+                gap_layer = layer
+                break
+        if gap_layer is not None:
+            dual_xc = Model(inputs=m_xc.inputs, outputs=[gap_layer.output, m_xc.output])
+            centroid_path = MODELS_DIR / "ct_manifold_centroid.npy"
+            if not centroid_path.exists():
+                centroid_path = REPO_ROOT / "models" / "ct_manifold_centroid.npy"
+            if centroid_path.exists():
+                centroid = np.load(str(centroid_path))
+                _, t2_telem = validate_ct_manifold_and_predict(dual_xc, centroid, arr_norm)
+                print(f" [Gatekeeper Tier 2] PASSED (Cosine Sim: {t2_telem.get('cosine_similarity', 0):.4f}, Latency: {t2_telem.get('tier2_latency_ms', 0)}ms)")
+
     # 1. Load raw image [0, 255]
     raw_img = image.load_img(str(image_path), target_size=IMAGE_SIZE)
     img_array = image.img_to_array(raw_img, dtype="float32")
@@ -263,6 +300,22 @@ def predict(models, image_path: Path):
     plt.close()
 
 
+def print_gatekeeper_box(e: ScanValidationError):
+    w = 76
+    print("\n" + "=" * w)
+    print(" [PulmoAI OOD MODALITY GATEKEEPER INTERCEPTION]")
+    print("=" * w)
+    print(f"  Rejection Code : {e.code}")
+    print(f"  Clinical Title : {e.title}")
+    print(f"  Message        : {e.message}")
+    print("  " + "-" * (w - 4))
+    print("  Validation Telemetry:")
+    for k, v in e.telemetry.items():
+        k_fmt = k.replace("_", " ").title()
+        print(f"    • {k_fmt:<22}: {v}")
+    print("=" * w + "\n")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Predict lung cancer diagnosis from a CT scan image.")
     parser.add_argument("image_path", nargs="?", help="Path to chest CT scan image file (PNG/JPG)")
@@ -294,7 +347,11 @@ def main():
 
     image_path = Path(target_path_str)
     models = load_ensemble()
-    predict(models, image_path)
+    try:
+        predict(models, image_path)
+    except ScanValidationError as e:
+        print_gatekeeper_box(e)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -18,6 +18,27 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
+try:
+    from backend.validator import (
+        ScanValidationError,
+        validate_axial_ct_heuristics,
+        validate_ct_manifold_and_predict,
+        CTModalityGatekeeper,
+        DEFAULT_OOD_THRESHOLD
+    )
+except ImportError:
+    from validator import (
+        ScanValidationError,
+        validate_axial_ct_heuristics,
+        validate_ct_manifold_and_predict,
+        CTModalityGatekeeper,
+        DEFAULT_OOD_THRESHOLD
+    )
+
+DUAL_XCEPTION_MODEL = None
+CENTROID_VECTOR = None
+GATEKEEPER = None
+
 # Suppress TensorFlow logging
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
@@ -207,6 +228,17 @@ def init_models():
         gc.collect()
         print(f"[API] Tri-Ensemble ready ({len(LOADED_MODELS)}/3 backbones loaded). Serving instant clinical inferences.")
 
+    # Initialize and pre-warm 2-Tier Modality Gatekeeper
+    global DUAL_XCEPTION_MODEL, CENTROID_VECTOR, GATEKEEPER
+    try:
+        from validator import get_gatekeeper
+        GATEKEEPER = get_gatekeeper()
+        DUAL_XCEPTION_MODEL = GATEKEEPER.dual_model
+        CENTROID_VECTOR = GATEKEEPER.centroid
+        print("[API] PulmoAI 2-Tier Modality Gatekeeper initialized & pre-warmed successfully.")
+    except Exception as e:
+        print(f"[API] Modality Gatekeeper initialization note: {e}")
+
 
 def apply_clahe_pillow(image_rgb):
     """Generates enhanced preview image for UI visualization."""
@@ -268,10 +300,21 @@ def generate_tta_batch(arr_350):
 def run_inference(image_bytes):
     """
     Executes multi-backbone inference and builds detailed clinical payload.
-    Uses Xception (10%) + EfficientNetV2-S (30%) + DenseNet121 CLAHE (60%)
-    with 5-View TTA and Bayesian Prior Calibration.
+    Enforces strict 2-Tier Out-of-Distribution (OOD) Axial CT Gatekeeper:
+      - Tier 1: Fast Pixel & Gantry Geometry Heuristics (< 5ms)
+      - Tier 2: Xception Feature-Space Manifold & Shannon Entropy Gate (< 40ms)
     """
     start_time = time.time()
+
+    # Tier 1: Fast Pixel & Gantry Geometry Heuristics (< 5ms)
+    arr_norm, t1_telem = validate_axial_ct_heuristics(image_bytes)
+
+    # Tier 2: Feature-Space Manifold & Entropy Gate (< 40ms)
+    validation_telemetry = t1_telem
+    if DUAL_XCEPTION_MODEL is not None and CENTROID_VECTOR is not None:
+        _, t2_telem = validate_ct_manifold_and_predict(DUAL_XCEPTION_MODEL, CENTROID_VECTOR, arr_norm)
+        validation_telemetry = {**t1_telem, **t2_telem}
+
     pil_img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
     original_size = pil_img.size
 
@@ -419,6 +462,7 @@ def run_inference(image_bytes):
         },
         "profile": CLINICAL_PROFILES.get(top_class, {}),
         "backbones": backbone_breakdown,
+        "validation_telemetry": validation_telemetry,
         "consensus": {
             "algorithm": "Soft-Voting Consensus Weighted Tri-Ensemble",
             "weights": "10% Xception + 30% EfficientNetV2-S + 60% DenseNet121 CLAHE",
@@ -513,47 +557,86 @@ class MedicalApiHandler(BaseHTTPRequestHandler):
             self._set_headers(404)
             self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode("utf-8"))
 
+    def _extract_image_bytes(self, data):
+        image_raw = data.get("image") or data.get("image_data")
+        if not image_raw and data.get("sample_id"):
+            sample_map = {
+                "sample_adeno": "/samples/adenocarcinoma.png",
+                "sample_large": "/samples/large_cell.png",
+                "sample_normal": "/samples/normal_lung.png",
+                "sample_squamous": "/samples/squamous_cell.png",
+            }
+            image_raw = sample_map.get(data.get("sample_id"))
+
+        if not image_raw:
+            raise ValueError("No image payload provided")
+
+        if image_raw.startswith("/samples/") or image_raw.startswith("samples/"):
+            sample_rel = image_raw.lstrip("/").split("?")[0]
+            sample_path = REPO_ROOT / "frontend" / "public" / sample_rel
+            if sample_path.exists():
+                with open(sample_path, "rb") as f:
+                    return f.read()
+            else:
+                raise FileNotFoundError(f"Sample file {sample_path} not found")
+        else:
+            if "," in image_raw:
+                image_raw = image_raw.split(",", 1)[1]
+            return base64.b64decode(image_raw.strip())
+
     def do_POST(self):
-        if self.path == "/api/predict":
+        clean_path = self.path.split("?")[0].rstrip("/")
+        if clean_path in ("/api/validate", "/validate"):
             try:
                 content_length = int(self.headers.get("Content-Length", 0))
                 body = self.rfile.read(content_length)
                 data = json.loads(body.decode("utf-8"))
 
-                image_raw = data.get("image") or data.get("image_data")
-                if not image_raw and data.get("sample_id"):
-                    sample_map = {
-                        "sample_adeno": "/samples/adenocarcinoma.png",
-                        "sample_large": "/samples/large_cell.png",
-                        "sample_normal": "/samples/normal_lung.png",
-                        "sample_squamous": "/samples/squamous_cell.png",
+                img_bytes = self._extract_image_bytes(data)
+
+                # Tier 1 Heuristics
+                arr_norm, t1_telem = validate_axial_ct_heuristics(img_bytes)
+
+                # Tier 2 Manifold & Entropy Gate
+                t2_telem = {}
+                if DUAL_XCEPTION_MODEL is not None and CENTROID_VECTOR is not None:
+                    _, t2_telem = validate_ct_manifold_and_predict(DUAL_XCEPTION_MODEL, CENTROID_VECTOR, arr_norm)
+
+                self._set_headers(200)
+                self.wfile.write(json.dumps({
+                    "valid": True,
+                    "telemetry": {**t1_telem, **t2_telem}
+                }).encode("utf-8"))
+            except ScanValidationError as e:
+                self._set_headers(422)
+                self.wfile.write(json.dumps(e.to_dict()).encode("utf-8"))
+            except Exception as e:
+                self._set_headers(400)
+                self.wfile.write(json.dumps({
+                    "valid": False,
+                    "error": {
+                        "code": "BAD_REQUEST",
+                        "title": "Validation Error",
+                        "message": str(e),
+                        "telemetry": {}
                     }
-                    image_raw = sample_map.get(data.get("sample_id"))
+                }).encode("utf-8"))
+            return
 
-                if not image_raw:
-                    self._set_headers(400)
-                    self.wfile.write(json.dumps({"error": "No image payload provided"}).encode("utf-8"))
-                    return
+        elif clean_path in ("/api/predict", "/predict"):
+            try:
+                content_length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(content_length)
+                data = json.loads(body.decode("utf-8"))
 
-                # Check if image_raw is a local file or public path
-                if image_raw.startswith("/samples/") or image_raw.startswith("samples/"):
-                    sample_rel = image_raw.lstrip("/").split("?")[0]
-                    sample_path = REPO_ROOT / "frontend" / "public" / sample_rel
-                    if sample_path.exists():
-                        with open(sample_path, "rb") as f:
-                            img_bytes = f.read()
-                    else:
-                        raise FileNotFoundError(f"Sample file {sample_path} not found")
-                else:
-                    # Strip data URL prefix if present
-                    if "," in image_raw:
-                        image_raw = image_raw.split(",", 1)[1]
-                    img_bytes = base64.b64decode(image_raw.strip())
-
+                img_bytes = self._extract_image_bytes(data)
                 result = run_inference(img_bytes)
 
                 self._set_headers(200)
                 self.wfile.write(json.dumps(result).encode("utf-8"))
+            except ScanValidationError as e:
+                self._set_headers(422)
+                self.wfile.write(json.dumps(e.to_dict()).encode("utf-8"))
             except Exception as e:
                 self._set_headers(500)
                 self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))

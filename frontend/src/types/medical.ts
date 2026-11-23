@@ -88,3 +88,29 @@ export interface ClinicianUser {
   badgeNumber: string;
   isLoggedIn: boolean;
 }
+
+export interface ValidationErrorPayload {
+  code: "CORRUPT_FILE" | "INVALID_ASPECT_RATIO" | "NON_GRAYSCALE_IMAGE" | "INVALID_MODALITY_FOV" | "OUT_OF_DISTRIBUTION_ANATOMY" | "LOW_DIAGNOSTIC_CONFIDENCE" | string;
+  title: string;
+  message: string;
+  telemetry: {
+    aspect_ratio?: number;
+    chroma_variance?: number;
+    corner_intensity?: number;
+    thoracic_contrast?: number;
+    cosine_similarity?: number;
+    ood_threshold?: number;
+    max_confidence?: number;
+    shannon_entropy?: number;
+    tier1_latency_ms?: number;
+    tier2_latency_ms?: number;
+    total_gatekeeper_latency_ms?: number;
+    [key: string]: any;
+  };
+}
+
+export interface ValidationResult {
+  valid: boolean;
+  error?: ValidationErrorPayload;
+  telemetry?: Record<string, any>;
+}

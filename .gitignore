@@ -52,8 +52,12 @@ frontend/next-env.d.ts
 *-checkpoint.ipynb
 
 # Machine Learning & Model weights / checkpoints (>50MB+)
-models/
-**/models/
+models/*
+!models/ct_manifold_centroid.npy
+!models/ct_manifold_stats.json
+**/models/*
+!**/models/ct_manifold_centroid.npy
+!**/models/ct_manifold_stats.json
 test_modles/
 **/test_modles/
 test_models/

@@ -12,33 +12,50 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing image data" }, { status: 400 });
     }
 
-    // Attempt python inference backend first (configured URL then public Hugging Face Space)
+    // Candidate python backend URLs: local fast API server prioritized, then configured, then remote
     const configuredUrl = (process.env.PYTHON_API_URL || "").trim().replace(/\/+$/, "");
-    const primaryUrl = configuredUrl || "https://stellar-merge-pulmovision-api.hf.space";
     const candidateUrls = Array.from(new Set([
-      primaryUrl,
+      configuredUrl,
+      "http://127.0.0.1:8001",
+      "http://localhost:8001",
+      "http://127.0.0.1:8000",
+      "http://localhost:8000",
       "https://stellar-merge-pulmovision-api.hf.space"
-    ]));
+    ])).filter(Boolean);
 
     for (const pythonBase of candidateUrls) {
       console.log(`[Predict Route] Attempting Python backend: ${pythonBase}/predict`);
       try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 25000); // 25s timeout
+        const timeout = setTimeout(() => controller.abort(), 20000); // 20s timeout
         let res = await fetch(`${pythonBase}/predict`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ image_data: imageData, sample_id: sampleId }),
           signal: controller.signal
         });
+
+        // Strict 422 intercept from Python Gatekeeper
+        if (res.status === 422) {
+          clearTimeout(timeout);
+          const errorJson = await res.json();
+          console.warn(`[Predict Route] Modality Gatekeeper 422 Interception:`, errorJson);
+          return NextResponse.json(errorJson, { status: 422 });
+        }
+
         if (!res.ok && res.status !== 500) {
           // Fallback to /api/predict or /api-predict
-          res = await fetch(`${pythonBase}/api-predict`, {
+          res = await fetch(`${pythonBase}/api/predict`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ image_data: imageData, sample_id: sampleId }),
             signal: controller.signal
           });
+          if (res.status === 422) {
+            clearTimeout(timeout);
+            const errorJson = await res.json();
+            return NextResponse.json(errorJson, { status: 422 });
+          }
         }
         clearTimeout(timeout);
 

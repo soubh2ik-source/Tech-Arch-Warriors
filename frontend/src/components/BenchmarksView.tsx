@@ -181,9 +181,9 @@ export const BenchmarksView: React.FC = () => {
                 <rect x="14" y="14" width="7" height="7" rx="1.5" />
               </svg>
             </div>
-            <h3 style={{ fontSize: "19px", fontWeight: 850, color: "#051a15", margin: 0, display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", letterSpacing: "-0.01em" }}>
+            <h3 style={{ fontSize: "19px", fontWeight: 850, color: "#000000", textShadow: "0 1.5px 3px rgba(0, 0, 0, 0.45), 0 3px 8px rgba(0, 0, 0, 0.2)", margin: 0, display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", letterSpacing: "-0.01em" }}>
               <span>Multi-Class Holdout Confusion Matrix</span>
-              <span style={{ fontSize: "14px", fontWeight: 700, color: "#083328" }}>(315 Independent Patients)</span>
+              <span style={{ fontSize: "14px", fontWeight: 700, color: "#000000", textShadow: "0 1px 2px rgba(0, 0, 0, 0.35)" }}>(315 Independent Patients)</span>
             </h3>
           </div>
 
@@ -369,7 +369,7 @@ export const BenchmarksView: React.FC = () => {
               <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
             </svg>
           </div>
-          <h3 style={{ fontSize: "19px", fontWeight: 850, color: "#051a15", margin: 0, letterSpacing: "-0.01em" }}>
+          <h3 style={{ fontSize: "19px", fontWeight: 850, color: "#000000", textShadow: "0 1.5px 3px rgba(0, 0, 0, 0.45), 0 3px 8px rgba(0, 0, 0, 0.2)", margin: 0, letterSpacing: "-0.01em" }}>
             Architectural Evolution: Step-by-Step Milestones
           </h3>
         </div>

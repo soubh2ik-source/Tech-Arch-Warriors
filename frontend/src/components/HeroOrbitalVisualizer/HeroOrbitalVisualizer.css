@@ -153,12 +153,12 @@
   transform-origin: 200px 200px;
 }
 
-.orbit-showcase-wrapper:hover .orbit-rotating-ring {
-  animation-play-state: paused;
-}
-
-.orbit-showcase-wrapper:hover .orbit-card-content {
-  animation-play-state: paused;
+/* Continuous rotation - never paused on hover over wrapper or cards */
+.orbit-showcase-wrapper:hover .orbit-rotating-ring,
+.orbit-showcase-wrapper:hover .orbit-card-content,
+.orbit-rotating-ring:hover,
+.orbit-card-content:hover {
+  animation-play-state: running !important;
 }
 
 @keyframes orbitRingSpin {
@@ -203,7 +203,11 @@
 
 /* CARD CONTENT (Counter-rotates so it stays completely upright and level) */
 .orbit-card-content {
-  background: #d0fcf4;
+  background-color: #38cfb2;
+  background-image: url('/wave-pattern.png?v=natural');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border: 2px solid #02ffe0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(2, 255, 224, 0.45);
   border-radius: 12px;
@@ -221,7 +225,7 @@
 .orbit-card-content:hover {
   border-color: #ffffff;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 28px rgba(2, 255, 224, 0.75);
-  transform: scale(1.06);
+  filter: brightness(1.12);
 }
 
 @keyframes orbitCardCounter {
@@ -257,14 +261,16 @@
   font-family: var(--font-display, sans-serif);
   font-size: 12.5px;
   font-weight: 850;
-  color: #051a15;
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   letter-spacing: -0.01em;
 }
 
 .orbit-card-text .card-subtitle {
   font-family: var(--font-sans, sans-serif);
   font-size: 10.5px;
-  color: #083328;
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   font-weight: 750;
 }
 

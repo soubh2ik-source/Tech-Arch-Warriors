@@ -31,3 +31,9 @@ When designing, building, refining, or auditing the dedicated frontend (`fronten
 4. **Quality & Pre-Delivery Verification**:
    - Verify layout rendering, keyboard navigability (visible focus rings, aria-labels for icon buttons), and check browser console logs for zero runtime errors before completing any UI task.
 
+## Version Control & Git Policy
+
+- **No Automated Commits**: Do NOT commit any change or push to GitHub until and unless the user explicitly commands it (e.g., "commit this", "push into the repo", "push to github").
+- Never run `git commit` or `git push` automatically as part of a task completion flow.
+
+

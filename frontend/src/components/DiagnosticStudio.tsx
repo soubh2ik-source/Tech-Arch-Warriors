@@ -21,10 +21,143 @@ import {
   PredictionResult, 
   ActiveScan, 
   ViewportState, 
-  SampleScan 
+  SampleScan,
+  ValidationErrorPayload,
+  ValidationResult
 } from "@/types/medical";
 import { SAMPLE_SCANS, CLINICAL_PROFILES } from "@/lib/constants";
-import { requestPrediction } from "@/lib/inferenceClient";
+import { requestPrediction, validateScan, ModalityValidationError } from "@/lib/inferenceClient";
+
+type ValidationState = "IDLE" | "VALIDATING" | "VALID_READY" | "REJECTED" | "ANALYZING" | "COMPLETE";
+
+function ShieldAlertIcon({ size = 18, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className}
+    >
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <line x1="12" y1="8" x2="12" y2="12" />
+      <line x1="12" y1="16" x2="12.01" y2="16" />
+    </svg>
+  );
+}
+
+function runClientPreFlightCheck(file: File): Promise<{ valid: boolean; error?: ValidationErrorPayload }> {
+  return new Promise((resolve) => {
+    // 1. File format validation
+    const validExtensions = /\.(png|jpe?g|webp)$/i;
+    if (file.type && !file.type.match(/^image\/(png|jpeg|jpg|webp)$/i) && !validExtensions.test(file.name)) {
+      return resolve({
+        valid: false,
+        error: {
+          code: "CORRUPT_FILE",
+          title: "Unsupported Image Format",
+          message: "Please upload an axial CT slice in PNG, JPEG, or DICOM-exported format.",
+          telemetry: { format: file.type || file.name.split('.').pop() }
+        }
+      });
+    }
+
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      const w = img.naturalWidth || img.width;
+      const h = img.naturalHeight || img.height;
+      if (!w || !h) {
+        return resolve({
+          valid: false,
+          error: {
+            code: "CORRUPT_FILE",
+            title: "Corrupt Image Data",
+            message: "Unable to parse image dimensions from uploaded file.",
+            telemetry: { width: w, height: h }
+          }
+        });
+      }
+
+      // 2. Aspect Ratio Check: 0.75 <= w/h <= 1.35
+      const ratio = w / h;
+      if (ratio < 0.75 || ratio > 1.35) {
+        return resolve({
+          valid: false,
+          error: {
+            code: "INVALID_ASPECT_RATIO",
+            title: "Invalid Aspect Ratio Geometry",
+            message: `Axial cross-sectional thoracic CT slices require aspect ratio 0.75 - 1.35. Received ${ratio.toFixed(2)}.`,
+            telemetry: { aspect_ratio: Number(ratio.toFixed(3)), width: w, height: h }
+          }
+        });
+      }
+
+      // 3. Monochromatic / Chroma Variance Check using canvas sampling
+      try {
+        const canvas = document.createElement("canvas");
+        const sampleSize = 100;
+        canvas.width = sampleSize;
+        canvas.height = sampleSize;
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        if (!ctx) {
+          return resolve({ valid: true });
+        }
+
+        ctx.drawImage(img, 0, 0, sampleSize, sampleSize);
+        const imgData = ctx.getImageData(0, 0, sampleSize, sampleSize).data;
+        let totalRgbStd = 0;
+        const numPixels = sampleSize * sampleSize;
+
+        for (let i = 0; i < imgData.length; i += 4) {
+          const r = imgData[i];
+          const g = imgData[i + 1];
+          const b = imgData[i + 2];
+          const mean = (r + g + b) / 3;
+          const variance = ((r - mean) ** 2 + (g - mean) ** 2 + (b - mean) ** 2) / 3;
+          totalRgbStd += Math.sqrt(variance);
+        }
+
+        const meanChromaStd = totalRgbStd / numPixels;
+        if (meanChromaStd > 6.5) {
+          return resolve({
+            valid: false,
+            error: {
+              code: "NON_GRAYSCALE_IMAGE",
+              title: "Non-Monochromatic Image Detected",
+              message: "Clinical thoracic CT slices must be monochromatic radiograph scans. Color chroma variance detected.",
+              telemetry: { chroma_variance: Number(meanChromaStd.toFixed(2)), threshold: 6.5 }
+            }
+          });
+        }
+      } catch (e) {
+        // Proceed to server gatekeeper if canvas unavailable
+      }
+
+      resolve({ valid: true });
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve({
+        valid: false,
+        error: {
+          code: "CORRUPT_FILE",
+          title: "Corrupt Image Data",
+          message: "Failed to decode uploaded image data.",
+          telemetry: {}
+        }
+      });
+    };
+
+    img.src = objectUrl;
+  });
+}
 
 interface DiagnosticStudioProps {
   onOpenReport: () => void;
@@ -123,6 +256,9 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
   const [panelsVisible, setPanelsVisible] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [pendingFiles, setPendingFiles] = useState<UploadItem[]>([]);
+  const [validationState, setValidationState] = useState<ValidationState>(activeScan ? "VALID_READY" : "IDLE");
+  const [validationError, setValidationError] = useState<ValidationErrorPayload | null>(null);
+  const [validationLatency, setValidationLatency] = useState<number | null>(null);
   const [viewport, setViewport] = useState<ViewportState>({
     zoom: 1.0,
     panX: 0,
@@ -221,10 +357,13 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
     setHasUploaded(true);
     setTimeout(() => setPanelsVisible(true), 60);
 
+    setValidationState("VALID_READY");
+    setValidationError(null);
     setIsAnalyzing(true);
     try {
       const res = await requestPrediction(sample.path, sample);
       setResult(res);
+      setValidationState("COMPLETE");
     } catch (err) {
       console.error("Live analysis execution error on sample select, using calibrated benchmark preview:", err);
       const preview = CLINICAL_BENCHMARK_PREVIEWS[sample.id] || CLINICAL_BENCHMARK_PREVIEWS.sample_adeno;
@@ -332,16 +471,64 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
     setPendingFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const handleRedirectToUpload = () => {
+    setHasUploaded(false);
+    setPanelsVisible(false);
+    setActiveScan(null);
+    setResult(null);
+    setValidationState("IDLE");
+    setValidationError(null);
+
+    // Smoothly scroll to the upload section
+    const uploadSection = document.getElementById("analysis") || document.querySelector(".section-analysis-clean");
+    if (uploadSection) {
+      uploadSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   const handleCancel = () => {
     setPendingFiles([]);
   };
 
-  const attachFile = (fileEntry: UploadItem) => {
+  const attachFile = async (fileEntry: UploadItem) => {
+    // Immediately clear attached file from pending list so its row disappears on click
+    setPendingFiles((prev) => prev.filter((item) => item.id !== fileEntry.id));
+
     if (!fileEntry.file) {
       handleSelectSample(SAMPLE_SCANS[0]);
       return;
     }
 
+    setValidationState("VALIDATING");
+    setValidationError(null);
+    setResult(null);
+
+    // Stage A: Client-Side Instant Pre-Flight Check (< 5ms)
+    const preflight = await runClientPreFlightCheck(fileEntry.file);
+    if (!preflight.valid && preflight.error) {
+      const reader = new FileReader();
+      reader.onload = (uploadEvent) => {
+        const dataUrl = uploadEvent.target?.result as string;
+        setActiveScan({
+          name: fileEntry.name,
+          dataUrl,
+          isSample: false,
+          sampleId: null,
+          meta: null
+        });
+        setHasUploaded(true);
+        setTimeout(() => setPanelsVisible(true), 60);
+      };
+      reader.readAsDataURL(fileEntry.file);
+
+      setValidationState("REJECTED");
+      setValidationError(preflight.error);
+      setResult(null);
+      setPendingFiles((prev) => prev.filter((item) => item.id !== fileEntry.id));
+      return;
+    }
+
+    // Stage B: Server-Side 2-Tier Modality Gatekeeper
     const reader = new FileReader();
     reader.onload = async (uploadEvent) => {
       const dataUrl = uploadEvent.target?.result as string;
@@ -362,40 +549,63 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
       };
       setActiveScan(newScan);
       setViewport(prev => ({ ...prev, zoom: 1.0, panX: 0, panY: 0 }));
-
-      // Trigger layout transition
       setHasUploaded(true);
       setTimeout(() => setPanelsVisible(true), 60);
 
-      // Automatically run prediction on custom upload
-      setIsAnalyzing(true);
-      try {
-        const res = await requestPrediction(dataUrl, null);
-        setResult(res);
-      } catch (err) {
-        console.error("Analysis execution error on upload:", err);
-      } finally {
-        setIsAnalyzing(false);
-        // Automatically remove the attached and scanned file from the pending files list
+      // Validate with backend Gatekeeper
+      const t0 = performance.now();
+      const valResult = await validateScan(dataUrl, null);
+      const latency = Math.round(performance.now() - t0);
+      setValidationLatency(latency);
+
+      if (!valResult.valid && valResult.error) {
+        setValidationState("REJECTED");
+        setValidationError({
+          ...valResult.error,
+          telemetry: {
+            ...valResult.error.telemetry,
+            total_gatekeeper_latency_ms: valResult.error.telemetry?.total_gatekeeper_latency_ms || latency
+          }
+        });
+        setResult(null);
         setPendingFiles((prev) => prev.filter((item) => item.id !== fileEntry.id));
+        return;
       }
+
+      // Valid CT Slice confirmed! Do NOT start scanning automatically.
+      // Wait for user to explicitly click "Run Tri-Ensemble Consensus".
+      setValidationState("VALID_READY");
+      setResult(null);
+      setIsAnalyzing(false);
+      setPendingFiles((prev) => prev.filter((item) => item.id !== fileEntry.id));
     };
     reader.readAsDataURL(fileEntry.file);
   };
 
   const handleAttach = () => {
     if (pendingFiles.length === 0 || isAnalyzing) return;
-    attachFile(pendingFiles[0]);
+    const fileToAttach = pendingFiles[0];
+    // Immediately clear from pending list so the card disappears on click
+    setPendingFiles((prev) => prev.filter((item) => item.id !== fileToAttach.id));
+    attachFile(fileToAttach);
   };
 
   const handleAnalyze = async () => {
-    if (!activeScan || isAnalyzing) return;
+    if (!activeScan || isAnalyzing || validationState === "REJECTED") return;
     setIsAnalyzing(true);
+    setValidationState("ANALYZING");
     try {
       const res = await requestPrediction(activeScan.dataUrl, activeScan.isSample ? activeScan.meta : null);
       setResult(res);
-    } catch (err) {
-      console.error("Analysis execution error:", err);
+      setValidationState("COMPLETE");
+    } catch (err: any) {
+      if (err instanceof ModalityValidationError || err?.name === "ModalityValidationError") {
+        setValidationState("REJECTED");
+        setValidationError(err.errorPayload);
+        setResult(null);
+      } else {
+        console.error("Analysis execution error:", err);
+      }
     } finally {
       setIsAnalyzing(false);
     }
@@ -416,25 +626,31 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
   const currentSampleKey = activeScan?.sampleId || "sample_adeno";
   const defaultPreview = CLINICAL_BENCHMARK_PREVIEWS[currentSampleKey] || CLINICAL_BENCHMARK_PREVIEWS.sample_adeno;
 
+  const isAwaitingInference = Boolean(activeScan && !activeScan.isSample && !result && validationState !== "REJECTED");
+
   const currentClass = result 
     ? (result.prediction.includes("Adeno") ? "Adenocarcinoma" :
        result.prediction.includes("Squamous") ? "Squamous Cell" :
        result.prediction.includes("Large") ? "Large Cell" : "Normal (Healthy)")
+    : isAwaitingInference
+    ? "Awaiting Inference"
     : defaultPreview.className;
 
-  const isMalignant = currentClass !== "Normal (Healthy)";
+  const isMalignant = currentClass !== "Normal (Healthy)" && currentClass !== "Awaiting Inference";
 
   const findingText = result?.profile?.hallmarks 
     ? `Findings are most consistent with ${currentClass.toLowerCase()} (${isMalignant ? "lung cancer" : "healthy lung tissue"}).`
+    : isAwaitingInference
+    ? "Axial thoracic CT slice validated by PulmoAI Gatekeeper. Click 'Run Tri-Ensemble Consensus' below to run AI classification."
     : defaultPreview.description;
 
   const sliceOverlayText = defaultPreview.sliceText;
 
   // Extract probabilities
-  let probAdeno = defaultPreview.probabilities.adeno;
-  let probSquamous = defaultPreview.probabilities.squamous;
-  let probLarge = defaultPreview.probabilities.large;
-  let probNormal = defaultPreview.probabilities.normal;
+  let probAdeno = isAwaitingInference ? 0 : defaultPreview.probabilities.adeno;
+  let probSquamous = isAwaitingInference ? 0 : defaultPreview.probabilities.squamous;
+  let probLarge = isAwaitingInference ? 0 : defaultPreview.probabilities.large;
+  let probNormal = isAwaitingInference ? 0 : defaultPreview.probabilities.normal;
 
   if (result?.probabilities) {
     probAdeno = Number(((result.probabilities["Adenocarcinoma"] || 0) * 100).toFixed(1));
@@ -562,6 +778,37 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
               <span>512 × 512</span>
               <span>{sliceOverlayText}</span>
             </div>
+
+            {/* Diagnostic Gatekeeper Exception Card (<95ms Multi-Tier OOD Interceptor) */}
+            {validationState === "REJECTED" && validationError && (
+              <div className="gatekeeper-exception-overlay">
+                <div className="gatekeeper-exception-card">
+                  <div className="gatekeeper-badge-row">
+                    <span className="gatekeeper-badge">
+                      <ShieldAlertIcon size={14} />
+                      <span>GATEKEEPER REJECTION • {validationError.code || "OOD_MODALITY"}</span>
+                    </span>
+                    <span className="gatekeeper-tag">Inference Strictly Blocked</span>
+                  </div>
+
+                  <h4 className="gatekeeper-title">Invalid Scan Uploaded</h4>
+                  <p className="gatekeeper-desc">
+                    Please upload a valid axial thoracic CT scan image to proceed with PulmoAI analysis.
+                  </p>
+
+                  <div className="gatekeeper-recovery-actions">
+                    <button
+                      type="button"
+                      className="btn-gatekeeper-primary"
+                      onClick={handleRedirectToUpload}
+                    >
+                      <UploadIcon size={14} />
+                      <span>Upload Valid Axial CT Scan</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </>
         ) : (
           <div className="ct-stage-placeholder">
@@ -576,9 +823,15 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
           type="button"
           className="btn-minimal-consensus"
           onClick={handleAnalyze}
-          disabled={!activeScan || isAnalyzing}
+          disabled={!activeScan || isAnalyzing || validationState === "REJECTED"}
+          title={validationState === "REJECTED" ? "Inference blocked: upload a valid axial lung CT scan" : undefined}
         >
-          {isAnalyzing ? (
+          {validationState === "REJECTED" ? (
+            <>
+              <ShieldAlertIcon size={15} />
+              <span>Inference Locked (Invalid Modality)</span>
+            </>
+          ) : isAnalyzing ? (
             <>
               <span className="spin-icon"><ActivityIcon size={15} /></span>
               <span>Analyzing Consensus...</span>
@@ -710,22 +963,54 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
           </div>
           <SparkleIcon size={18} className="card-sparkle-icon" />
         </div>
-        <div className={`diagnosis-tinted-panel ${isMalignant ? "is-malignant" : "is-healthy"}`}>
-          <span className="diagnosis-eyebrow-text">Predicted Class</span>
-          <div className="diagnosis-headline-row">
-            <h2 className="diagnosis-classification-title">{currentClass}</h2>
-            <span className={`diagnosis-status-tag ${isMalignant ? "tag-malignant" : "tag-normal"}`}>
-              {isMalignant ? "Malignant" : "Normal"}
-            </span>
-          </div>
-          <p className="diagnosis-summary-desc">{findingText}</p>
-          {result && (
-            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "10px", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.08)", fontSize: "11px", color: result.source === "python_backend" ? "#34d399" : "var(--text-muted)" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: result.source === "python_backend" ? "#10b981" : "#94a3b8" }} />
-              <span>{result.source === "python_backend" ? "Tri-Ensemble Python CNN Engine (ZeroGPU • Live Active)" : "Calibrated Analytical Engine"}</span>
+        {validationState === "REJECTED" ? (
+          <div className="diagnosis-tinted-panel is-blocked">
+            <span className="diagnosis-eyebrow-text" style={{ color: "#f59e0b" }}>Modality Gatekeeper</span>
+            <div className="diagnosis-headline-row">
+              <h2 className="diagnosis-classification-title" style={{ color: "#fbbf24" }}>Inference Blocked</h2>
+              <span className="diagnosis-status-tag tag-blocked">Gated</span>
             </div>
-          )}
-        </div>
+            <p className="diagnosis-summary-desc">
+              PulmoAI classification is strictly suspended. Please upload a valid axial thoracic CT scan image to proceed.
+            </p>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "10px", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.08)", fontSize: "11px", color: "#fbbf24" }}>
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#f59e0b" }} />
+              <span>OOD Modality Intercepted • Zero False Positives</span>
+            </div>
+          </div>
+        ) : isAwaitingInference ? (
+          <div className="diagnosis-tinted-panel" style={{ borderColor: "rgba(2, 255, 224, 0.35)", background: "rgba(2, 255, 224, 0.04)" }}>
+            <span className="diagnosis-eyebrow-text" style={{ color: "var(--neon-accent, #02ffe0)" }}>Modality Validated</span>
+            <div className="diagnosis-headline-row">
+              <h2 className="diagnosis-classification-title" style={{ color: "#f8fafc" }}>Awaiting Inference</h2>
+              <span className="diagnosis-status-tag" style={{ background: "rgba(2, 255, 224, 0.15)", color: "#02ffe0", borderColor: "rgba(2, 255, 224, 0.4)" }}>
+                Ready
+              </span>
+            </div>
+            <p className="diagnosis-summary-desc">{findingText}</p>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "10px", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.08)", fontSize: "11px", color: "var(--neon-accent, #02ffe0)" }}>
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#02ffe0" }} />
+              <span>Axial CT Verified • Click &quot;Run Tri-Ensemble Consensus&quot;</span>
+            </div>
+          </div>
+        ) : (
+          <div className={`diagnosis-tinted-panel ${isMalignant ? "is-malignant" : "is-healthy"}`}>
+            <span className="diagnosis-eyebrow-text">Predicted Class</span>
+            <div className="diagnosis-headline-row">
+              <h2 className="diagnosis-classification-title">{currentClass}</h2>
+              <span className={`diagnosis-status-tag ${isMalignant ? "tag-malignant" : "tag-normal"}`}>
+                {isMalignant ? "Malignant" : "Normal"}
+              </span>
+            </div>
+            <p className="diagnosis-summary-desc">{findingText}</p>
+            {result && (
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "10px", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.08)", fontSize: "11px", color: result.source === "python_backend" ? "#34d399" : "var(--text-muted)" }}>
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: result.source === "python_backend" ? "#10b981" : "#94a3b8" }} />
+                <span>{result.source === "python_backend" ? "Tri-Ensemble Python CNN Engine (ZeroGPU • Live Active)" : "Calibrated Analytical Engine"}</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Card 2: Probability Distribution */}
@@ -736,7 +1021,25 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
             <h3 className="card-heading-text">Probability Distribution</h3>
           </div>
         </div>
-        <div className="distribution-chart-wrapper">
+        <div className={`distribution-chart-wrapper ${validationState === "REJECTED" || isAwaitingInference ? "is-locked" : ""}`}>
+          {validationState === "REJECTED" && (
+            <div className="chart-locked-overlay">
+              <ShieldAlertIcon size={26} />
+              <span style={{ fontWeight: 600, color: "#f8fafc" }}>Probability Metrics Suppressed</span>
+              <span style={{ fontSize: "11px", color: "#94a3b8", maxWidth: "230px" }}>
+                Out-of-distribution modality intercepted by PulmoAI Gatekeeper.
+              </span>
+            </div>
+          )}
+          {isAwaitingInference && (
+            <div className="chart-locked-overlay" style={{ background: "rgba(5, 13, 22, 0.82)" }}>
+              <ActivityIcon size={26} style={{ color: "var(--neon-accent, #02ffe0)" }} />
+              <span style={{ fontWeight: 600, color: "#f8fafc" }}>Awaiting Consensus Inference</span>
+              <span style={{ fontSize: "11px", color: "#94a3b8", maxWidth: "230px", textAlign: "center" }}>
+                Click &quot;Run Tri-Ensemble Consensus&quot; below to generate histological probabilities.
+              </span>
+            </div>
+          )}
           <div className="chart-top-values-row">
             {chartBars.map((bar) => (
               <span key={bar.key} className={`bar-top-value ${bar.isPrimary ? "is-primary-val" : ""}`}>

@@ -1,0 +1,13 @@
+{
+  "embedding_dim": 2048,
+  "calibrated_threshold": 0.7,
+  "mean_similarity": 0.8252428770065308,
+  "min_similarity": 0.6641359925270081,
+  "max_similarity": 0.8837281465530396,
+  "std_similarity": 0.06983347982168198,
+  "percentile_5": 0.6854666948318482,
+  "total_scans_analyzed": 15,
+  "total_views_analyzed": 75,
+  "timestamp": "2026-11-23T20:22:17Z",
+  "generated_by": "compute_ct_centroid.py"
+}
