@@ -689,7 +689,7 @@ a {
   overflow: hidden;
   isolation: isolate;
   background: transparent;
-  color: #000000 !important;
+  color: #ffffff !important;
   padding: 13px 26px;
   border-radius: 9999px;
   font-size: 15px;
@@ -698,11 +698,11 @@ a {
   border: 3px solid #04615c;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 0.95),
-     1px -1px 0 rgba(255, 255, 255, 0.95),
-    -1px  1px 0 rgba(255, 255, 255, 0.95),
-     1px  1px 0 rgba(255, 255, 255, 0.95),
-     0 0 4px rgba(255, 255, 255, 0.9);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 4px rgba(0, 0, 0, 0.95);
   transition: all var(--transition-fast);
 }
 
@@ -744,24 +744,24 @@ a {
   filter: brightness(1.05);
   border-color: #067d77;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
-  color: #000000 !important;
+  color: #ffffff !important;
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 1),
-     1px -1px 0 rgba(255, 255, 255, 1),
-    -1px  1px 0 rgba(255, 255, 255, 1),
-     1px  1px 0 rgba(255, 255, 255, 1),
-     0 0 6px rgba(255, 255, 255, 0.95);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 6px rgba(0, 0, 0, 0.95);
 }
 
 .btn-hero-arrow {
   font-size: 16px;
   font-weight: 900;
-  color: #000000;
+  color: #ffffff;
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 0.95),
-     1px -1px 0 rgba(255, 255, 255, 0.95),
-    -1px  1px 0 rgba(255, 255, 255, 0.95),
-     1px  1px 0 rgba(255, 255, 255, 0.95);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000;
   transition: transform 0.2s ease;
 }
 
@@ -876,29 +876,29 @@ a {
   font-family: var(--font-serif, "Playfair Display", Georgia, serif);
   font-size: 29px;
   font-weight: 900;
-  color: #000000;
+  color: #ffffff;
   line-height: 1.1;
   letter-spacing: -0.02em;
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 0.95),
-     1px -1px 0 rgba(255, 255, 255, 0.95),
-    -1px  1px 0 rgba(255, 255, 255, 0.95),
-     1px  1px 0 rgba(255, 255, 255, 0.95),
-     0 0 5px rgba(255, 255, 255, 0.9);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 5px rgba(0, 0, 0, 0.95);
 }
 
 .hero-metric-caption {
   font-family: var(--font-sans);
   font-size: 13px;
-  color: #000000;
+  color: #ffffff;
   font-weight: 900;
   line-height: 1.25;
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 0.95),
-     1px -1px 0 rgba(255, 255, 255, 0.95),
-    -1px  1px 0 rgba(255, 255, 255, 0.95),
-     1px  1px 0 rgba(255, 255, 255, 0.95),
-     0 0 3px rgba(255, 255, 255, 0.85);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 4px rgba(0, 0, 0, 0.95);
 }
 
 /* Right Column: Hero Orbital Feature Visualizer (Perfect Responsive Fit) */
@@ -2424,17 +2424,17 @@ a {
   padding: 9px 16px;
   font-size: 13.5px;
   font-weight: 900;
-  color: #000000 !important;
+  color: #ffffff !important;
   cursor: pointer;
   text-align: center;
   transition: all var(--transition-fast);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 0.95),
-     1px -1px 0 rgba(255, 255, 255, 0.95),
-    -1px  1px 0 rgba(255, 255, 255, 0.95),
-     1px  1px 0 rgba(255, 255, 255, 0.95),
-     0 0 4px rgba(255, 255, 255, 0.9);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 4px rgba(0, 0, 0, 0.95);
 }
 
 .btn-upload-attach::before {
@@ -2475,13 +2475,13 @@ a {
   filter: brightness(1.05);
   border-color: #067d77;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
-  color: #000000 !important;
+  color: #ffffff !important;
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 1),
-     1px -1px 0 rgba(255, 255, 255, 1),
-    -1px  1px 0 rgba(255, 255, 255, 1),
-     1px  1px 0 rgba(255, 255, 255, 1),
-     0 0 6px rgba(255, 255, 255, 0.95);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 6px rgba(0, 0, 0, 0.95);
 }
 
 .btn-upload-attach:disabled {
@@ -2699,16 +2699,16 @@ a {
   padding: 10px 14px;
   font-size: 13.5px;
   font-weight: 900;
-  color: #000000 !important;
+  color: #ffffff !important;
   cursor: pointer;
   transition: all var(--transition-fast);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 0.95),
-     1px -1px 0 rgba(255, 255, 255, 0.95),
-    -1px  1px 0 rgba(255, 255, 255, 0.95),
-     1px  1px 0 rgba(255, 255, 255, 0.95),
-     0 0 4px rgba(255, 255, 255, 0.9);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 4px rgba(0, 0, 0, 0.95);
 }
 
 .btn-minimal-consensus::before {
@@ -2745,9 +2745,9 @@ a {
 }
 
 .btn-minimal-consensus svg {
-  color: #000000;
+  color: #ffffff;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.9));
 }
 
 .btn-minimal-consensus:hover:not(:disabled) {
@@ -2755,13 +2755,13 @@ a {
   filter: brightness(1.05);
   border-color: #067d77;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
-  color: #000000 !important;
+  color: #ffffff !important;
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 1),
-     1px -1px 0 rgba(255, 255, 255, 1),
-    -1px  1px 0 rgba(255, 255, 255, 1),
-     1px  1px 0 rgba(255, 255, 255, 1),
-     0 0 6px rgba(255, 255, 255, 0.95);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 6px rgba(0, 0, 0, 0.95);
 }
 
 .btn-minimal-consensus:disabled {
@@ -3944,17 +3944,17 @@ a {
   padding: 9px 18px;
   font-size: 13.5px;
   font-weight: 900;
-  color: #000000 !important;
+  color: #ffffff !important;
   cursor: pointer;
   text-align: center;
   transition: all var(--transition-fast);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 0.95),
-     1px -1px 0 rgba(255, 255, 255, 0.95),
-    -1px  1px 0 rgba(255, 255, 255, 0.95),
-     1px  1px 0 rgba(255, 255, 255, 0.95),
-     0 0 4px rgba(255, 255, 255, 0.9);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 4px rgba(0, 0, 0, 0.95);
 }
 
 .btn-primary::before {
@@ -3986,8 +3986,8 @@ a {
 }
 
 .btn-primary svg {
-  color: #000000;
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+  color: #ffffff;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.9));
   flex-shrink: 0;
 }
 
@@ -4001,13 +4001,13 @@ a {
   filter: brightness(1.05);
   border-color: #067d77;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
-  color: #000000 !important;
+  color: #ffffff !important;
   text-shadow:
-    -1px -1px 0 rgba(255, 255, 255, 1),
-     1px -1px 0 rgba(255, 255, 255, 1),
-    -1px  1px 0 rgba(255, 255, 255, 1),
-     1px  1px 0 rgba(255, 255, 255, 1),
-     0 0 6px rgba(255, 255, 255, 0.95);
+    -1.25px -1.25px 0 #000000,
+     1.25px -1.25px 0 #000000,
+    -1.25px  1.25px 0 #000000,
+     1.25px  1.25px 0 #000000,
+     0 0 6px rgba(0, 0, 0, 0.95);
 }
 
 .btn-primary:disabled {
