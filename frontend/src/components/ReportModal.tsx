@@ -45,12 +45,12 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src="/logo.png" 
-                  alt="PulmoVision AI Logo" 
+                  alt="PulmoAI Logo" 
                   style={{ width: "42px", height: "42px", objectFit: "contain", borderRadius: "8px", background: "#f8fafc", padding: "4px", border: "1px solid #e2e8f0" }}
                 />
                 <div>
-                  <h1 className="report-title-main">PULMOVISION ONCOLOGY REPORT</h1>
-                  <p style={{ fontSize: 11, color: "#64748b" }}>Automated Deep Convolutional Tri-Ensemble Analysis</p>
+                  <h1 className="report-title-main">PULMOAI REPORT</h1>
+                  <p style={{ fontSize: 11, color: "#64748b" }}>AI-Powered Early Lung Cancer Detection</p>
                 </div>
               </div>
               <div style={{ textAlign: "right", fontSize: 11 }}>
@@ -130,7 +130,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                   </div>
                   <p style={{ fontSize: 10.5, color: "#64748b", marginTop: 6 }}>
                     &bull; 5-View Geometric & Luminance Test-Time Augmentation (TTA) applied across all 3 backbones.<br/>
-                    &bull; Engine: {result.source === "python_backend" ? "PulmoVision Tri-Ensemble Python Deep Learning Engine (Online)" : "PulmoVision Clinical Analytical Engine"}
+                    &bull; Engine: {result.source === "python_backend" ? "PulmoAI Tri-Ensemble Python Deep Learning Engine (Online)" : "PulmoAI Clinical Analytical Engine"}
                     {result.metadata?.processing_latency_ms ? ` (${result.metadata.processing_latency_ms}ms latency)` : ""}
                   </p>
                 </div>
