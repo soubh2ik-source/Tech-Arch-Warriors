@@ -6,6 +6,7 @@ import { DiagnosticStudio } from "@/components/DiagnosticStudio";
 import { BenchmarksView } from "@/components/BenchmarksView";
 import { ReportModal } from "@/components/ReportModal";
 import DarkVeil from "@/components/DarkVeil/DarkVeil";
+import WarpText from "@/components/WarpText";
 import { PredictionResult, ActiveScan } from "@/types/medical";
 
 export default function Home() {
@@ -57,9 +58,31 @@ export default function Home() {
         </div>
 
         <div className="section-container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="section-header-row">
-            <div className="section-title-wrap">
-              <h2 className="section-title">Validation Benchmarks & Holdout Results</h2>
+          <div className="section-header-row benchmark-header-row">
+            <div className="section-title-wrap benchmark-title-wrap">
+              <h2 className="sr-only">Validation Benchmarks & Holdout Results</h2>
+              <WarpText
+                text="Validation Benchmarks & Holdout Results"
+                warpStrength={0.1}
+                warpScale={2}
+                speed={0.8}
+                lens="pinch"
+                pointerInfluence={0.18}
+                pointerStrength={0}
+                refraction={0.025}
+                chromatic={0.5}
+                idleDrift={0}
+                ripple
+                clickRipple
+                intro
+                fontSize={109}
+                fontWeight={800}
+                style={{ height: "140px", width: "100%" }}
+                color="#02ffe0"
+                fontFamily="'Playfair Display', Georgia, serif"
+                letterSpacing="-0.04em"
+                lineHeight={1}
+              />
             </div>
             <div className="section-pill-badge">
               <span>315 Independent Holdout Patients</span>

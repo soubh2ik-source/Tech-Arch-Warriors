@@ -3089,11 +3089,17 @@ a {
 
 .section-benchmark .section-header-row {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.section-benchmark .benchmark-title-wrap {
+  flex: 1 1 650px;
+  max-width: 950px;
+  min-width: 280px;
 }
 
 .section-benchmark .section-title {
