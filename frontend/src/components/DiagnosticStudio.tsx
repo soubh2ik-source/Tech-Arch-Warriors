@@ -649,9 +649,6 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
             <div
               key={f.id || i}
               className="upload-file-row"
-              onClick={() => !isAnalyzing && attachFile(f)}
-              style={{ cursor: isAnalyzing ? "default" : "pointer" }}
-              title={isAnalyzing ? "Analysis in progress..." : "Click to attach and scan this CT image"}
             >
               <div className="upload-file-icon">
                 <ScanFileIcon size={18} />
