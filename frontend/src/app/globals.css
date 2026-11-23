@@ -3213,18 +3213,27 @@ a {
 }
 
 .benchmark-card-box {
-  background: #d0fcf4;
+  background: 
+    radial-gradient(700px circle at 100% 0%, rgba(2, 255, 224, 0.42) 0%, rgba(20, 184, 166, 0.18) 50%, transparent 75%),
+    radial-gradient(600px circle at 0% 100%, rgba(13, 148, 136, 0.22) 0%, transparent 70%),
+    radial-gradient(800px circle at 50% 0%, rgba(255, 255, 255, 0.65) 0%, transparent 60%),
+    linear-gradient(140deg, #f0fdfa 0%, #ccfbf1 32%, #99f6e4 68%, #4fd3bf 100%);
   border: 2.5px solid #02ffe0;
   border-radius: 16px;
   padding: 24px 26px;
-  box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.55), 0 0 32px rgba(2, 255, 224, 0.35);
+  box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.55), 0 0 32px rgba(2, 255, 224, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.95);
   width: 100%;
   overflow: hidden;
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 
 .benchmark-card-box:hover {
-  box-shadow: 0 20px 48px -4px rgba(0, 0, 0, 0.65), 0 0 40px rgba(2, 255, 224, 0.5);
+  background: 
+    radial-gradient(750px circle at 100% 0%, rgba(2, 255, 224, 0.52) 0%, rgba(20, 184, 166, 0.24) 50%, transparent 75%),
+    radial-gradient(650px circle at 0% 100%, rgba(13, 148, 136, 0.28) 0%, transparent 70%),
+    radial-gradient(800px circle at 50% 0%, rgba(255, 255, 255, 0.75) 0%, transparent 60%),
+    linear-gradient(140deg, #f0fdfa 0%, #bbf7ec 28%, #86edd8 64%, #3bceb7 100%);
+  box-shadow: 0 20px 48px -4px rgba(0, 0, 0, 0.65), 0 0 44px rgba(2, 255, 224, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.95);
   border-color: #02ffe0;
 }
 
