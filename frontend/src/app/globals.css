@@ -708,20 +708,20 @@ a {
 .btn-hero-explore::before {
   content: "";
   position: absolute;
-  inset: -8px;
+  inset: -12px;
   background-color: #02ffe0;
   background-image:
     repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.42) 0px,
-      transparent 2.5px,
-      rgba(0, 45, 38, 0.12) 5px,
-      transparent 7.5px,
-      rgba(255, 255, 255, 0.42) 10px),
+      rgba(255, 255, 255, 0.38) 0px,
+      transparent 3px,
+      rgba(0, 45, 38, 0.1) 6px,
+      transparent 9px,
+      rgba(255, 255, 255, 0.38) 12px),
     url('/navbar-texture.png');
   background-repeat: repeat, repeat;
   background-size: auto, 100px 89px;
-  filter: blur(3.5px);
-  -webkit-filter: blur(3.5px);
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
   transform: translate3d(0, 0, 0);
   pointer-events: none;
   z-index: -1;
@@ -730,12 +730,12 @@ a {
 
 .btn-hero-explore > * {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .btn-hero-explore:hover::before {
-  filter: blur(3px) brightness(1.06);
-  -webkit-filter: blur(3px) brightness(1.06);
+  filter: blur(5px) brightness(1.06);
+  -webkit-filter: blur(5px) brightness(1.06);
 }
 
 .btn-hero-explore:hover {
@@ -834,20 +834,20 @@ a {
 .hero-metric-cell::before {
   content: "";
   position: absolute;
-  inset: -8px;
+  inset: -12px;
   background-color: #02ffe0;
   background-image:
     repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.42) 0px,
-      transparent 2.5px,
-      rgba(0, 45, 38, 0.12) 5px,
-      transparent 7.5px,
-      rgba(255, 255, 255, 0.42) 10px),
+      rgba(255, 255, 255, 0.38) 0px,
+      transparent 3px,
+      rgba(0, 45, 38, 0.1) 6px,
+      transparent 9px,
+      rgba(255, 255, 255, 0.38) 12px),
     url('/navbar-texture.png');
   background-repeat: repeat, repeat;
   background-size: auto, 100px 89px;
-  filter: blur(3.5px);
-  -webkit-filter: blur(3.5px);
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
   transform: translate3d(0, 0, 0);
   pointer-events: none;
   z-index: -1;
@@ -855,7 +855,7 @@ a {
 
 .hero-metric-cell > * {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* Explicitly NO hover jump on cards */
@@ -2441,20 +2441,20 @@ a {
 .btn-upload-attach::before {
   content: "";
   position: absolute;
-  inset: -8px;
+  inset: -12px;
   background-color: #02ffe0;
   background-image:
     repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.42) 0px,
-      transparent 2.5px,
-      rgba(0, 45, 38, 0.12) 5px,
-      transparent 7.5px,
-      rgba(255, 255, 255, 0.42) 10px),
+      rgba(255, 255, 255, 0.38) 0px,
+      transparent 3px,
+      rgba(0, 45, 38, 0.1) 6px,
+      transparent 9px,
+      rgba(255, 255, 255, 0.38) 12px),
     url('/navbar-texture.png');
   background-repeat: repeat, repeat;
   background-size: auto, 100px 89px;
-  filter: blur(3.5px);
-  -webkit-filter: blur(3.5px);
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
   transform: translate3d(0, 0, 0);
   pointer-events: none;
   z-index: -1;
@@ -2463,12 +2463,12 @@ a {
 
 .btn-upload-attach > * {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .btn-upload-attach:hover:not(:disabled)::before {
-  filter: blur(3px) brightness(1.06);
-  -webkit-filter: blur(3px) brightness(1.06);
+  filter: blur(5px) brightness(1.06);
+  -webkit-filter: blur(5px) brightness(1.06);
 }
 
 .btn-upload-attach:hover:not(:disabled) {
@@ -2715,20 +2715,20 @@ a {
 .btn-minimal-consensus::before {
   content: "";
   position: absolute;
-  inset: -8px;
+  inset: -12px;
   background-color: #02ffe0;
   background-image:
     repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.42) 0px,
-      transparent 2.5px,
-      rgba(0, 45, 38, 0.12) 5px,
-      transparent 7.5px,
-      rgba(255, 255, 255, 0.42) 10px),
+      rgba(255, 255, 255, 0.38) 0px,
+      transparent 3px,
+      rgba(0, 45, 38, 0.1) 6px,
+      transparent 9px,
+      rgba(255, 255, 255, 0.38) 12px),
     url('/navbar-texture.png');
   background-repeat: repeat, repeat;
   background-size: auto, 100px 89px;
-  filter: blur(3.5px);
-  -webkit-filter: blur(3.5px);
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
   transform: translate3d(0, 0, 0);
   pointer-events: none;
   z-index: -1;
@@ -2737,12 +2737,12 @@ a {
 
 .btn-minimal-consensus > * {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .btn-minimal-consensus:hover:not(:disabled)::before {
-  filter: blur(3px) brightness(1.06);
-  -webkit-filter: blur(3px) brightness(1.06);
+  filter: blur(5px) brightness(1.06);
+  -webkit-filter: blur(5px) brightness(1.06);
 }
 
 .btn-minimal-consensus svg {

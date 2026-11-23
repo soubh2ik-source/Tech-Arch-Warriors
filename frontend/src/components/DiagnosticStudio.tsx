@@ -692,7 +692,7 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
           onClick={handleAttach}
           disabled={pendingFiles.length === 0 || isAnalyzing}
         >
-          {isAnalyzing ? "Scanning..." : "Attach files"}
+          <span>{isAnalyzing ? "Scanning..." : "Attach files"}</span>
         </button>
       </div>
     </div>
