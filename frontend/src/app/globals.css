@@ -802,26 +802,6 @@ a {
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
-/* Footnote */
-.hero-benchmark-footnote {
-  font-family: var(--font-mono, monospace);
-  font-size: 11.5px;
-  color: #cbd5e1;
-  font-weight: 600;
-  font-style: italic;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
-}
-
-.hero-footnote-slashes {
-  color: #02ffe0;
-  font-weight: 800;
-  font-style: normal;
-  text-shadow: 0 0 8px rgba(2, 255, 224, 0.8);
-}
-
 /* Right Column: Hero Orbital Feature Visualizer (Perfect Responsive Fit) */
 .hero-editorial-right {
   display: flex;

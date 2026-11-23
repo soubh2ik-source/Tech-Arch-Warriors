@@ -157,11 +157,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="hero-metric-caption">Unseen patient scans</div>
             </div>
           </div>
-
-          {/* Benchmark Footnote */}
-          <div className="hero-benchmark-footnote">
-            <span className="hero-footnote-slashes">//</span> Reported evaluation benchmark
-          </div>
         </div>
 
         {/* Right Column: Hero Orbital Feature Visualizer (Perfect Fit) */}
