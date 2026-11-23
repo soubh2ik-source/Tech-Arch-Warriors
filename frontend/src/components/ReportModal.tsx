@@ -21,6 +21,8 @@ export const ReportModal: React.FC<ReportModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  const isMalignant = result?.prediction.toLowerCase().includes("carcinoma");
+
   const handlePrint = () => {
     window.print();
   };
@@ -33,7 +35,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
             <DocumentIcon size={18} />
             <span>Clinical Diagnostic Summary Report</span>
           </span>
-          <button className="tool-btn" onClick={onClose}>
+          <button className="tool-btn" onClick={onClose} aria-label="Close modal">
             <CloseIcon size={16} />
           </button>
         </div>
@@ -46,102 +48,118 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                 <img 
                   src="/logo.png" 
                   alt="PulmoAI Logo" 
-                  style={{ width: "42px", height: "42px", objectFit: "contain", borderRadius: "8px", background: "#f8fafc", padding: "4px", border: "1px solid #e2e8f0" }}
+                  className="report-logo-box"
                 />
                 <div>
                   <h1 className="report-title-main">PULMOAI REPORT</h1>
-                  <p style={{ fontSize: 11, color: "#64748b" }}>AI-Powered Early Lung Cancer Detection</p>
+                  <p className="report-tagline">AI-Powered Early Lung Cancer Detection</p>
                 </div>
               </div>
-              <div style={{ textAlign: "right", fontSize: 11 }}>
-                <p><strong>REPORT DATE:</strong> {new Date().toLocaleDateString()}</p>
-                <p><strong>ARCHIVE STATUS:</strong> CLINICAL REVIEW READY</p>
+              <div className="report-header-meta">
+                <p><strong>REPORT DATE:</strong> <span className="meta-value-highlight">{new Date().toLocaleDateString()}</span></p>
+                <p><strong>ARCHIVE STATUS:</strong> <span className="meta-value-highlight">CLINICAL REVIEW READY</span></p>
               </div>
             </div>
 
             <div className="report-patient-meta">
               <div>
-                <p><strong>Patient / Case ID:</strong> {scan?.meta?.patientId || "PT-CT-9016"}</p>
-                <p><strong>Scan Specimen:</strong> {scan?.name || "Axial_Thoracic_Slice.png"}</p>
-                <p><strong>Acquisition Matrix:</strong> 350 &times; 350 px (Bilinear)</p>
+                <p><strong>Patient / Case ID:</strong> <span>{scan?.meta?.patientId || "PT-CT-9016"}</span></p>
+                <p><strong>Scan Specimen:</strong> <span>{scan?.name || "Axial_Thoracic_Slice.png"}</span></p>
+                <p><strong>Acquisition Matrix:</strong> <span>350 &times; 350 px (Bilinear)</span></p>
               </div>
               <div>
-                <p><strong>Attending Clinician:</strong> {user.name}</p>
-                <p><strong>Department:</strong> {user.department}</p>
-                <p><strong>Medical License:</strong> {user.licenseId}</p>
+                <p><strong>Attending Clinician:</strong> <span>{user.name}</span></p>
+                <p><strong>Department:</strong> <span>{user.department}</span></p>
+                <p><strong>Medical License:</strong> <span style={{ fontFamily: "var(--font-mono)", color: "#02ffe0" }}>{user.licenseId}</span></p>
               </div>
             </div>
 
             {result ? (
               <>
-                <div style={{ border: "2px solid #0f172a", borderRadius: 6, padding: 16, background: "#fafafa" }}>
-                  <p style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.05em", color: "#64748b", fontWeight: 700 }}>
+                <div className={`report-consensus-card ${isMalignant ? "is-malignant" : "is-healthy"}`}>
+                  <p className="report-consensus-eyebrow">
                     Consensus Primary Finding
                   </p>
-                  <h2 style={{ fontSize: 22, color: "#0f172a", margin: "4px 0 8px 0" }}>{result.prediction}</h2>
-                  <p style={{ fontSize: 14, fontWeight: 700, color: "#0284c7" }}>
-                    Diagnostic Confidence: {(result.confidence * 100).toFixed(2)}%
+                  <h2 className="report-consensus-title">{result.prediction}</h2>
+                  <div className="report-confidence-badge">
+                    <span>Diagnostic Confidence:</span>
+                    <strong>{(result.confidence * 100).toFixed(2)}%</strong>
+                  </div>
+                  <p className="report-consensus-meta" style={{ marginTop: 8 }}>
+                    <strong>Subtype &amp; Anatomical Site:</strong> {result.profile.subtype} ({result.profile.location})
                   </p>
-                  <p style={{ fontSize: 12, marginTop: 8 }}>
-                    <strong>Subtype & Anatomical Site:</strong> {result.profile.subtype} ({result.profile.location})
-                  </p>
-                  <p style={{ fontSize: 12, marginTop: 4 }}>
+                  <p className="report-consensus-meta" style={{ marginTop: 4 }}>
                     <strong>Radiological Hallmarks:</strong> {result.profile.hallmarks}
                   </p>
                 </div>
 
                 <div>
-                  <h3 style={{ fontSize: 13, fontWeight: 700, marginBottom: 8, borderBottom: "1px solid #cbd5e1", paddingBottom: 4 }}>
+                  <h3 className="report-section-title">
                     Multi-Class Probability Distribution
                   </h3>
-                  <div className="report-prob-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, fontSize: 12 }}>
-                    {Object.entries(result.probabilities).map(([cls, prob]) => (
-                      <div key={cls} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px dashed #e2e8f0", padding: "4px 0" }}>
-                        <span>{cls}:</span>
-                        <strong style={{ fontFamily: "monospace" }}>{(prob * 100).toFixed(2)}%</strong>
-                      </div>
-                    ))}
+                  <div className="report-prob-grid">
+                    {Object.entries(result.probabilities).map(([cls, prob]) => {
+                      const probPct = (prob * 100).toFixed(2);
+                      const isHighest = cls === result.prediction || prob >= 0.5;
+                      return (
+                        <div key={cls} className="report-prob-item">
+                          <div className="report-prob-row">
+                            <span>{cls}:</span>
+                            <strong>{probPct}%</strong>
+                          </div>
+                          <div className="report-prob-bar-track">
+                            <div 
+                              className={`report-prob-bar-fill ${isHighest ? "is-highest" : ""}`}
+                              style={{ width: `${Math.max(2, Math.min(100, prob * 100))}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
                 <div>
-                  <h3 style={{ fontSize: 13, fontWeight: 700, marginBottom: 8, borderBottom: "1px solid #cbd5e1", paddingBottom: 4 }}>
-                    Tri-Ensemble Neural Consensus & Backbone Breakdown
+                  <h3 className="report-section-title">
+                    Tri-Ensemble Neural Consensus &amp; Backbone Breakdown
                   </h3>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11, color: "#334155", background: "#f8fafc", padding: "10px 12px", borderRadius: 6, border: "1px solid #e2e8f0" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <span><strong>DenseNet121 + CLAHE (60% Weight):</strong> {result.backbones?.densenet?.top_class || result.prediction}</span>
-                      <strong style={{ fontFamily: "monospace", color: "#0369a1" }}>
+                  <div className="report-ensemble-card">
+                    <div className="report-ensemble-row">
+                      <span><strong className="report-model-weight">DenseNet121 + CLAHE (60% Weight):</strong> {result.backbones?.densenet?.top_class || result.prediction}</span>
+                      <strong className="report-model-val">
                         {result.backbones?.densenet ? `${(result.backbones.densenet.confidence * 100).toFixed(1)}%` : "Active"}
                       </strong>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <span><strong>EfficientNetV2-S (30% Weight):</strong> {result.backbones?.efficientnet?.top_class || result.prediction}</span>
-                      <strong style={{ fontFamily: "monospace", color: "#0369a1" }}>
+                    <div className="report-ensemble-row">
+                      <span><strong className="report-model-weight">EfficientNetV2-S (30% Weight):</strong> {result.backbones?.efficientnet?.top_class || result.prediction}</span>
+                      <strong className="report-model-val">
                         {result.backbones?.efficientnet ? `${(result.backbones.efficientnet.confidence * 100).toFixed(1)}%` : "Active"}
                       </strong>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <span><strong>Xception (10% Weight):</strong> {result.backbones?.xception?.top_class || result.prediction}</span>
-                      <strong style={{ fontFamily: "monospace", color: "#0369a1" }}>
+                    <div className="report-ensemble-row">
+                      <span><strong className="report-model-weight">Xception (10% Weight):</strong> {result.backbones?.xception?.top_class || result.prediction}</span>
+                      <strong className="report-model-val">
                         {result.backbones?.xception ? `${(result.backbones.xception.confidence * 100).toFixed(1)}%` : "Active"}
                       </strong>
                     </div>
                   </div>
-                  <p style={{ fontSize: 10.5, color: "#64748b", marginTop: 6 }}>
-                    &bull; 5-View Geometric & Luminance Test-Time Augmentation (TTA) applied across all 3 backbones.<br/>
+                  <p className="report-ensemble-footnote">
+                    &bull; 5-View Geometric &amp; Luminance Test-Time Augmentation (TTA) applied across all 3 backbones.<br/>
                     &bull; Engine: {result.source === "python_backend" ? "PulmoAI Tri-Ensemble Python Deep Learning Engine (Online)" : "PulmoAI Clinical Analytical Engine"}
                     {result.metadata?.processing_latency_ms ? ` (${result.metadata.processing_latency_ms}ms latency)` : ""}
                   </p>
                 </div>
 
-                <div style={{ marginTop: 16, paddingTop: 12, borderTop: "1px solid #cbd5e1", fontSize: 11, color: "#64748b" }}>
+                <div className="report-verification-row">
                   <p><strong>Safety Protocol Verification:</strong> Patient scan evaluated under 99.62% Malignancy Recall safety threshold with 0 missed cancers recorded on holdout validation.</p>
-                  <p style={{ marginTop: 12 }}><strong>Attending Signature:</strong> ____________________________________</p>
+                  <div className="report-signature-line">
+                    <span><strong>Attending Signature:</strong> <span className="report-signature-dash">____________________________________</span></span>
+                    <span style={{ fontSize: 11, color: "#94b8cc" }}>Clinician: {user.name}</span>
+                  </div>
                 </div>
               </>
             ) : (
-              <p style={{ textAlign: "center", color: "#64748b", padding: 30 }}>No diagnostic analysis recorded for current scan.</p>
+              <p style={{ textAlign: "center", color: "#94b8cc", padding: 30 }}>No diagnostic analysis recorded for current scan.</p>
             )}
           </div>
         </div>
