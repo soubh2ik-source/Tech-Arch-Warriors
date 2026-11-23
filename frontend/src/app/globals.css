@@ -702,7 +702,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 4px rgba(0, 0, 0, 0.95);
+     0 3px 4px rgba(0, 0, 0, 0.85);
   transition: all var(--transition-fast);
 }
 
@@ -750,7 +750,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 6px rgba(0, 0, 0, 0.95);
+     0 4px 6px rgba(0, 0, 0, 0.9);
 }
 
 .btn-hero-arrow {
@@ -761,7 +761,8 @@ a {
     -1.25px -1.25px 0 #000000,
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
-     1.25px  1.25px 0 #000000;
+     1.25px  1.25px 0 #000000,
+     0 3px 4px rgba(0, 0, 0, 0.85);
   transition: transform 0.2s ease;
 }
 
@@ -884,7 +885,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 5px rgba(0, 0, 0, 0.95);
+     0 3px 5px rgba(0, 0, 0, 0.85);
 }
 
 .hero-metric-caption {
@@ -898,7 +899,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 4px rgba(0, 0, 0, 0.95);
+     0 2.5px 3.5px rgba(0, 0, 0, 0.85);
 }
 
 /* Right Column: Hero Orbital Feature Visualizer (Perfect Responsive Fit) */
@@ -2434,7 +2435,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 4px rgba(0, 0, 0, 0.95);
+     0 3px 4px rgba(0, 0, 0, 0.85);
 }
 
 .btn-upload-attach::before {
@@ -2481,7 +2482,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 6px rgba(0, 0, 0, 0.95);
+     0 4px 6px rgba(0, 0, 0, 0.9);
 }
 
 .btn-upload-attach:disabled {
@@ -2708,7 +2709,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 4px rgba(0, 0, 0, 0.95);
+     0 3px 4px rgba(0, 0, 0, 0.85);
 }
 
 .btn-minimal-consensus::before {
@@ -2747,7 +2748,7 @@ a {
 .btn-minimal-consensus svg {
   color: #ffffff;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.9));
+  filter: drop-shadow(0 2px 3.5px rgba(0, 0, 0, 0.85));
 }
 
 .btn-minimal-consensus:hover:not(:disabled) {
@@ -2761,7 +2762,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 6px rgba(0, 0, 0, 0.95);
+     0 4px 6px rgba(0, 0, 0, 0.9);
 }
 
 .btn-minimal-consensus:disabled {
@@ -4031,7 +4032,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 4px rgba(0, 0, 0, 0.95);
+     0 3px 4px rgba(0, 0, 0, 0.85);
 }
 
 .btn-primary::before {
@@ -4064,7 +4065,7 @@ a {
 
 .btn-primary svg {
   color: #ffffff;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.9));
+  filter: drop-shadow(0 2px 3.5px rgba(0, 0, 0, 0.85));
   flex-shrink: 0;
 }
 
@@ -4084,7 +4085,7 @@ a {
      1.25px -1.25px 0 #000000,
     -1.25px  1.25px 0 #000000,
      1.25px  1.25px 0 #000000,
-     0 0 6px rgba(0, 0, 0, 0.95);
+     0 4px 6px rgba(0, 0, 0, 0.9);
 }
 
 .btn-primary:disabled {
