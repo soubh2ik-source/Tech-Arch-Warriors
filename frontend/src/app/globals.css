@@ -3212,12 +3212,15 @@ a {
   }
 }
 
-.benchmark-card-box {
+.benchmark-card-box,
+#confusion-matrix,
+#patient-summary {
+  position: relative;
   background: 
-    radial-gradient(700px circle at 100% 0%, rgba(2, 255, 224, 0.42) 0%, rgba(20, 184, 166, 0.18) 50%, transparent 75%),
-    radial-gradient(600px circle at 0% 100%, rgba(13, 148, 136, 0.22) 0%, transparent 70%),
-    radial-gradient(800px circle at 50% 0%, rgba(255, 255, 255, 0.65) 0%, transparent 60%),
-    linear-gradient(140deg, #f0fdfa 0%, #ccfbf1 32%, #99f6e4 68%, #4fd3bf 100%);
+    radial-gradient(650px circle at 95% 5%, rgba(2, 255, 224, 0.48) 0%, rgba(20, 184, 166, 0.22) 50%, transparent 75%),
+    radial-gradient(600px circle at 5% 95%, rgba(13, 148, 136, 0.28) 0%, transparent 70%),
+    radial-gradient(800px circle at 25% 0%, rgba(255, 255, 255, 0.75) 0%, transparent 60%),
+    linear-gradient(135deg, #e8fffa 0%, #b2f5ea 25%, #76ecc7 60%, #30dac1 85%, #0ea5e9 100%);
   border: 2.5px solid #02ffe0;
   border-radius: 16px;
   padding: 24px 26px;
@@ -3227,23 +3230,25 @@ a {
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 
-.benchmark-card-box:hover {
+.benchmark-card-box:hover,
+#confusion-matrix:hover,
+#patient-summary:hover {
   background: 
-    radial-gradient(750px circle at 100% 0%, rgba(2, 255, 224, 0.52) 0%, rgba(20, 184, 166, 0.24) 50%, transparent 75%),
-    radial-gradient(650px circle at 0% 100%, rgba(13, 148, 136, 0.28) 0%, transparent 70%),
-    radial-gradient(800px circle at 50% 0%, rgba(255, 255, 255, 0.75) 0%, transparent 60%),
-    linear-gradient(140deg, #f0fdfa 0%, #bbf7ec 28%, #86edd8 64%, #3bceb7 100%);
+    radial-gradient(750px circle at 95% 5%, rgba(2, 255, 224, 0.58) 0%, rgba(20, 184, 166, 0.28) 50%, transparent 75%),
+    radial-gradient(650px circle at 5% 95%, rgba(13, 148, 136, 0.34) 0%, transparent 70%),
+    radial-gradient(800px circle at 25% 0%, rgba(255, 255, 255, 0.85) 0%, transparent 60%),
+    linear-gradient(135deg, #e8fffa 0%, #a2f2e4 25%, #62e7be 60%, #20d2b8 85%, #0284c7 100%);
   box-shadow: 0 20px 48px -4px rgba(0, 0, 0, 0.65), 0 0 44px rgba(2, 255, 224, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.95);
   border-color: #02ffe0;
 }
 
 .table-card-frosted {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 12px;
-  border: 2px solid rgba(0, 95, 80, 0.45);
-  box-shadow: 0 6px 24px rgba(0, 50, 40, 0.18);
+  border: 2px solid rgba(0, 95, 80, 0.35);
+  box-shadow: 0 6px 24px rgba(0, 50, 40, 0.15);
   overflow: hidden;
 }
 
@@ -3251,7 +3256,7 @@ a {
 .table-card-frosted tfoot td,
 .table-card-frosted .benchmark-row-highlighted,
 .table-card-frosted .benchmark-row-highlighted td {
-  background: #a7ebd9 !important;
+  background: linear-gradient(90deg, #bbf7d0 0%, #a7ebd9 50%, #99f6e4 100%) !important;
 }
 
 .benchmark-kpi-card {
