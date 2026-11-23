@@ -2349,29 +2349,45 @@ a {
 
 .btn-upload-attach {
   flex: 1.4;
-  background: #02ffe0;
-  border: 2px solid rgba(255, 255, 255, 0.95);
+  background-color: #02ffe0;
+  background-image:
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.38) 0px,
+      transparent 2.5px,
+      rgba(0, 45, 38, 0.28) 5px,
+      transparent 7.5px,
+      rgba(255, 255, 255, 0.38) 10px),
+    url('/navbar-texture.png');
+  background-repeat: repeat, repeat;
+  background-size: auto, 100px 89px;
+  border: 3px solid #04615c;
   border-radius: 8px;
   padding: 9px 16px;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: #050d16;
+  font-size: 13px;
+  font-weight: 850;
+  color: #000000 !important;
   cursor: pointer;
   text-align: center;
-  transition: all 0.15s ease;
-  box-shadow: 0 3px 12px rgba(2, 255, 224, 0.35);
+  transition: all var(--transition-fast);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7), 0 2px 5px rgba(0, 0, 0, 0.35);
 }
 
-.btn-upload-attach:hover {
-  background: #38ffea;
-  border-color: #ffffff;
-  box-shadow: 0 4px 18px rgba(2, 255, 224, 0.55);
+.btn-upload-attach:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  border-color: #067d77;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
+  color: #000000 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8), 0 3px 6px rgba(0, 0, 0, 0.4);
 }
 
 .btn-upload-attach:disabled {
-  opacity: 0.35;
+  opacity: 0.4;
   cursor: not-allowed;
-  box-shadow: none;
+  transform: none;
+  filter: grayscale(0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .cohort-card-eyebrow {
