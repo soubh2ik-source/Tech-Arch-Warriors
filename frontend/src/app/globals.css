@@ -131,6 +131,18 @@ a {
   transition: all var(--transition-fast);
 }
 
+@media (max-width: 840px) {
+  .site-navbar {
+    padding: 12px 16px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-navbar {
+    padding: 10px 12px 0;
+  }
+}
+
 .navbar-siderays-bg {
   display: none;
 }
@@ -294,7 +306,7 @@ a {
 
 @media (max-width: 860px) {
   .navbar-container {
-    padding: 10px 20px;
+    padding: 0;
   }
 
   .navbar-links {
@@ -314,7 +326,7 @@ a {
 
 @media (max-width: 600px) {
   .navbar-container {
-    padding: 8px 14px;
+    padding: 0;
   }
 
   .navbar-brand-full-img {
@@ -330,7 +342,7 @@ a {
 
 @media (max-width: 420px) {
   .navbar-container {
-    padding: 8px 12px;
+    padding: 0;
   }
 
   .navbar-brand-full-img {
@@ -346,7 +358,7 @@ a {
 
 @media (max-width: 360px) {
   .navbar-container {
-    padding: 6px 10px;
+    padding: 0;
   }
 
   .navbar-brand-full-img {
@@ -486,7 +498,7 @@ a {
 .hero-editorial-section {
   background: #050d16;
   color: #0c1a2d;
-  padding: 104px 32px 72px;
+  padding: 116px 32px 72px;
   position: relative;
   overflow: hidden;
   border-bottom: 2px solid rgba(2, 255, 224, 0.35);
@@ -943,7 +955,7 @@ a {
   }
 
   .hero-editorial-section {
-    padding: 96px 24px 52px;
+    padding: 116px 24px 52px;
   }
 
   .hero-editorial-container {
@@ -1017,7 +1029,8 @@ a {
   .hero-vertical-badge-wrap {
     position: static;
     transform: none;
-    margin-bottom: 16px;
+    margin-top: 14px;
+    margin-bottom: 20px;
     display: inline-flex;
   }
 
@@ -1030,7 +1043,7 @@ a {
   }
 
   .hero-editorial-section {
-    padding: 90px 20px 48px;
+    padding: 128px 20px 48px;
   }
 
   .hero-editorial-container {
@@ -1072,7 +1085,7 @@ a {
 /* Mobile Phones (< 640px) */
 @media (max-width: 640px) {
   .hero-editorial-section {
-    padding: 84px 16px 40px;
+    padding: 124px 16px 40px;
   }
 
   .hero-editorial-title {
@@ -1144,6 +1157,10 @@ a {
 
 /* Compact Mobile (< 480px) */
 @media (max-width: 480px) {
+  .hero-editorial-section {
+    padding: 120px 14px 36px;
+  }
+
   .hero-editorial-actions {
     flex-direction: column;
     align-items: stretch;
