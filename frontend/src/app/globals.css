@@ -712,8 +712,8 @@ a {
   inset: -4px;
   background-color: #38cfb2;
   background-image: url('/wave-pattern.png');
-  background-repeat: repeat;
-  background-size: 260px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   transform: translate3d(0, 0, 0);
   pointer-events: none;
@@ -831,8 +831,8 @@ a {
   inset: -4px;
   background-color: #38cfb2;
   background-image: url('/wave-pattern.png');
-  background-repeat: repeat;
-  background-size: 240px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   transform: translate3d(0, 0, 0);
   pointer-events: none;
@@ -1829,7 +1829,7 @@ a {
   background-color: #38cfb2;
   background-image: url('/wave-pattern.png');
   background-repeat: repeat;
-  background-size: 700px auto;
+  background-size: 1540px auto;
   background-position: center;
   padding: 48px 24px 72px;
   border-top: 2.5px solid rgba(0, 100, 85, 0.85);
@@ -2422,8 +2422,8 @@ a {
   inset: -4px;
   background-color: #38cfb2;
   background-image: url('/wave-pattern.png');
-  background-repeat: repeat;
-  background-size: 240px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   transform: translate3d(0, 0, 0);
   pointer-events: none;
@@ -2688,8 +2688,8 @@ a {
   inset: -4px;
   background-color: #38cfb2;
   background-image: url('/wave-pattern.png');
-  background-repeat: repeat;
-  background-size: 240px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   transform: translate3d(0, 0, 0);
   pointer-events: none;
@@ -3975,8 +3975,8 @@ a {
   inset: -4px;
   background-color: #38cfb2;
   background-image: url('/wave-pattern.png');
-  background-repeat: repeat;
-  background-size: 240px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   transform: translate3d(0, 0, 0);
   pointer-events: none;
