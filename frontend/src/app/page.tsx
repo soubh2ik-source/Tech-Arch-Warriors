@@ -81,14 +81,14 @@ export default function Home() {
               <WarpText
                 text="Validation Benchmarks & Holdout Results"
                 align="left"
-                warpStrength={0.1}
+                warpStrength={0}
                 warpScale={2}
                 speed={0.8}
                 lens="pinch"
-                pointerInfluence={0.18}
-                pointerStrength={0}
-                refraction={0.025}
-                chromatic={0.5}
+                pointerInfluence={0.25}
+                pointerStrength={0.4}
+                refraction={0.015}
+                chromatic={0.2}
                 idleDrift={0}
                 ripple
                 clickRipple
@@ -97,8 +97,8 @@ export default function Home() {
                 fontWeight={800}
                 style={{ height: "54px", width: "100%" }}
                 color="#02ffe0"
-                fontFamily="'Playfair Display', Georgia, serif"
-                letterSpacing="-0.04em"
+                fontFamily="'Plus Jakarta Sans', var(--font-display), sans-serif"
+                letterSpacing="-0.02em"
                 lineHeight={1}
               />
             </div>
