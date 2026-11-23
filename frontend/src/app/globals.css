@@ -2112,19 +2112,23 @@ a {
   }
 }
 
-/* Base Clean Card */
+/* Base Clean Card — completely stable with NO hover movement or glow */
 .clean-card {
   background: #050d16;
   border: 2px solid rgba(2, 255, 224, 0.48);
   border-radius: 18px;
   padding: 22px;
   box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.55), 0 0 18px rgba(2, 255, 224, 0.2);
-  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
-.clean-card:hover {
-  box-shadow: 0 20px 48px -6px rgba(0, 0, 0, 0.65), 0 0 28px rgba(2, 255, 224, 0.38);
-  border-color: #02ffe0;
+.clean-card:hover,
+.viewer-main-card:hover,
+.diagnosis-card-box:hover,
+.probability-card-box:hover,
+.upload-box-card:hover {
+  transform: none;
+  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.55), 0 0 18px rgba(2, 255, 224, 0.2);
+  border-color: rgba(2, 255, 224, 0.48);
 }
 
 /* Card Header Brand & Vector Badge */
@@ -2174,12 +2178,6 @@ a {
   border-radius: 18px;
   padding: 20px 22px;
   box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.55), 0 0 18px rgba(2, 255, 224, 0.2);
-  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.upload-box-card:hover {
-  border-color: #02ffe0;
-  box-shadow: 0 20px 48px -6px rgba(0, 0, 0, 0.65), 0 0 28px rgba(2, 255, 224, 0.38);
 }
 
 .upload-card-header-row {
