@@ -3933,23 +3933,87 @@ a {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #02ffe0;
-  color: #040910 !important;
-  padding: 10px 20px;
-  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: transparent;
+  border: 3px solid #04615c;
+  border-radius: 8px;
+  padding: 9px 18px;
   font-size: 13.5px;
-  font-weight: 700;
-  border: 1.5px solid #02ffe0;
+  font-weight: 900;
+  color: #000000 !important;
   cursor: pointer;
+  text-align: center;
   transition: all var(--transition-fast);
-  box-shadow: 0 0 16px rgba(2, 255, 224, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5);
+  text-shadow:
+    -1px -1px 0 rgba(255, 255, 255, 0.95),
+     1px -1px 0 rgba(255, 255, 255, 0.95),
+    -1px  1px 0 rgba(255, 255, 255, 0.95),
+     1px  1px 0 rgba(255, 255, 255, 0.95),
+     0 0 4px rgba(255, 255, 255, 0.9);
 }
 
-.btn-primary:hover {
-  background: #1affeb;
-  border-color: #55fff0;
-  box-shadow: 0 0 24px rgba(2, 255, 224, 0.65);
-  transform: translateY(-1px);
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  background-color: #02ffe0;
+  background-image:
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.38) 0px,
+      transparent 3px,
+      rgba(0, 45, 38, 0.1) 6px,
+      transparent 9px,
+      rgba(255, 255, 255, 0.38) 12px),
+    url('/navbar-texture.png');
+  background-repeat: repeat, repeat;
+  background-size: auto, 100px 89px;
+  filter: blur(0.8px);
+  -webkit-filter: blur(0.8px);
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+  z-index: -1;
+  transition: filter var(--transition-fast);
+}
+
+.btn-primary > * {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-primary svg {
+  color: #000000;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+  flex-shrink: 0;
+}
+
+.btn-primary:hover:not(:disabled)::before {
+  filter: blur(0.4px) brightness(1.06);
+  -webkit-filter: blur(0.4px) brightness(1.06);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  border-color: #067d77;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(8, 116, 101, 0.6);
+  color: #000000 !important;
+  text-shadow:
+    -1px -1px 0 rgba(255, 255, 255, 1),
+     1px -1px 0 rgba(255, 255, 255, 1),
+    -1px  1px 0 rgba(255, 255, 255, 1),
+     1px  1px 0 rgba(255, 255, 255, 1),
+     0 0 6px rgba(255, 255, 255, 0.95);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  filter: grayscale(0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary {
@@ -3959,11 +4023,11 @@ a {
   gap: 8px;
   background: rgba(255, 255, 255, 0.08);
   color: #cbd5e1 !important;
-  padding: 10px 18px;
-  border-radius: 10px;
+  padding: 9px 18px;
+  border-radius: 8px;
   font-size: 13.5px;
   font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
@@ -3972,7 +4036,7 @@ a {
   background: rgba(255, 255, 255, 0.14);
   border-color: rgba(255, 255, 255, 0.35);
   color: #ffffff !important;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .tool-btn {
