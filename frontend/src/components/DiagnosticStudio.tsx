@@ -1,26 +1,26 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { 
-  UploadIcon, 
-  LungIcon, 
-  DocumentIcon, 
-  ProbabilityBarsIcon, 
-  CrosshairIcon, 
-  ContrastIcon, 
-  InvertIcon, 
-  ZoomInIcon, 
-  ZoomOutIcon, 
-  ResetIcon, 
+import {
+  UploadIcon,
+  LungIcon,
+  DocumentIcon,
+  ProbabilityBarsIcon,
+  CrosshairIcon,
+  ContrastIcon,
+  InvertIcon,
+  ZoomInIcon,
+  ZoomOutIcon,
+  ResetIcon,
   ActivityIcon,
   SparkleIcon,
   DocumentUploadIcon,
   ScanFileIcon
 } from "@/components/Icons";
-import { 
-  PredictionResult, 
-  ActiveScan, 
-  ViewportState, 
+import {
+  PredictionResult,
+  ActiveScan,
+  ViewportState,
   SampleScan,
   ValidationErrorPayload,
   ValidationResult
@@ -32,15 +32,15 @@ type ValidationState = "IDLE" | "VALIDATING" | "VALID_READY" | "REJECTED" | "ANA
 
 function ShieldAlertIcon({ size = 18, className = "" }: { size?: number; className?: string }) {
   return (
-    <svg 
-      width={size} 
-      height={size} 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
     >
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -277,8 +277,8 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
       const preview = CLINICAL_BENCHMARK_PREVIEWS[activeScan.sampleId];
       const fallbackResult: PredictionResult = {
         prediction: preview.className === "Adenocarcinoma" ? "Adenocarcinoma" :
-                    preview.className === "Squamous Cell" ? "Squamous Cell Carcinoma" :
-                    preview.className === "Large Cell" ? "Large Cell Carcinoma" : "Normal (Healthy Lung)",
+          preview.className === "Squamous Cell" ? "Squamous Cell Carcinoma" :
+            preview.className === "Large Cell" ? "Large Cell Carcinoma" : "Normal (Healthy Lung)",
         confidence: preview.probabilities.adeno / 100,
         probabilities: {
           "Adenocarcinoma": preview.probabilities.adeno / 100,
@@ -287,8 +287,8 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
           "Normal (Healthy Lung)": preview.probabilities.normal / 100
         },
         profile: CLINICAL_PROFILES[preview.className === "Adenocarcinoma" ? "Adenocarcinoma" :
-                 preview.className === "Squamous Cell" ? "Squamous Cell Carcinoma" :
-                 preview.className === "Large Cell" ? "Large Cell Carcinoma" : "Normal (Healthy Lung)"],
+          preview.className === "Squamous Cell" ? "Squamous Cell Carcinoma" :
+            preview.className === "Large Cell" ? "Large Cell Carcinoma" : "Normal (Healthy Lung)"],
         backbones: {
           xception: {
             name: "Xception",
@@ -368,9 +368,9 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
       console.error("Live analysis execution error on sample select, using calibrated benchmark preview:", err);
       const preview = CLINICAL_BENCHMARK_PREVIEWS[sample.id] || CLINICAL_BENCHMARK_PREVIEWS.sample_adeno;
       const mappedClass = preview.className === "Adenocarcinoma" ? "Adenocarcinoma" :
-                          preview.className === "Squamous Cell" ? "Squamous Cell Carcinoma" :
-                          preview.className === "Large Cell" ? "Large Cell Carcinoma" : "Normal (Healthy Lung)";
-      
+        preview.className === "Squamous Cell" ? "Squamous Cell Carcinoma" :
+          preview.className === "Large Cell" ? "Large Cell Carcinoma" : "Normal (Healthy Lung)";
+
       setResult({
         prediction: mappedClass,
         confidence: Math.max(...Object.values(preview.probabilities)) / 100,
@@ -628,21 +628,21 @@ export const DiagnosticStudio: React.FC<DiagnosticStudioProps> = ({
 
   const isAwaitingInference = Boolean(activeScan && !activeScan.isSample && !result && validationState !== "REJECTED");
 
-  const currentClass = result 
+  const currentClass = result
     ? (result.prediction.includes("Adeno") ? "Adenocarcinoma" :
-       result.prediction.includes("Squamous") ? "Squamous Cell" :
-       result.prediction.includes("Large") ? "Large Cell" : "Normal (Healthy)")
+      result.prediction.includes("Squamous") ? "Squamous Cell" :
+        result.prediction.includes("Large") ? "Large Cell" : "Normal (Healthy)")
     : isAwaitingInference
-    ? "Awaiting Inference"
-    : defaultPreview.className;
+      ? "Awaiting Inference"
+      : defaultPreview.className;
 
   const isMalignant = currentClass !== "Normal (Healthy)" && currentClass !== "Awaiting Inference";
 
-  const findingText = result?.profile?.hallmarks 
+  const findingText = result?.profile?.hallmarks
     ? `Findings are most consistent with ${currentClass.toLowerCase()} (${isMalignant ? "lung cancer" : "healthy lung tissue"}).`
     : isAwaitingInference
-    ? "Axial thoracic CT slice validated by PulmoAI Gatekeeper. Click 'Run Tri-Ensemble Consensus' below to run AI classification."
-    : defaultPreview.description;
+      ? "Axial thoracic CT slice validated by PulmoAI Gatekeeper. Click 'Run Tri-Ensemble Consensus' below to run AI classification."
+      : defaultPreview.description;
 
   const sliceOverlayText = defaultPreview.sliceText;
 

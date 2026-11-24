@@ -4,8 +4,8 @@
 **Repository:** `Tech-Arch-Warriors`  
 **Application Type:** Next.js Clinical Radiology & AI Diagnostic Suite  
 **Target Domain:** Pulmonary CT Scan Classification, Non-Small Cell Lung Cancer (NSCLC) Subtyping & Explainable AI (XAI)  
-**Date of Report:** November 17, 2026  
-**Document Status:** Complete Frontend Reference Manual  
+**Date of Report:** November 24, 2026  
+**Document Status:** Complete Frontend Reference Manual & Architectural Specification  
 
 ---
 
@@ -14,34 +14,44 @@
 2. [Technology Stack & Core Dependencies](#2-technology-stack--core-dependencies)
 3. [Architecture & Complete Source Directory Tree](#3-architecture--complete-source-directory-tree)
 4. [Design System & UI/UX Philosophy](#4-design-system--uiux-philosophy)
+   - [4.1 Color Architecture & Design Tokens](#41-color-architecture--design-tokens)
+   - [4.2 The "Prominent Border" & Wave Texture Standard](#42-the-prominent-border--wave-texture-standard)
+   - [4.3 Typography Hierarchy & Contrast Standards](#43-typography-hierarchy--contrast-standards)
 5. [Page Routing & Section Compositions](#5-page-routing--section-compositions)
 6. [Component Catalog & Deep Technical Specifications](#6-component-catalog--deep-technical-specifications)
    - [6.1 AppNavbar & NavigationDrawer](#61-appnavbar--navigationdrawer)
    - [6.2 HeroSection & DarkVeil WebGL Visualizer](#62-herosection--darkveil-webgl-visualizer)
-   - [6.3 HeroOrbitalVisualizer (3D Multi-Orbital Lung System)](#63-heroorbitalvisualizer-3d-multi-orbital-lung-system)
+   - [6.3 HeroOrbitalVisualizer (Continuous Multi-Orbital System)](#63-heroorbitalvisualizer-continuous-multi-orbital-system)
    - [6.4 DiagnosticStudio (Clinical Radiology Workspace)](#64-diagnosticstudio-clinical-radiology-workspace)
    - [6.5 BenchmarksView (KPIs, Confusion Matrix & Evolution)](#65-benchmarksview-kpis-confusion-matrix--evolution)
    - [6.6 PathologyView (4-Class Pulmonary Pathology Guide)](#66-pathologyview-4-class-pulmonary-pathology-guide)
    - [6.7 ArchitectureView (Tri-Ensemble Engineering Explorer)](#67-architectureview-tri-ensemble-engineering-explorer)
    - [6.8 ReportModal (Clinical Findings Report Generator)](#68-reportmodal-clinical-findings-report-generator)
    - [6.9 AuthModal & Clinician Profile Management](#69-authmodal--clinician-profile-management)
-7. [Radiology Tools, Image Processing & Explainable AI (XAI)](#7-radiology-tools-image-processing--explainable-ai-xai)
-8. [Client-Side State Management & Backend Integration](#8-client-side-state-management--backend-integration)
-9. [Responsive Design Matrix & Multi-Device Optimization](#9-responsive-design-matrix--multi-device-optimization)
-10. [Visual Polish & Recent Frontend Enhancements](#10-visual-polish--recent-frontend-enhancements)
-11. [Setup, Build & Developer Operations](#11-setup-build--developer-operations)
+7. [Multi-Tier Out-of-Distribution (OOD) Modality Gatekeeper](#7-multi-tier-out-of-distribution-ood-modality-gatekeeper)
+   - [7.1 Client-Side Pre-Flight Check (< 5ms)](#71-client-side-pre-flight-check--5ms)
+   - [7.2 Server-Side 2-Tier Modality Interceptor](#72-server-side-2-tier-modality-interceptor)
+   - [7.3 Diagnostic Gatekeeper Exception Card](#73-diagnostic-gatekeeper-exception-card)
+   - [7.4 Strict Inference State Machine & Manual Consensus Trigger](#74-strict-inference-state-machine--manual-consensus-trigger)
+8. [Radiology Tools, Image Processing & Explainable AI (XAI)](#8-radiology-tools-image-processing--explainable-ai-xai)
+9. [Client-Side State Management & Backend Integration](#9-client-side-state-management--backend-integration)
+10. [Responsive Design Matrix & Multi-Device Optimization](#10-responsive-design-matrix--multi-device-optimization)
+11. [Visual Polish & Recent Frontend Implementations](#11-visual-polish--recent-frontend-implementations)
+12. [Setup, Build & Developer Operations](#12-setup-build--developer-operations)
 
 ---
 
 ## 1. Executive Summary & Clinical Vision
 
-**PulmoVision AI** is a specialized, web-based diagnostic radiology platform engineered to classify high-resolution thoracic Computed Tomography (CT) scans across four distinct clinical categories:
+**PulmoVision AI (PulmoAI)** is a specialized, web-based diagnostic radiology platform engineered to classify high-resolution thoracic Computed Tomography (CT) scans across four distinct clinical categories:
 1. **Adenocarcinoma (Adeno)** — Peripheral glandular Non-Small Cell Lung Cancer (NSCLC).
 2. **Squamous Cell Carcinoma (Squamous)** — Central cavitating bronchial NSCLC.
 3. **Large Cell Carcinoma (Large Cell)** — Undifferentiated, highly aggressive NSCLC.
 4. **Normal Healthy Lung** — Non-malignant pulmonary parenchyma.
 
-The platform was built from the ground up to solve the critical "black-box" dilemma in medical machine learning. Rather than simply returning a raw probability number, the PulmoAI frontend delivers:
+The platform was built from the ground up to solve the critical "black-box" dilemma and the out-of-distribution vulnerability in medical machine learning. Rather than simply returning a raw probability number or allowing non-CT images to trigger false-positive diagnoses, the PulmoAI frontend delivers:
+- **Multi-Tier Out-of-Distribution (OOD) Modality Gatekeeping**: Dual-stage interception (HTML5 Canvas pre-flight + deep feature manifold validation) executing in `< 95ms` that intercepts color photos, non-axial slices, brain MRIs, and X-rays before classification can run.
+- **Controlled Manual Consensus Triggering**: Inference is never executed automatically upon scan attachment; clinicians inspect the validated slice in the viewport and explicitly engage the **Tri-Ensemble Consensus Engine**.
 - **Interactive Multi-Model Consensus**: Real-time inspection of three specialized neural backbones (**DenseNet121** [60%], **EfficientNetV2-S** [30%], and **Xception** [10%]).
 - **Explainable AI (Grad-CAM)**: High-resolution heatmap overlays that highlight exact spatial activations and nodular regions driving diagnostic decisions.
 - **Radiology Workspace Suite**: Real-time Hounsfield Unit (HU) windowing (Standard, Lung, Mediastinal), CLAHE contrast equalization, digital zooming/panning, crosshairs, and grayscale inversion.
@@ -70,7 +80,7 @@ The frontend is built upon a modern, bleeding-edge React and Next.js architectur
 
 ## 3. Architecture & Complete Source Directory Tree
 
-The frontend repository is structured within `Tech-Arch-Warriors/frontend` following the Next.js App Router conventions:
+The frontend repository is structured within `Tech-Arch-Warriors/frontend` following Next.js App Router conventions:
 
 ```text
 Tech-Arch-Warriors/frontend/
@@ -84,6 +94,8 @@ Tech-Arch-Warriors/frontend/
 │   ├── logo_full.png / logo_full.jpg
 │   ├── lungs_bg.png
 │   ├── navbar-texture.png
+│   ├── wave-pattern.png / wave-pattern.jpg   # Signature turquoise wave background texture
+│   ├── hex-pattern.png / hex-pattern.jpg     # Biotech honeycomb pattern
 │   ├── hero_ct_scan.png
 │   ├── assets/
 │   └── samples/
@@ -94,58 +106,65 @@ Tech-Arch-Warriors/frontend/
 └── src/
     ├── app/
     │   ├── favicon.ico
-    │   ├── globals.css                # Global Design System & Clinical Theming
-    │   ├── layout.tsx                 # Root HTML shell, fonts, navbar & footer
-    │   ├── page.tsx                   # Main SPA Landing & Diagnostic Workspace
+    │   ├── globals.css                       # Global Design System, Wave Theming & Modality Gatekeeper
+    │   ├── layout.tsx                        # Root HTML shell, fonts, navbar & footer
+    │   ├── page.tsx                          # Main SPA Landing & Diagnostic Workspace
     │   ├── analysis/
-    │   │   └── page.tsx               # Dedicated Analysis route
+    │   │   └── page.tsx                      # Dedicated Analysis route
     │   ├── architecture/
-    │   │   └── page.tsx               # Dedicated Architecture Explorer route
+    │   │   └── page.tsx                      # Dedicated Architecture Explorer route
     │   ├── benchmarks/
-    │   │   └── page.tsx               # Dedicated Benchmarks & Validation route
+    │   │   └── page.tsx                      # Dedicated Benchmarks & Validation route
     │   ├── pathology/
-    │   │   └── page.tsx               # Dedicated 4-Class Pathology Reference route
+    │   │   └── page.tsx                      # Dedicated 4-Class Pathology Reference route
     │   ├── settings/
-    │   │   └── page.tsx               # System Configuration & Preferences route
+    │   │   └── page.tsx                      # System Configuration & Preferences route
     │   └── api/
-    │       ├── health/route.ts        # Next.js API endpoint proxying backend health
-    │       └── predict/route.ts       # Next.js API endpoint proxying CT inference
+    │       ├── health/route.ts               # Next.js API endpoint proxying backend health
+    │       ├── predict/route.ts              # Next.js API endpoint proxying CT inference
+    │       └── validate/route.ts             # Next.js API endpoint proxying 2-Tier Gatekeeper
     ├── components/
-    │   ├── AppNavbar.tsx              # Sticky clinical navigation with profile popover
-    │   ├── NavigationDrawer.tsx       # Responsive mobile slide-out navigation
-    │   ├── HeroSection.tsx            # Headline, clinical badges, stat cards
-    │   ├── DiagnosticStudio.tsx       # Core interactive CT analysis workspace
-    │   ├── BenchmarksView.tsx         # KPIs, Confusion Matrix & Evolution table
-    │   ├── PathologyView.tsx          # Comprehensive histological & imaging atlas
-    │   ├── ArchitectureView.tsx       # Tri-Ensemble architecture visualizer
-    │   ├── ReportModal.tsx            # Clinical Diagnostic Findings Report modal
-    │   ├── AuthModal.tsx              # Clinician credential & profile management
-    │   ├── Header.tsx                 # Secondary subpage navigation header
-    │   ├── Icons.tsx                  # Dedicated medical & UI vector icon suite
-    │   ├── OrbitingLungsShowcase.tsx  # Secondary standalone 3D lungs showcase
+    │   ├── AppNavbar.tsx                     # Sticky clinical navigation with profile popover
+    │   ├── NavigationDrawer.tsx              # Responsive mobile slide-out navigation
+    │   ├── HeroSection.tsx                   # Headline, clinical badges, stat cards
+    │   ├── DiagnosticStudio.tsx              # Core interactive CT analysis workspace & Gatekeeper
+    │   ├── BenchmarksView.tsx                # KPIs, Confusion Matrix & Evolution table
+    │   ├── PathologyView.tsx                 # Comprehensive histological & imaging atlas
+    │   ├── ArchitectureView.tsx              # Tri-Ensemble architecture visualizer
+    │   ├── ReportModal.tsx                   # Clinical Diagnostic Findings Report modal
+    │   ├── AuthModal.tsx                     # Clinician credential & profile management
+    │   ├── Header.tsx                        # Secondary subpage navigation header
+    │   ├── Icons.tsx                         # Dedicated medical & UI vector icon suite
+    │   ├── OrbitingLungsShowcase.tsx         # Standalone 3D lungs showcase
+    │   ├── CardNav/
+    │   │   ├── CardNav.tsx                   # Floating quick-navigation pill
+    │   │   └── CardNav.css                   # Micro-navigation styling
+    │   ├── WarpText/
+    │   │   ├── WarpText.tsx                  # Kinetic typography container
+    │   │   └── WarpText.css                  # Perspective warp CSS transformations
     │   ├── DarkVeil/
-    │   │   ├── DarkVeil.jsx           # WebGL interactive fluid shader component
-    │   │   └── DarkVeil.css           # Canvas positioning & fallback styling
+    │   │   ├── DarkVeil.jsx                  # WebGL interactive fluid shader component
+    │   │   └── DarkVeil.css                  # Canvas positioning & fallback styling
     │   ├── SideRays/
-    │   │   ├── SideRays.jsx           # Volumetric ambient lighting visualizer
-    │   │   └── SideRays.css           # Ambient ray positioning & animations
+    │   │   ├── SideRays.jsx                  # Volumetric ambient lighting visualizer
+    │   │   └── SideRays.css                  # Ambient ray positioning & animations
     │   └── HeroOrbitalVisualizer/
-    │       ├── HeroOrbitalVisualizer.tsx # 3D lung with dual rotating card rings
-    │       ├── HeroOrbitalVisualizer.css # Orbital animation & card styling
-    │       ├── types.ts               # Orbital node interfaces & coordinates
-    │       └── index.ts               # Barrel export
+    │       ├── HeroOrbitalVisualizer.tsx     # 3D lung with continuous dual rotating card rings
+    │       ├── HeroOrbitalVisualizer.css     # Continuous orbital animation & card styling
+    │       ├── types.ts                      # Orbital node interfaces & coordinates
+    │       └── index.ts                      # Barrel export
     ├── lib/
-    │   ├── constants.ts               # Sample scans, clinical profiles, benchmarks
-    │   └── inferenceClient.ts         # Dual-mode inference client (FastAPI + mock)
+    │   ├── constants.ts                      # Sample scans, clinical profiles, benchmarks
+    │   └── inferenceClient.ts                # Dual-mode client (FastAPI + Gatekeeper + Mock)
     └── types/
-        └── medical.ts                 # Diagnostic types, scan models, profiles
+        └── medical.ts                        # Diagnostic types, validation errors, telemetry
 ```
 
 ---
 
 ## 4. Design System & UI/UX Philosophy
 
-The user interface balances **clinical precision** with **editorial elegance**. It combines the focused, dark-themed ambiance of hospital radiology suites with the crisp typography of high-end scientific journals.
+The user interface balances **clinical precision** with **cyber-clinical elegance**. It marries the focused, dark-themed ambiance of hospital radiology suites (`#050d16` and `#0f172a`) with the luminous clarity of electric cyan (`#02ffe0`) and fluid turquoise wave textures.
 
 ### 4.1 Color Architecture & Design Tokens
 ```css
@@ -165,36 +184,42 @@ The user interface balances **clinical precision** with **editorial elegance**. 
   --color-mint-light: #d0fcf4;        /* Benchmark & Orbital Box Tint */
   --color-mint-accent: #a7ebd9;       /* Highlighted Row Tint */
 
-  /* Diagnostic Severity Colors */
+  /* Diagnostic Severity & State Colors */
   --color-adeno: #0284c7;             /* Medical Blue */
   --color-squamous: #f59e0b;          /* Warning Amber */
   --color-large: #e11d48;             /* Critical Crimson */
   --color-normal: #10b981;            /* Healthy Emerald */
+  --color-blocked: #f87171;           /* Gatekeeper Interception Coral */
 
   /* Structural Border Standards */
   --border-prominent: 2px solid #005f50;
   --border-prominent-cyan: 2px solid #02ffe0;
+  --border-wave-btn: 3px solid #04615c;
   --border-subtle: #cbd5e1;
   --border-medium: #94a3b8;
 }
 ```
 
-### 4.2 The "Prominent Border" Standard
-Throughout the entire UI, all interactive buttons, cards, containers, dialogs, and badges follow a unified **2px prominent border** design standard:
-- Buttons (`.btn-primary`, `.btn-secondary`, `.btn-hero-explore`) possess crisp 2px solid borders for high accessibility.
-- Cards in the Hero, Benchmarks, and Studio possess 2px borders with subtle cyan or medical-teal glows.
-- Data tables feature defined cell boundaries and highlighted rows to prevent misreading radiologic figures.
+### 4.2 The "Prominent Border" & Wave Texture Standard
+Interactive primary buttons across the platform follow a proprietary **fluid turquoise wave aesthetic**:
+- Background base of `#38cfb2` combined with `/wave-pattern.png?v=restore` using cover-sizing and quad-mirroring to eliminate visible seams.
+- Framed in a bold `3px solid #04615c` border with dual box shadows (`0 8px 24px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(8, 116, 101, 0.5)`).
+- Applied consistently to:
+  - `.btn-hero-explore` (Explore PulmoAI)
+  - `.btn-upload-attach` (Attach files)
+  - `.btn-gatekeeper-primary` (Upload Valid Axial CT Scan)
+  - `.btn-minimal-consensus` (Run Tri-Ensemble Consensus)
+  - `.btn-report-print` (Print & Export Clinical Findings)
 
-### 4.3 Typography Hierarchy
-- **Editorial Headlines**: `Playfair Display` serif font (`font-weight: 850`), delivering distinction and gravitas to the hero and section titles.
-- **Application Interface & Clinical Data**: `Plus Jakarta Sans` and `Inter` sans-serif fonts, engineered for optimal readability on high-DPI displays.
-- **Radiologic Telemetry & Slices**: Monospace fonts (`var(--font-mono)`), used for coordinates, patient IDs, Hounsfield units, and benchmark numbers.
+### 4.3 Typography Hierarchy & Contrast Standards
+- **High-Contrast Button Typography**: Solid black text (`color: #000000 !important; font-weight: 900;`) coupled with downward directional drop-shadows (`text-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.45), 0 3px 8px rgba(0, 0, 0, 0.2);`) ensures readability across varying background brightness.
+- **Editorial Headlines**: `Playfair Display` serif font (`font-weight: 850`), delivering distinction to section titles.
+- **Application Interface & Clinical Data**: `Plus Jakarta Sans` and `Inter` sans-serif fonts, engineered for optimal clarity without curvy distortion on high-DPI displays.
+- **Radiologic Telemetry & Coordinates**: Monospace fonts (`var(--font-mono)`), used for coordinates, patient IDs, Hounsfield units, and gatekeeper latency metrics.
 
 ---
 
 ## 5. Page Routing & Section Compositions
-
-While the primary experience is a seamless single-page application (SPA) on `/`, the application also provides dedicated subpage routes sharing the same clinical navigation header and user profile state.
 
 | Route | Page Component | Key Modules Loaded | Purpose |
 | :--- | :--- | :--- | :--- |
@@ -213,9 +238,9 @@ While the primary experience is a seamless single-page application (SPA) on `/`,
 - **File:** `src/components/AppNavbar.tsx` & `src/components/NavigationDrawer.tsx`
 - **Features:**
   - Sticky frosted header (`backdrop-filter: blur(12px)`) with subtle clinical border.
-  - PulmoVision brand badge with clinical lung icon and high-contrast typography.
+  - PulmoAI brand badge with clinical lung icon and high-contrast typography.
   - Active section observer that highlights the current section as the clinician scrolls.
-  - **Clinician Profile Popover**: Clicking the clinician badge opens an interactive popover displaying Dr. S. Mukherjee's credentials (MD, Chief of Thoracic Radiology), license number (`RAD-8820-ONC`), active session status, and an edit profile trigger.
+  - **Clinician Profile Popover**: Clicking the clinician badge opens an interactive popover displaying Dr. S. Mukherjee's credentials (`MD, Chief of Thoracic Radiology`, license `RAD-8820-ONC`), active session status, and an edit profile trigger.
   - **Mobile Hamburger & Drawer**: On screens `<= 840px`, navigation collapses into a dedicated hamburger button triggering an off-canvas drawer with smooth slide-in transitions.
 
 ### 6.2 HeroSection & DarkVeil WebGL Visualizer
@@ -224,39 +249,34 @@ While the primary experience is a seamless single-page application (SPA) on `/`,
   - **WebGL Shader Canvas**: Powered by a custom Three.js/WebGL fragment shader (`DarkVeil`) rendering organic fluid dynamics with electric cyan and deep ocean-blue gradients.
   - **Category Eyebrow Badge**: Glowing pill badge (`Pulmonary AI / CT Classification`) with pulsating cyan indicator.
   - **Editorial Headline**: High-impact Playfair Display serif headline with luminous terminal dot.
-  - **Action CTAs**: Quick navigation to `#analysis` (Explore the platform) and `#benchmarks` (View model performance).
   - **Prominent Stat Cards**: Three symmetric clinical cards (`96.4% Test accuracy`, `99.62% Cancer sensitivity`, and `315 Unseen patient scans`) enclosed in 2px cyan borders with frosted glass backgrounds (`rgba(5, 13, 22, 0.78)`).
 
-### 6.3 HeroOrbitalVisualizer (3D Multi-Orbital Lung System)
-- **File:** `src/components/HeroOrbitalVisualizer/HeroOrbitalVisualizer.tsx`
+### 6.3 HeroOrbitalVisualizer (Continuous Multi-Orbital System)
+- **File:** `src/components/HeroOrbitalVisualizer/HeroOrbitalVisualizer.tsx` & `.css`
 - **Features:**
   - **Central Lungs Anatomy**: High-definition glowing pulmonary graphic with subtle rhythmic breathing animation (`lungs-subtle-breathe`).
   - **Dual Revolving Orbit Rings**: Concentric dashed orbital tracks rendered via mathematical SVG ellipses.
-  - **Revolving Diagnostic Feature Cards**:
+  - **Continuous Rotation Engine**: Unlike standard hover animations that freeze on mouse enter, the orbital system enforces continuous rotation (`animation-play-state: running !important;`) across all hover states so the animation never stutters.
+  - **Diagnostic Feature Cards**:
     - **Outer Ring (Clockwise, 38s cycle)**: "CT Scan Analysis", "Clinical Insights", "Nodule Detection".
     - **Inner Ring (Counter-Clockwise, 28s cycle)**: "Risk Prediction", "Tri-Ensemble AI Models".
   - **Card Theming**: Cards feature clean mint backgrounds (`#d0fcf4`), prominent 2.5px teal borders (`#02ffe0`), and counter-rotating stabilization so text always remains upright and readable.
-  - **Background Depth**: Emits ambient glowing stars and satellites across orbital tracks.
 
 ### 6.4 DiagnosticStudio (Clinical Radiology Workspace)
 - **File:** `src/components/DiagnosticStudio.tsx`
 - **Features:**
-  - **Pre-Upload vs. Post-Upload States**: 
-    - *Pre-Upload*: Displays an expansive drag-and-drop ingestion dropzone, quick sample scan selector (Adeno, Squamous, Large Cell, Normal), and technical capability overview.
-    - *Post-Upload*: Transitions into a dual-column clinical workstation with CT viewport on the left and diagnostic findings panel on the right.
-  - **DICOM & Image Ingestion**: Supports `.dcm`, `.png`, `.jpg`, and `.jpeg` files. Displays a clinical navy progress card with real-time percentage indicators during scan parsing.
+  - **Instant Pending File Dismissal**: In the upload card, clicking "Attach files" immediately unmounts the pending file row card from state, eliminating ghost cards or progress hang.
   - **Interactive HTML5 Canvas Viewport**:
-    - Smooth continuous digital zoom (`0.5x` to `4.0x`) and free panning with mouse drag.
+    - Smooth continuous digital zoom (`0.8x` to `2.5x`) and free panning with mouse drag.
     - Toggleable central radiologic crosshairs.
     - Real-time Grayscale Inversion for high-density nodule inspection.
     - CLAHE (Contrast Limited Adaptive Histogram Equalization) simulation button.
-    - Presets for **Standard View**, **Lung Window** (W:1500, L:-600 HU), and **Mediastinal Window** (W:350, L:40 HU).
+  - **Manual Tri-Ensemble Consensus Trigger**:
+    - On valid file attachment, the viewport displays the image with all radiologic controls active, while inference remains idle in the `VALID_READY` state.
+    - Clinicians manually trigger inference via the prominent **"Run Tri-Ensemble Consensus"** wave-textured button.
   - **Diagnostic Findings & Probability Engine**:
-    - Primary diagnosis callout with severity risk badge (e.g., `Malignant - High`, `Malignant - Critical`, `Non-Malignant - Low`).
-    - Interactive 4-class probability meter with animated percentage bars.
-    - **Tri-Ensemble Backbone Breakdown**: Displays individual predictions and confidence scores for DenseNet121, EfficientNetV2-S, and Xception.
-    - **Grad-CAM Explainable AI (XAI)**: Heatmap overlay slider allowing radiologists to blend between raw CT scan and activation maps with variable opacity.
-    - Action trigger to generate the official clinical report.
+    - When awaiting inference, the diagnosis panel displays a cyan-tinted `Modality Validated • Ready` status, and the probability chart renders an `Awaiting Consensus Inference` overlay with zeroed bars.
+    - Once executed, the panel populates the histological subtype (`Adenocarcinoma`, `Squamous Cell`, `Large Cell`, or `Normal Healthy`), hallmark anatomical findings, and the 4-class probability distribution.
 
 ### 6.5 BenchmarksView (KPIs, Confusion Matrix & Evolution)
 - **File:** `src/components/BenchmarksView.tsx`
@@ -266,156 +286,169 @@ While the primary experience is a seamless single-page application (SPA) on `/`,
     2. *Malignancy Sensitivity*: **99.62%** (260/261 cancers detected, 0 missed).
     3. *Healthy Specificity*: **98.15%** (53/54 healthy controls confirmed).
     4. *False Normal Diagnoses*: **0 (Zero)** (Zero malignant scans mislabelled as healthy).
-  - **Interactive Multi-Class Confusion Matrix**:
-    - Full 4x4 matrix mapping Ground Truth against Predictions across 315 holdout patients.
-    - Green-tinted cells for correct diagonal predictions; soft coral cells for off-diagonal misclassifications.
-    - Highlighted Summary Row: Precision row highlighted in soft clinical teal (`#a7ebd9`) with dark, crisp numbers.
-  - **Step-by-Step Architectural Evolution Table**:
-    - Chronicles all 8 development iterations from Baseline Conv2D (72.86%) through single-view backbones, 5-view TTA, Bayesian prior calibration, dual ensemble, and final Tri-Ensemble (90.16%).
-    - Final Milestone 8 row highlighted in matching clinical teal with crown/trophy badge.
+  - **WarpText Typography**: Utilizes `Plus Jakarta Sans` with zero rest warp to deliver kinetic perspective titles without font distortion.
+  - **Interactive Multi-Class Confusion Matrix**: Full 4x4 matrix mapping Ground Truth against Predictions across 315 holdout patients. Highlighted summary row features a soft clinical teal tint (`#a7ebd9`).
+  - **Architectural Evolution Table**: Chronicles all 8 development iterations from Baseline Conv2D (72.86%) to the final Tri-Ensemble (90.16%). Both tables feature thin, prominent dark teal borders.
 
 ### 6.6 PathologyView (4-Class Pulmonary Pathology Guide)
 - **File:** `src/components/PathologyView.tsx`
 - **Features:**
-  - Provides complete medical reference for each diagnostic category:
-    - Cellular architecture and histological hallmarks (e.g., mucin production, keratin pearls, intercellular bridges, lack of differentiation).
-    - Radiologic manifestations on thin-section CT (e.g., ground-glass opacities, spiculation, pleural puckering, central cavitation).
-    - Anatomic predilection (peripheral vs. proximal central bronchus).
-    - Recommended clinical guidelines, molecular biomarker testing (EGFR, ALK, KRAS, PD-L1), and biopsy staging.
+  - Complete histological reference: cellular architecture, radiologic manifestations on thin-section CT, anatomic predilection, molecular biomarker testing guidelines (EGFR, ALK, KRAS, PD-L1), and biopsy staging.
 
 ### 6.7 ArchitectureView (Tri-Ensemble Engineering Explorer)
 - **File:** `src/components/ArchitectureView.tsx`
 - **Features:**
-  - Deep-dive technical pipeline visualizer illustrating:
-    1. *Input Pipeline*: 16-bit CT slice normalization and CLAHE adaptive histogram equalization.
-    2. *Test-Time Augmentation (TTA)*: 5-view geometric averaging (original, horizontal flip, +/-5° rotations, 1.05x zoom).
-    3. *Constituent Neural Backbones*:
-       - **DenseNet121 (60% voting weight)**: Feature reuse via dense connectivity.
-       - **EfficientNetV2-S (30% voting weight)**: Progressive multi-scale convolutions.
-       - **Xception (10% voting weight)**: Depthwise separable convolutions.
-    4. *Bayesian Class-Prior Calibration*: Logit reweighting to neutralize dataset frequency imbalance.
-    5. *Consensus Engine*: Soft-voting probability aggregation with calibrated thresholding.
+  - Deep-dive technical pipeline visualizer:
+    1. *Input Normalization & CLAHE Equalization*
+    2. *5-View Test-Time Augmentation (TTA)*
+    3. *Tri-Ensemble Neural Backbones*: DenseNet121 (60%), EfficientNetV2-S (30%), Xception (10%)
+    4. *Bayesian Class-Prior Calibration*
+    5. *Soft-Voting Consensus Engine*
 
 ### 6.8 ReportModal (Clinical Findings Report Generator)
 - **File:** `src/components/ReportModal.tsx`
 - **Features:**
-  - Clean light-theme clinical document styled for formal medical records.
-  - Structured into standardized radiology reporting sections:
-    - Patient Header (ID, Scan Date, Modality: High-Resolution Chest CT, Referring Facility).
-    - Diagnostic Impression (Primary finding, Malignancy status, Confidence level).
-    - Quantitative Classification Probabilities table.
-    - Multi-Model Consensus telemetry.
-    - Recommended Clinical Management & Follow-Up Protocol.
-    - Electronic signature block of the attending thoracic radiologist.
-  - Interactive Action Buttons:
-    - **Print / Save PDF**: Triggers native browser print preview with `@media print` stylesheets that format the report onto a clean A4 sheet without navigation bars.
-    - **Export JSON**: Downloads structured diagnostic telemetry as machine-readable JSON for hospital PACS/EMR integration.
+  - Clean light-theme medical document formatted for hospital EMRs with patient headers, quantitative probabilities, consensus breakdown, and radiologist digital signatures.
+  - Native print stylesheets (`@media print`) format the report onto an A4 page without web navigation elements.
+  - JSON telemetry export for PACS/RIS ingestion.
 
 ### 6.9 AuthModal & Clinician Profile Management
 - **File:** `src/components/AuthModal.tsx`
 - **Features:**
-  - Modal dialog allowing radiologists to update their active profile:
-    - Clinician Full Name (e.g., Dr. S. Mukherjee, MD)
-    - Professional Role & Title
-    - Department / Clinical Division
-    - Medical License / Radiologist Registration ID
-    - Attending Badge Number
-  - Updates persist in React state across the application and dynamically populate the digital signature of generated diagnostic reports.
+  - Manages radiologist identity (name, title, department, license ID, badge number), dynamically synchronizing with clinical report generation.
 
 ---
 
-## 7. Radiology Tools, Image Processing & Explainable AI (XAI)
+## 7. Multi-Tier Out-of-Distribution (OOD) Modality Gatekeeper
 
-The frontend implements advanced client-side image processing capabilities directly in JavaScript and HTML5 Canvas, reducing server roundtrips and providing instant tactile feedback:
+A cornerstone upgrade to PulmoAI is the **2-Tier Out-of-Distribution Modality Gatekeeper**, designed to ensure zero false positives caused by accidental uploads of RGB photographs, screenshots, chest X-rays, or non-lung CT/MRI scans.
 
 ```mermaid
-flowchart LR
-    A["Uploaded CT / DICOM"] --> B["Slice Ingestion & Validation"]
-    B --> C["Canvas 2D Viewport Engine"]
-    C --> D1["HU Windowing Presets"]
-    C --> D2["Grayscale Inversion"]
-    C --> D3["CLAHE Contrast Boost"]
-    C --> D4["Continuous Zoom / Pan"]
-    B --> E["Inference Engine (FastAPI / Mock)"]
-    E --> F["Grad-CAM Heatmap Blend"]
-    F --> C
+flowchart TD
+    A["File Drop / Ingestion"] --> B["Stage A: Client-Side Pre-Flight (< 5ms)"]
+    B -->|"Aspect Ratio != [0.75, 1.35] OR Chroma > 6.5"| R1["Trigger REJECTED State"]
+    B -->|"Passes Heuristics"| C["Stage B: Server Modality Validator (< 90ms)"]
+    C -->|"Tier 1: Gantry FOV Contrast Check"| D{"Circular Gantry Valid?"}
+    D -->|"No (e.g. Chest X-Ray)"| R2["Raise INVALID_MODALITY_FOV"]
+    D -->|"Yes"| E{"Tier 2: Xception Manifold Cosine Sim >= 0.70"}
+    E -->|"No (e.g. Brain MRI, Abdomen)"| R3["Raise OUT_OF_DISTRIBUTION_ANATOMY"]
+    E -->|"Yes"| F["Set State: VALID_READY (Awaiting Trigger)"]
+    R1 --> G["Render Gatekeeper Exception Card"]
+    R2 --> G
+    R3 --> G
+    G --> H["Lock Inference Button & Suppress Probabilities"]
+    F --> I["Clinician Clicks 'Run Tri-Ensemble Consensus'"]
+    I --> J["Execute Live Classification & Render Subtype"]
 ```
 
+### 7.1 Client-Side Pre-Flight Check (< 5ms)
+Implemented in `src/lib/inferenceClient.ts` via `runClientPreFlightCheck`:
+- Decodes image onto an in-memory `<canvas>` element.
+- **Aspect Ratio Verification**: Rejects files outside `[0.75, 1.35]`, preventing wide documents and tall screenshots (`INVALID_ASPECT_RATIO`).
+- **RGB Chroma Variance**: Measures standard deviation across RGB channels (`np.mean(np.std(rgb, axis=-1))`). If `> 6.5`, the scan is immediately flagged as a color photo or meme (`NON_GRAYSCALE_IMAGE`).
+
+### 7.2 Server-Side 2-Tier Modality Interceptor
+Executed in under `90ms` by `backend/validator.py`:
+- **Tier 1 (Gantry FOV Heuristics)**: Measures pixel intensity in 24x24 corner patches against the 150x150 central thoracic cavity. Rejects scans lacking circular gantry reconstruction (`INVALID_MODALITY_FOV`).
+- **Tier 2 (Xception Feature Manifold)**: Computes the 2048-dimensional Global Average Pooling embedding and measures cosine similarity against the thoracic CT centroid (`models/ct_manifold_centroid.npy`). If `similarity < 0.70`, the scan is rejected as an anatomical mismatch (`OUT_OF_DISTRIBUTION_ANATOMY`).
+- Returns HTTP `422 Unprocessable Entity` with full telemetry.
+
+### 7.3 Diagnostic Gatekeeper Exception Card
+When validation fails, the UI mounts a cyber-clinical exception card directly in the CT viewport:
+- **Styling**: `#050d16` background with a luminous `2px solid rgba(2, 255, 224, 0.55)` border and deep cyan glow.
+- **Badge Row**: Displays `GATEKEEPER REJECTION • [ERROR_CODE]` and a coral `Inference Strictly Blocked` status tag.
+- **Clear Guidance**: Advises the clinician: *"Please upload a valid axial thoracic CT scan image to proceed with PulmoAI analysis."*
+- **Primary Action**: "Upload Valid Axial CT Scan" button styled in the signature turquoise wave pattern, smoothly scrolling back to the upload dropzone (`#analysis`).
+
+### 7.4 Strict Inference State Machine & Manual Consensus Trigger
+The frontend manages 6 explicit operational states:
+```text
+IDLE ──► VALIDATING ──► VALID_READY ──► ANALYZING ──► COMPLETE
+                             │
+                             └──► REJECTED (Inference strictly locked)
+```
+- **Inference Locking**: When in `REJECTED`, the consensus button is disabled with the label *"Inference Locked (Invalid Modality)"*, and probability distributions are replaced with an explanatory lock overlay.
+- **No Automatic Analysis on Upload**: Reaching `VALID_READY` loads the scan into the CT canvas with all radiologic inspection tools enabled, but pauses until the radiologist clicks **"Run Tri-Ensemble Consensus"**.
+
+---
+
+## 8. Radiology Tools, Image Processing & Explainable AI (XAI)
+
+Client-side image operations are executed on native 2D canvas contexts with hardware acceleration:
 1. **Hounsfield Unit (HU) Windowing Simulation**:
-   - *Standard CT View*: Linear grayscale mapping for balanced parenchymal and bone visualization.
-   - *Lung Window*: Enhanced contrast across low-density lung parenchyma (`-600 HU` level / `1500 HU` window), making faint ground-glass opacities immediately apparent.
-   - *Mediastinal Window*: Suppresses lung airspaces to highlight vascular structures, lymph nodes, and solid masses (`40 HU` level / `350 HU` window).
-2. **CLAHE (Contrast Limited Adaptive Histogram Equalization)**:
+   - *Standard CT View*: Balanced parenchymal and bone visualization.
+   - *Lung Window*: Enhanced contrast across low-density airspaces (`-600 HU` level / `1500 HU` window).
+   - *Mediastinal Window*: Highlights vascular structures, lymph nodes, and solid masses (`40 HU` level / `350 HU` window).
+2. **CLAHE Equalization**:
    - Client-side adaptive histogram equalization that enhances local contrast in sub-centimeter nodules without amplifying background image noise.
 3. **Interactive Grad-CAM Blending**:
-   - The Grad-CAM layer is rendered onto an alpha-blended canvas directly atop the radiologic image.
-   - Clinicians can use the opacity slider to slide seamlessly between the raw anatomical scan and the AI's saliency activation map.
+   - Alpha-blended activation heatmap overlays that allow radiologists to slide between raw anatomy and neural focus regions.
 
 ---
 
-## 8. Client-Side State Management & Backend Integration
+## 9. Client-Side State Management & Backend Integration
 
-### 8.1 State Management Strategy
-The application employs a clean, hierarchical React state model located in `page.tsx` and propagated via typed props:
-- `activeScan`: Contains the current scan object (`name`, `dataUrl`, `isSample`, `meta`).
-- `result`: Holds the complete `PredictionResult` object returned from inference.
-- `viewportState`: Manages zoom factor, pan coordinates, active windowing preset, crosshair visibility, and filter states.
-- `reportOpen` / `authOpen`: Modal visibility state flags.
+### 9.1 State Management Strategy
+The application employs a centralized React state model in `DiagnosticStudio.tsx`:
+- `activeScan`: Contains active scan payload (`name`, `dataUrl`, `isSample`, `meta`).
+- `validationState`: Strict state machine (`"IDLE" | "VALIDATING" | "VALID_READY" | "REJECTED" | "ANALYZING" | "COMPLETE"`).
+- `validationError`: Standardized `ValidationErrorPayload` containing error code, title, and telemetry.
+- `result`: Full `PredictionResult` object from inference.
+- `viewport`: Manages zoom, pan coordinates, CLAHE enhancement, grayscale inversion, and crosshair overlay.
 
-### 8.2 Dual-Mode Inference Client (`inferenceClient.ts`)
-The frontend contains an intelligent client (`src/lib/inferenceClient.ts`) capable of operating in two modes:
-1. **Live Backend Mode (FastAPI)**:
-   - Dispatches `POST` requests to `/api/predict` or `http://localhost:8000/predict` with `multipart/form-data`.
-   - Returns real-time predictions generated by the PyTorch/TensorFlow backend running the Tri-Ensemble models.
-2. **Deterministic Clinical Simulation Mode (Fallback & Demo)**:
-   - When the backend is offline or during offline judging/demonstrations, the client seamlessly falls back to pre-calibrated benchmark evaluations for sample scans and uploaded files.
-   - Generates realistic probabilities, constituent backbone agreements, Grad-CAM heatmaps, and processing latencies (`< 45ms`).
+### 9.2 Dual-Mode Inference & Validation Client (`inferenceClient.ts`)
+- **Validation Proxying**: Calls `/api/validate` (or backend `:8000/api/validate`), throwing typed `ModalityValidationError` instances on HTTP 422 responses.
+- **Prediction Proxying**: Calls `/api/predict` (or backend `:8000/api/predict`), passing image payloads and receiving multi-backbone consensus telemetry.
+- **Deterministic Simulation Fallback**: When operating offline, provides calibrated benchmark predictions and synthetic gatekeeper evaluations for all sample scans.
 
 ---
 
-## 9. Responsive Design Matrix & Multi-Device Optimization
-
-The CSS architecture contains explicit responsive breakpoints ensuring seamless operation on everything from multi-monitor 4K radiology workstations to compact smartphones:
+## 10. Responsive Design Matrix & Multi-Device Optimization
 
 | Breakpoint Range | Device Class | Layout Adaptations |
 | :--- | :--- | :--- |
 | **> 1220px** | Ultra-Wide & 4K Radiology Monitors | Full 2-column layout; 480px orbital visualizer; max-width 1360px container |
 | **1024px – 1220px** | Standard Laptops & Desktops | Grid gap adjusted to 32px; orbital scale `1.02`; font sizes slightly scaled |
 | **840px – 1024px** | Small Laptops & Landscape Tablets | Hero padding reduced; orbital visualizer scale `0.88`; side-by-side columns preserved |
-| **640px – 839px** | Portrait Tablets | Single-column stacked layout; orbital scale `0.85`; 3-metric cards use 10px gap; pipeline flow stacks vertically |
-| **480px – 640px** | Standard Mobile Phones | Single-column stacked; hamburger drawer activated; orbital scale `0.66` with `overflow: hidden`; metric cards 3-col compact |
-| **380px – 480px** | Compact Mobile Phones | Full-width action buttons stacked vertically; upload dropzone full-width actions; orbital scale `0.56`; chart plot scaled |
-| **< 380px** | Ultra-Compact Mobile Phones | Minimal padding; metric numbers scale to 15px; orbital visualizer scale `0.48`; quick tools 28px wrapped |
+| **640px – 839px** | Portrait Tablets | Single-column stacked layout; orbital scale `0.85`; 3-metric cards use 10px gap |
+| **480px – 640px** | Standard Mobile Phones | Single-column stacked; hamburger drawer activated; orbital scale `0.66` |
+| **380px – 480px** | Compact Mobile Phones | Full-width action buttons stacked vertically; upload dropzone full-width actions |
+| **< 380px** | Ultra-Compact Mobile Phones | Minimal padding; metric numbers scale to 15px; orbital visualizer scale `0.48` |
 
 ---
 
-## 10. Visual Polish & Recent Frontend Enhancements
+## 11. Visual Polish & Recent Frontend Implementations
 
-Over recent development cycles, the frontend has undergone meticulous visual refinement to achieve its current production-grade aesthetic:
+Over recent development cycles, the frontend has undergone comprehensive architectural and visual enhancements:
 
-1. **Clean Mint Background for Benchmark & Orbital Cards**:
-   - Replaced noisy diagonal striping with a serene, professional light-mint clinical tint (`#d0fcf4`) with crisp `2.5px solid #02ffe0` borders.
-2. **Enhanced Benchmark Table Contrast**:
-   - Upgraded the highlighted summary rows (Confusion Matrix Precision Row and Architectural Evolution Milestone 8) from stark white to a harmonious medical teal tint (`#a7ebd9`) with high-contrast text (`#051a15`).
-3. **Upload Progress Card Dark Theme**:
-   - Replaced white background on the file ingestion card with a sleek clinical dark navy theme (`#0b1a2d`) featuring bright white filename text and luminous cyan progress bars.
-4. **Hero Annotations Cleanup**:
-   - Removed distracting hand-drawn floating callout annotations ("Earlier Detection Brighter Tomorrows" and "AI for Lungs for Lives") to maintain a clean, distraction-free visual presentation.
-5. **Hero Metrics Stat Cards Refactoring**:
-   - Replaced floating, asymmetrical vertical divider lines with three prominent, symmetrical clinical stat cards enclosed in 2px cyan borders with frosted glass backgrounds.
-6. **Comprehensive Mobile & Tablet Responsive Optimization**:
-   - Implemented zero-overflow orbital scaling (`overflow: hidden` + dynamic CSS transforms down to `0.48`), full-width touch-friendly CT upload controls, interactive table swipe indicators (`Swipe table horizontally →`), vertical architectural pipeline flow (`.pipeline-flow`), and wrapped modal action footers for all mobile screen form factors.
+1. **Multi-Tier Out-of-Distribution Modality Gatekeeper**:
+   - Implemented client-side pre-flight canvas validation and full integration with the backend 2-tier gatekeeper.
+   - Designed a cyber-clinical dark glassmorphic exception card (`#050d16`, cyan border glow) with direct redirection back to the upload area.
+2. **Manual Consensus Triggering**:
+   - Removed automatic inference execution upon scan upload. Scanning now occurs strictly upon clicking **"Run Tri-Ensemble Consensus"**.
+   - Created clean "Awaiting Inference" states for custom uploads with zeroed probability distributions until triggered.
+3. **Upload Item Row Instant Dismissal**:
+   - Updated file attachment handling so that clicking "Attach files" immediately unmounts the pending upload row card without visual delay.
+4. **Signature Turquoise Wave Design System**:
+   - Applied seamless fluid wave textures (`/wave-pattern.png?v=restore` on `#38cfb2` with `#04615c` borders) to all primary action buttons.
+   - Implemented high-contrast solid black typography with downward directional drop-shadows across all textured CTA elements.
+5. **Continuous Orbital Visualizer Rotation**:
+   - Eliminated hover-pause stutter on `HeroOrbitalVisualizer`, ensuring uninterrupted continuous 3D card rotation even when the mouse enters the canvas.
+6. **Universal Brand Alignment (P.A.C.E. → PulmoAI)**:
+   - Replaced all legacy "P.A.C.E." acronyms with **PulmoAI** across UI banners, telemetry cards, API endpoints, and inference logs.
+7. **Refined Typography & Table Styling**:
+   - Shifted WarpText headline rendering to `Plus Jakarta Sans` with zero rest warp to eliminate text distortion.
+   - Added thin, prominent dark teal borders to the confusion matrix and architectural evolution containers.
 
 ---
 
-## 11. Setup, Build & Developer Operations
+## 12. Setup, Build & Developer Operations
 
 ### Prerequisites
 - **Node.js**: v18.18.0 or later (v20+ recommended)
 - **Package Manager**: `npm`, `pnpm`, or `yarn`
 
 ### Local Development
-To run the frontend locally in development mode:
 ```bash
 cd Tech-Arch-Warriors/frontend
 npm install
@@ -424,7 +457,6 @@ npm run dev
 The application will launch at `http://localhost:3000`.
 
 ### Production Build
-To create an optimized production build:
 ```bash
 cd Tech-Arch-Warriors/frontend
 npm run build
@@ -432,7 +464,6 @@ npm run start
 ```
 
 ### Static Linting
-To run ESLint and verify codebase integrity:
 ```bash
 cd Tech-Arch-Warriors/frontend
 npm run lint

@@ -1814,8 +1814,8 @@ a {
 .section-analysis-clean {
   background-color: #38cfb2;
   background-image: url('/wave-pattern.png?v=restore');
-  background-repeat: repeat;
-  background-size: 1540px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   padding: 48px 24px 72px;
   border-top: 2.5px solid rgba(0, 100, 85, 0.85);
