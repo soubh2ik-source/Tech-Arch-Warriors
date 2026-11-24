@@ -74,6 +74,8 @@ checkpoints/
 weights/
 
 # Dataset & Inference Output Artifacts
+data/
+**/data/
 **/dataset/
 prediction_result.png
 /outputs/
