@@ -717,7 +717,7 @@ a {
   position: absolute;
   inset: -4px;
   background-color: #38cfb2;
-  background-image: url('/wave-pattern.png?v=restore');
+  background-image: url('/wave-pattern.png?v=seamless2');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -826,7 +826,7 @@ a {
   position: absolute;
   inset: -4px;
   background-color: #38cfb2;
-  background-image: url('/wave-pattern.png?v=restore');
+  background-image: url('/wave-pattern.png?v=seamless2');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -1813,7 +1813,7 @@ a {
 
 .section-analysis-clean {
   background-color: #38cfb2;
-  background-image: url('/wave-pattern.png?v=restore');
+  background-image: url('/wave-pattern.png?v=seamless2');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -2402,7 +2402,7 @@ a {
   position: absolute;
   inset: -4px;
   background-color: #38cfb2;
-  background-image: url('/wave-pattern.png?v=restore');
+  background-image: url('/wave-pattern.png?v=seamless2');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -2658,7 +2658,7 @@ a {
   position: absolute;
   inset: -4px;
   background-color: #38cfb2;
-  background-image: url('/wave-pattern.png?v=restore');
+  background-image: url('/wave-pattern.png?v=seamless2');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -3150,7 +3150,7 @@ a {
 #patient-summary {
   position: relative;
   background-color: #38cfb2;
-  background-image: url('/wave-pattern.png?v=restore');
+  background-image: url('/wave-pattern.png?v=seamless2');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -3167,7 +3167,7 @@ a {
 #confusion-matrix:hover,
 #patient-summary:hover {
   background-color: #38cfb2;
-  background-image: url('/wave-pattern.png?v=restore');
+  background-image: url('/wave-pattern.png?v=seamless2');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -3946,7 +3946,7 @@ a {
   position: absolute;
   inset: -4px;
   background-color: #38cfb2;
-  background-image: url('/wave-pattern.png?v=restore');
+  background-image: url('/wave-pattern.png?v=seamless2');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -4409,7 +4409,7 @@ a {
   position: absolute;
   inset: -4px;
   background-color: #38cfb2;
-  background-image: url('/wave-pattern.png?v=restore');
+  background-image: url('/wave-pattern.png?v=seamless2');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
