@@ -74,6 +74,7 @@ checkpoints/
 weights/
 
 # Dataset & Inference Output Artifacts
+/data
 data/
 **/data/
 **/dataset/
