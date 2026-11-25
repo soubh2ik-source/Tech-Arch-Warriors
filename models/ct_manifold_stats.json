@@ -1,6 +1,6 @@
 {
   "embedding_dim": 2048,
-  "calibrated_threshold": 0.7,
+  "calibrated_threshold": 0.6,
   "mean_similarity": 0.8252428770065308,
   "min_similarity": 0.6641359925270081,
   "max_similarity": 0.8837281465530396,

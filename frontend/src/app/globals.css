@@ -626,7 +626,7 @@ a {
   letter-spacing: -0.025em;
   color: #ffffff;
   margin: 0 0 20px 0;
-  text-shadow: 
+  text-shadow:
     0 2px 4px rgba(0, 0, 0, 0.85),
     0 6px 18px rgba(0, 0, 0, 0.75),
     0 14px 36px rgba(0, 0, 0, 0.65);
@@ -727,7 +727,7 @@ a {
   transition: filter var(--transition-fast), transform var(--transition-fast);
 }
 
-.btn-hero-explore > * {
+.btn-hero-explore>* {
   position: relative;
   z-index: 2;
 }
@@ -835,7 +835,7 @@ a {
   z-index: -1;
 }
 
-.hero-metric-cell > * {
+.hero-metric-cell>* {
   position: relative;
   z-index: 2;
 }
@@ -2412,7 +2412,7 @@ a {
   transition: filter var(--transition-fast);
 }
 
-.btn-upload-attach > * {
+.btn-upload-attach>* {
   position: relative;
   z-index: 2;
 }
@@ -2668,7 +2668,7 @@ a {
   transition: filter var(--transition-fast);
 }
 
-.btn-minimal-consensus > * {
+.btn-minimal-consensus>* {
   position: relative;
   z-index: 2;
 }
@@ -3046,6 +3046,7 @@ a {
   .section-benchmark .section-container {
     padding-left: 80px;
   }
+
   .benchmark-vertical-badge-wrap {
     left: -20px;
     top: 5px;
@@ -3057,6 +3058,7 @@ a {
   .section-benchmark .section-container {
     padding-left: 74px;
   }
+
   .benchmark-vertical-badge-wrap {
     left: -18px;
     top: 4px;
@@ -3069,9 +3071,11 @@ a {
     padding-left: 20px;
     padding-right: 20px;
   }
+
   .section-benchmark .benchmark-title-wrap {
     margin-left: 0;
   }
+
   .benchmark-vertical-badge-wrap {
     position: static;
     transform: none;
@@ -3219,7 +3223,7 @@ a {
   transform: none !important;
 }
 
-.benchmark-kpi-card > div:first-child {
+.benchmark-kpi-card>div:first-child {
   background: #ffffff !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
@@ -3956,7 +3960,7 @@ a {
   transition: filter var(--transition-fast);
 }
 
-.btn-primary > * {
+.btn-primary>* {
   position: relative;
   z-index: 2;
 }
@@ -4241,6 +4245,7 @@ a {
     opacity: 0;
     transform: scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -4419,7 +4424,7 @@ a {
   transition: filter var(--transition-fast);
 }
 
-.btn-gatekeeper-primary > * {
+.btn-gatekeeper-primary>* {
   position: relative;
   z-index: 2;
 }

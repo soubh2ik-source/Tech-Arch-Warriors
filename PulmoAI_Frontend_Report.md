@@ -330,7 +330,7 @@ flowchart TD
     B -->|"Passes Heuristics"| C["Stage B: Server Modality Validator (< 90ms)"]
     C -->|"Tier 1: Gantry FOV Contrast Check"| D{"Circular Gantry Valid?"}
     D -->|"No (e.g. Chest X-Ray)"| R2["Raise INVALID_MODALITY_FOV"]
-    D -->|"Yes"| E{"Tier 2: Xception Manifold Cosine Sim >= 0.70"}
+    D -->|"Yes"| E{"Tier 2: Xception Manifold Cosine Sim >= 0.60"}
     E -->|"No (e.g. Brain MRI, Abdomen)"| R3["Raise OUT_OF_DISTRIBUTION_ANATOMY"]
     E -->|"Yes"| F["Set State: VALID_READY (Awaiting Trigger)"]
     R1 --> G["Render Gatekeeper Exception Card"]
@@ -350,7 +350,7 @@ Implemented in `src/lib/inferenceClient.ts` via `runClientPreFlightCheck`:
 ### 7.2 Server-Side 2-Tier Modality Interceptor
 Executed in under `90ms` by `backend/validator.py`:
 - **Tier 1 (Gantry FOV Heuristics)**: Measures pixel intensity in 24x24 corner patches against the 150x150 central thoracic cavity. Rejects scans lacking circular gantry reconstruction (`INVALID_MODALITY_FOV`).
-- **Tier 2 (Xception Feature Manifold)**: Computes the 2048-dimensional Global Average Pooling embedding and measures cosine similarity against the thoracic CT centroid (`models/ct_manifold_centroid.npy`). If `similarity < 0.70`, the scan is rejected as an anatomical mismatch (`OUT_OF_DISTRIBUTION_ANATOMY`).
+- **Tier 2 (Xception Feature Manifold)**: Computes the 2048-dimensional Global Average Pooling embedding and measures cosine similarity against the thoracic CT centroid (`models/ct_manifold_centroid.npy`). If `similarity < 0.60`, the scan is rejected as an anatomical mismatch (`OUT_OF_DISTRIBUTION_ANATOMY`).
 - Returns HTTP `422 Unprocessable Entity` with full telemetry.
 
 ### 7.3 Diagnostic Gatekeeper Exception Card
