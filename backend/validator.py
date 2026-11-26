@@ -17,7 +17,7 @@ from PIL import Image
 
 IMAGE_SIZE = (350, 350)
 DEFAULT_OOD_THRESHOLD = 0.60
-MIN_CONFIDENCE_THRESHOLD = 0.55
+MIN_CONFIDENCE_THRESHOLD = 0.20
 
 
 class ScanValidationError(Exception):
